@@ -867,7 +867,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
       <div class="blog-stage" id="blog-stage">
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+          <a class="blog-card" data-blog-card href="blog/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_4.webp" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Family &amp; Transitions</span>
@@ -879,7 +879,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
         </div>
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+          <a class="blog-card" data-blog-card href="blog/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/20251028_132559-scaled.jpg" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Inside the School</span>
@@ -891,7 +891,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
         </div>
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+          <a class="blog-card" data-blog-card href="blog/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/Svetainei-4.jpg" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Community</span>
@@ -909,7 +909,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
         </div>
 
         <div class="blog-repo-cta">
-          <a href="https://pazinimomedis.lt/mokykla/naujienos/" class="btn btn-outline on-light">Visit the full blog</a>
+          <a href="blog/" class="btn btn-outline on-light">Visit the full blog</a>
         </div>
 
       </div>
@@ -1278,6 +1278,29 @@ form.addEventListener('submit', (e) => {
   formState.style.display = 'none';
   successState.classList.add('show');
 });
+
+// ---- Blog preview: swap in the latest real posts from Airtable ----
+// Only overwrites a card slot when a real post exists for that position,
+// so the homepage never looks broken before the first post is published.
+fetch('/.netlify/functions/articles')
+  .then(res => res.json())
+  .then(posts => {
+    const cards = Array.from(document.querySelectorAll('[data-blog-card]'));
+    posts.slice(0, cards.length).forEach((post, i) => {
+      const card = cards[i];
+      card.href = `blog/post.html?slug=${encodeURIComponent(post.slug)}`;
+      const img = card.querySelector('.blog-card-photo img');
+      if (img && post.coverImage) { img.src = post.coverImage; img.alt = post.title; }
+      const eyebrow = card.querySelector('.blog-eyebrow');
+      if (eyebrow) eyebrow.textContent = post.category || 'Insights';
+      const h3 = card.querySelector('h3');
+      if (h3) h3.textContent = post.title;
+      const p = card.querySelector('p');
+      if (p) p.textContent = post.excerpt || '';
+    });
+  })
+  .catch(err => console.error('Blog preview fetch failed:', err));
+
 </script>
 
 </body>
