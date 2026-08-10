@@ -444,7 +444,7 @@ section{padding:120px 0;}
 /* ============ BLOG: SCROLL-DRIVEN HORIZONTAL CAROUSEL ============ */
 .blog{ background:var(--white); position:relative; }
 .blog .section-head{ padding-bottom:0; margin-bottom:4px; }
-.blog-stage-wrap{ position:relative; height:300vh; }
+.blog-stage-wrap{ position:relative; height:600vh; }
 .blog-stage-sticky{
   position:sticky; top:0; height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -859,7 +859,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
   <div class="wrap section-head">
     <span class="eyebrow">From the blog</span>
     <h2>Recent stories from our classrooms.</h2>
-    <p>Notes from teachers, psychologists and parents. Keep scrolling to move through the latest three.</p>
+    <p>Notes from teachers, psychologists and parents. Keep scrolling to move through the latest six.</p>
   </div>
 
   <div class="blog-stage-wrap" id="blog-stage-wrap">
@@ -867,7 +867,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
       <div class="blog-stage" id="blog-stage">
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="blog/">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_4.webp" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Family &amp; Transitions</span>
@@ -879,7 +879,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
         </div>
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="blog/">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/20251028_132559-scaled.jpg" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Inside the School</span>
@@ -891,7 +891,7 @@ footer{padding:80px 0 40px; background:var(--cream);}
         </div>
 
         <div class="blog-slot">
-          <a class="blog-card" data-blog-card href="blog/">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
             <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/Svetainei-4.jpg" alt=""></div>
             <div class="blog-card-body">
               <span class="blog-eyebrow">Community</span>
@@ -902,14 +902,53 @@ footer{padding:80px 0 40px; background:var(--cream);}
           </a>
         </div>
 
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/Pazinimo-medis-mokykla_1.webp" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Teaching &amp; Learning</span>
+              <h3>Teaching Critical Thinking, Not Just Language</h3>
+              <p>How one of our English classes turns vocabulary drills into real debate, so students learn to build an argument, not just recite one.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2025/11/6266e81d18da70b4390d345c54a2e67a0f2e71a7-1.jpg" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Our Team</span>
+              <h3>How We Support Our Teachers' Wellbeing</h3>
+              <p>Our school psychologist on the emotional side of teaching, and the small structures we've built so teachers have somewhere to bring the hard days too.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_3.webp" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Wellbeing</span>
+              <h3>Growing Social-Emotional Skills, One Day at a Time</h3>
+              <p>What "emotional intelligence" actually looks like in a classroom, and how our teachers build it into ordinary lessons rather than treating it as a separate subject.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
+
         <div class="blog-dots" id="blog-dots">
+          <div class="blog-dot"></div>
+          <div class="blog-dot"></div>
+          <div class="blog-dot"></div>
           <div class="blog-dot"></div>
           <div class="blog-dot"></div>
           <div class="blog-dot"></div>
         </div>
 
         <div class="blog-repo-cta">
-          <a href="blog/" class="btn btn-outline on-light">Visit the full blog</a>
+          <a href="https://pazinimomedis.lt/mokykla/naujienos/" class="btn btn-outline on-light">Visit the full blog</a>
         </div>
 
       </div>
@@ -1278,29 +1317,6 @@ form.addEventListener('submit', (e) => {
   formState.style.display = 'none';
   successState.classList.add('show');
 });
-
-// ---- Blog preview: swap in the latest real posts from Airtable ----
-// Only overwrites a card slot when a real post exists for that position,
-// so the homepage never looks broken before the first post is published.
-fetch('/.netlify/functions/articles')
-  .then(res => res.json())
-  .then(posts => {
-    const cards = Array.from(document.querySelectorAll('[data-blog-card]'));
-    posts.slice(0, cards.length).forEach((post, i) => {
-      const card = cards[i];
-      card.href = `blog/post.html?slug=${encodeURIComponent(post.slug)}`;
-      const img = card.querySelector('.blog-card-photo img');
-      if (img && post.coverImage) { img.src = post.coverImage; img.alt = post.title; }
-      const eyebrow = card.querySelector('.blog-eyebrow');
-      if (eyebrow) eyebrow.textContent = post.category || 'Insights';
-      const h3 = card.querySelector('h3');
-      if (h3) h3.textContent = post.title;
-      const p = card.querySelector('p');
-      if (p) p.textContent = post.excerpt || '';
-    });
-  })
-  .catch(err => console.error('Blog preview fetch failed:', err));
-
 </script>
 
 </body>
