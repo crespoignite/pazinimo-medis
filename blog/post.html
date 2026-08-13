@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PMXJ553E9Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PMXJ553E9Y');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="page-title">Article — Pažinimo medis</title>
@@ -845,6 +853,17 @@ fetch('/.netlify/functions/articles')
     document.getElementById('byline').innerHTML =
       `${escapeHtml(post.author || 'Pažinimo medis')} · ${formatDate(post.date)} · ${escapeHtml(post.readingTime || '')}`;
     document.getElementById('body').innerHTML = renderBody(post.body);
+
+    // GA4: fire an explicit page_view with the actual post URL/title once
+    // the article resolves, since this is a client-rendered SPA-style page
+    // and the slug is only known after this fetch completes.
+    if (typeof gtag === 'function') {
+      gtag('event', 'page_view', {
+        page_title: post.title + ' — Pažinimo medis',
+        page_location: location.href,
+        page_path: location.pathname + location.search
+      });
+    }
   })
   .catch(err => {
     document.getElementById('body').innerHTML = '<p>Couldn\'t load this article right now.</p>';
