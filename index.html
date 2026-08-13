@@ -422,14 +422,64 @@ section{padding:120px 0;}
 
 /* ============ TESTIMONIALS ============ */
 .testimonials{ background:var(--cream); }
-.testi-tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
-.testi-tab{
-  padding:10px 20px; border-radius:100px; font-weight:700; font-size:14px;
-  background:var(--white); color:#6b6a75; border:1.5px solid rgba(42,42,51,0.08);
-  transition:background .2s ease, color .2s ease, border-color .2s ease;
+
+/* Accordion gallery: five panels, roughly equal width by default. On
+   hover the hovered panel grows and the rest yield, classic fan-gallery
+   feel. Clicking sets the active category (independent of hover) and
+   filters the testimonial cards below. */
+.testi-gallery{
+  display:flex; gap:6px;
+  height:380px;
+  margin-bottom:44px;
+  border-radius:var(--radius);
+  overflow:hidden;
 }
-.testi-tab.active{ background:var(--purple); color:var(--white); border-color:var(--purple); }
-.testi-tab:hover:not(.active){ border-color:var(--purple); color:var(--purple); }
+.testi-gallery-panel{
+  position:relative;
+  flex:1 1 0;
+  min-width:0;
+  border-radius:16px;
+  overflow:hidden;
+  background-size:cover; background-position:center;
+  cursor:pointer;
+  transition:flex-grow .5s cubic-bezier(.22,.9,.3,1);
+}
+.testi-gallery-panel::after{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(42,42,51,0.75) 0%, rgba(42,42,51,0.15) 45%, rgba(42,42,51,0.35) 100%);
+  transition:background .4s ease;
+}
+.testi-gallery-panel:hover{ flex-grow:2.6; }
+.testi-gallery-panel.active{ flex-grow:2.6; }
+.testi-gallery-panel.active::after{ background:linear-gradient(0deg, rgba(107,78,158,0.78) 0%, rgba(42,42,51,0.1) 45%, rgba(42,42,51,0.3) 100%); }
+.testi-gallery-label{
+  position:absolute; left:18px; bottom:20px; z-index:2;
+  color:var(--white); font-family:'Poppins',sans-serif; font-weight:700;
+  font-size:17px; white-space:nowrap;
+  writing-mode:vertical-rl; transform:rotate(180deg);
+  transition:writing-mode 0s linear .15s, transform .3s ease;
+}
+.testi-gallery-panel:hover .testi-gallery-label,
+.testi-gallery-panel.active .testi-gallery-label{
+  writing-mode:horizontal-tb; transform:none;
+}
+.testi-gallery-count{
+  position:absolute; left:18px; top:18px; z-index:2;
+  color:rgba(255,255,255,0.85); font-size:12px; font-weight:700;
+  letter-spacing:.4px; text-transform:uppercase;
+  opacity:0; transition:opacity .25s ease;
+}
+.testi-gallery-panel:hover .testi-gallery-count,
+.testi-gallery-panel.active .testi-gallery-count{ opacity:1; }
+
+@media (max-width:820px){
+  .testi-gallery{ flex-wrap:wrap; height:auto; }
+  .testi-gallery-panel{ flex:1 1 calc(50% - 6px); height:150px; }
+  .testi-gallery-panel:hover{ flex-grow:1; }
+  .testi-gallery-label{ writing-mode:horizontal-tb !important; transform:none !important; }
+}
+
 .testi-grid{ display:flex; flex-wrap:wrap; justify-content:center; gap:28px; }
 .testi-card{
   flex:1 1 300px; max-width:360px;
@@ -815,12 +865,27 @@ footer{padding:80px 0 40px; background:var(--cream);}
       <p>Parents, students, teachers and staff: in their own words.</p>
     </div>
 
-    <div class="testi-tabs" id="testi-tabs">
-      <button class="testi-tab active" data-filter="all">All</button>
-      <button class="testi-tab" data-filter="parents">Parents</button>
-      <button class="testi-tab" data-filter="students">Students</button>
-      <button class="testi-tab" data-filter="teachers">Teachers</button>
-      <button class="testi-tab" data-filter="staff">Staff</button>
+    <div class="testi-gallery" id="testi-gallery">
+      <button class="testi-gallery-panel active" data-filter="all" style="background-image:url('https://pazinimomedis.lt/wp-content/uploads/2026/02/Pazinimo-medis-mokykla_1.webp')">
+        <span class="testi-gallery-count">8 stories</span>
+        <span class="testi-gallery-label">All</span>
+      </button>
+      <button class="testi-gallery-panel" data-filter="parents" style="background-image:url('https://pazinimomedis.lt/wp-content/uploads/2026/02/Svetainei-4.jpg')">
+        <span class="testi-gallery-count">3 stories</span>
+        <span class="testi-gallery-label">Parents</span>
+      </button>
+      <button class="testi-gallery-panel" data-filter="students" style="background-image:url('https://pazinimomedis.lt/wp-content/uploads/2025/11/6266e81d18da70b4390d345c54a2e67a0f2e71a7-1.jpg')">
+        <span class="testi-gallery-count">1 story</span>
+        <span class="testi-gallery-label">Students</span>
+      </button>
+      <button class="testi-gallery-panel" data-filter="teachers" style="background-image:url('https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_4.webp')">
+        <span class="testi-gallery-count">3 stories</span>
+        <span class="testi-gallery-label">Teachers</span>
+      </button>
+      <button class="testi-gallery-panel" data-filter="staff" style="background-image:url('https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_3.webp')">
+        <span class="testi-gallery-count">1 story</span>
+        <span class="testi-gallery-label">Staff</span>
+      </button>
     </div>
 
     <div class="testi-grid" id="testi-grid">
@@ -991,14 +1056,14 @@ footer{padding:80px 0 40px; background:var(--cream);}
 </div>
 
 <script>
-// ---- Testimonials category filter ----
-const testiTabs = document.querySelectorAll('.testi-tab');
+// ---- Testimonials: accordion gallery drives the category filter ----
+const testiPanels = document.querySelectorAll('.testi-gallery-panel');
 const testiCards = document.querySelectorAll('.testi-card');
-testiTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    testiTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    const filter = tab.dataset.filter;
+testiPanels.forEach(panel => {
+  panel.addEventListener('click', () => {
+    testiPanels.forEach(p => p.classList.remove('active'));
+    panel.classList.add('active');
+    const filter = panel.dataset.filter;
     testiCards.forEach(card => {
       const show = filter === 'all' || card.dataset.category === filter;
       card.style.display = show ? 'flex' : 'none';
