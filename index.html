@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PMXJ553E9Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PMXJ553E9Y');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pažinimo medis: All-round intelligence for a successful future</title>
@@ -444,7 +453,7 @@ section{padding:120px 0;}
 /* ============ BLOG: SCROLL-DRIVEN HORIZONTAL CAROUSEL ============ */
 .blog{ background:var(--white); position:relative; }
 .blog .section-head{ padding-bottom:0; margin-bottom:4px; }
-.blog-stage-wrap{ position:relative; height:500vh; }
+.blog-stage-wrap{ position:relative; height:300vh; }
 .blog-stage-sticky{
   position:sticky; top:0; height:100vh;
   display:flex; align-items:center; justify-content:center;
@@ -480,12 +489,6 @@ section{padding:120px 0;}
   position:absolute; bottom:32px; left:0; right:0;
   display:flex; justify-content:center; z-index:6;
 }
-.blog-loading, .blog-error{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-weight:600; font-size:16px; color:#8b8a92; text-align:center;
-  width:min(500px, 84vw);
-}
-.blog-error a{ color:var(--purple); font-weight:700; text-decoration:underline; }
 
 .blog-stage-wrap.reduced-motion{ height:auto; }
 .reduced-motion .blog-stage-sticky{ position:static; height:auto; display:flex; flex-direction:column; gap:24px; padding:20px 0 80px; overflow:visible; }
@@ -865,18 +868,58 @@ footer{padding:80px 0 40px; background:var(--cream);}
   <div class="wrap section-head">
     <span class="eyebrow">From the blog</span>
     <h2>Recent stories from our classrooms.</h2>
-    <p>Notes from teachers, psychologists and parents, straight from our content pipeline. Keep scrolling to move through the latest stories.</p>
+    <p>Notes from teachers, psychologists and parents. Keep scrolling to move through the latest three.</p>
   </div>
 
   <div class="blog-stage-wrap" id="blog-stage-wrap">
     <div class="blog-stage-sticky">
       <div class="blog-stage" id="blog-stage">
 
-        <div class="blog-loading" id="blog-loading">Loading the latest stories…</div>
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/01/Pazinimo-medis_4.webp" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Family &amp; Transitions</span>
+              <h3>Preparing for School: What Changes Does a Child Face?</h3>
+              <p>Starting first grade is more than a new timetable. It's a new sense of self. We look at what shifts for a child emotionally and practically, and how parents can help without taking over.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
 
-        <!-- Blog cards, dots, and the CTA below are injected here by JS after
-             fetching /.netlify/functions/articles (the same live Airtable
-             in turn reads directly from the Content Engine Airtable base. -->
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/20251028_132559-scaled.jpg" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Inside the School</span>
+              <h3>How We Choose Our Teachers</h3>
+              <p>Headteacher Audronė on what the school looks for beyond a diploma, and why a shared educational philosophy matters more than years of experience alone.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="blog-slot">
+          <a class="blog-card" data-blog-card href="https://pazinimomedis.lt/mokykla/naujienos/">
+            <div class="blog-card-photo"><img src="https://pazinimomedis.lt/wp-content/uploads/2026/02/Svetainei-4.jpg" alt=""></div>
+            <div class="blog-card-body">
+              <span class="blog-eyebrow">Community</span>
+              <h3>The Happiness Triangle: Parents, Teacher, Child</h3>
+              <p>Three sides, one outcome. Why a happy classroom depends as much on parents and teachers feeling supported as it does on the child sitting in it.</p>
+              <span class="blog-read">Read the article →</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="blog-dots" id="blog-dots">
+          <div class="blog-dot"></div>
+          <div class="blog-dot"></div>
+          <div class="blog-dot"></div>
+        </div>
+
+        <div class="blog-repo-cta">
+          <a href="https://pazinimomedis.lt/mokykla/naujienos/" class="btn btn-outline on-light">Visit the full blog</a>
+        </div>
 
       </div>
     </div>
@@ -1143,143 +1186,76 @@ window.addEventListener('scroll', () => {
   render();
 })();
 
-// ---- Blog: fetch live posts from the site's own Netlify Function
-// (netlify/functions/articles.js), which reads directly from the Content
-// Engine's Airtable base at request time — the same function that powers
-// the full blog grid at /blog/. Takes the 6 most recent, renders the cards,
-// then runs the scroll-scrubbed horizontal carousel exactly as before.
+// ---- Blog: scroll-scrubbed horizontal carousel ----
+// Three cards stacked in the same spot; scrolling down slides the current
+// card off to the left while the next one arrives from the right.
 (function initBlogStage(){
   const wrap = document.getElementById('blog-stage-wrap');
-  const stage = document.getElementById('blog-stage');
-  const loading = document.getElementById('blog-loading');
-  const FALLBACK_URL = '/blog/';
-  if (!wrap || !stage) return;
+  const cards = Array.from(document.querySelectorAll('[data-blog-card]'));
+  const dots = Array.from(document.querySelectorAll('.blog-dot'));
+  if (!wrap || !cards.length) return;
 
-  function escapeHtml(str) {
-    return String(str || '').replace(/[&<>"']/g, (c) => ({
-      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
-    }[c]));
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    wrap.classList.add('reduced-motion');
+    return;
   }
 
-  function showFallback(message) {
-    if (loading) {
-      loading.className = 'blog-error';
-      loading.innerHTML = message + ' <a href="' + FALLBACK_URL + '">Visit the blog directly →</a>';
-    }
-    wrap.style.height = '100vh';
-  }
+  const N = cards.length;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
-  function renderCards(posts) {
-    if (loading) loading.remove();
+  let ticking = false;
 
-    if (!posts.length) {
-      showFallback('No published articles found yet.');
-      return;
-    }
+  function render() {
+    ticking = false;
+    const rect = wrap.getBoundingClientRect();
+    const scrollable = wrap.offsetHeight - window.innerHeight;
+    const progressedPx = clamp01((-rect.top) / Math.max(scrollable, 1)) * scrollable;
+    const totalProgress = scrollable > 0 ? progressedPx / scrollable : 0;
+    const p = totalProgress * N;
 
-    const slotsHtml = posts.map((p) => `
-      <div class="blog-slot">
-        <a class="blog-card" data-blog-card href="/blog/post.html?slug=${encodeURIComponent(p.slug)}">
-          <div class="blog-card-photo">${p.coverImage ? `<img src="${escapeHtml(p.coverImage)}" alt="">` : ''}</div>
-          <div class="blog-card-body">
-            <span class="blog-eyebrow">${escapeHtml(p.category || 'From the classroom')}</span>
-            <h3>${escapeHtml(p.title)}</h3>
-            <p>${escapeHtml(p.excerpt || '')}</p>
-            <span class="blog-read">Read the article →</span>
-          </div>
-        </a>
-      </div>`).join('');
+    let activeIndex = 0;
+    let activeDist = Infinity;
 
-    const dotsHtml = '<div class="blog-dots" id="blog-dots">' +
-      posts.map(() => '<div class="blog-dot"></div>').join('') + '</div>';
+    cards.forEach((card, i) => {
+      const local = p - i; // -1 arriving from the right, 0 centered, +1 exited left
+      const dist = Math.abs(local);
+      if (dist < activeDist) { activeDist = dist; activeIndex = i; }
 
-    const ctaHtml = `<div class="blog-repo-cta"><a href="${FALLBACK_URL}" class="btn btn-outline on-light">Visit the full blog</a></div>`;
+      let x, opacity, scale;
+      if (local <= -1) {
+        x = 120; opacity = 0; scale = 0.92;
+      } else if (local < 0) {
+        const t = local + 1;
+        x = lerp(120, 0, t);
+        opacity = lerp(0, 1, Math.min(1, t * 1.3));
+        scale = lerp(0.92, 1, t);
+      } else if (local < 1) {
+        const t = local;
+        x = lerp(0, -120, t);
+        opacity = lerp(1, 0, t);
+        scale = lerp(1, 0.92, t);
+      } else {
+        x = -120; opacity = 0; scale = 0.92;
+      }
 
-    stage.insertAdjacentHTML('beforeend', slotsHtml + dotsHtml + ctaHtml);
-
-    wrap.style.height = (posts.length * 100) + 'vh';
-
-    runCarousel(posts.length);
-  }
-
-  function runCarousel(N) {
-    const cards = Array.from(document.querySelectorAll('[data-blog-card]'));
-    const dots = Array.from(document.querySelectorAll('.blog-dot'));
-    if (!cards.length) return;
-
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      wrap.classList.add('reduced-motion');
-      return;
-    }
-
-    const lerp = (a, b, t) => a + (b - a) * t;
-    const clamp01 = (v) => Math.max(0, Math.min(1, v));
-    let ticking = false;
-
-    function render() {
-      ticking = false;
-      const rect = wrap.getBoundingClientRect();
-      const scrollable = wrap.offsetHeight - window.innerHeight;
-      const progressedPx = clamp01((-rect.top) / Math.max(scrollable, 1)) * scrollable;
-      const totalProgress = scrollable > 0 ? progressedPx / scrollable : 0;
-      const p = totalProgress * N;
-
-      let activeIndex = 0;
-      let activeDist = Infinity;
-
-      cards.forEach((card, i) => {
-        const local = p - i;
-        const dist = Math.abs(local);
-        if (dist < activeDist) { activeDist = dist; activeIndex = i; }
-
-        let x, opacity, scale;
-        if (local <= -1) {
-          x = 120; opacity = 0; scale = 0.92;
-        } else if (local < 0) {
-          const t = local + 1;
-          x = lerp(120, 0, t);
-          opacity = lerp(0, 1, Math.min(1, t * 1.3));
-          scale = lerp(0.92, 1, t);
-        } else if (local < 1) {
-          const t = local;
-          x = lerp(0, -120, t);
-          opacity = lerp(1, 0, t);
-          scale = lerp(1, 0.92, t);
-        } else {
-          x = -120; opacity = 0; scale = 0.92;
-        }
-
-        card.parentElement.style.transform = `translate(-50%, -50%) translateX(${x}%) scale(${scale})`;
-        card.parentElement.style.opacity = opacity;
-        card.parentElement.style.pointerEvents = opacity > 0.6 ? 'auto' : 'none';
-        card.parentElement.style.zIndex = String(100 - Math.round(Math.abs(x)));
-      });
-
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
-    }
-
-    function onScroll() {
-      if (!ticking) { window.requestAnimationFrame(render); ticking = true; }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive:true });
-    window.addEventListener('resize', onScroll, { passive:true });
-    render();
-  }
-
-  fetch('/.netlify/functions/articles')
-    .then((res) => {
-      if (!res.ok) throw new Error('Function returned ' + res.status);
-      return res.json();
-    })
-    .then((posts) => {
-      renderCards((posts || []).slice(0, 6));
-    })
-    .catch((err) => {
-      console.error('Blog fetch failed:', err);
-      showFallback("Couldn't load the latest stories right now.");
+      card.parentElement.style.transform = `translate(-50%, -50%) translateX(${x}%) scale(${scale})`;
+      card.parentElement.style.opacity = opacity;
+      card.parentElement.style.pointerEvents = opacity > 0.6 ? 'auto' : 'none';
+      card.parentElement.style.zIndex = String(100 - Math.round(Math.abs(x)));
     });
+
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+  }
+
+  function onScroll() {
+    if (!ticking) { window.requestAnimationFrame(render); ticking = true; }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll, { passive:true });
+  render();
 })();
 
 // ---- Marquee: duplicate logo set for seamless infinite loop ----
