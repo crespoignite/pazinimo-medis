@@ -259,6 +259,11 @@ const en: Record<string, string> = {
   'me.desc': 'The ideas behind how we teach: SELF, LUMOS, MATAU and CREATE.',
   'me.h1': 'Methodologies',
   'me.lead': 'Four ideas shape our classrooms. Fuller descriptions are on the way.',
+  'me.more': 'A fuller description from the school will go here.',
+  'me.b1.x': 'SELF is the foundation in every group and classroom: a safe relationship, belonging, motivation and reflection. It is the social and emotional side of learning, and parents see it every day.',
+  'me.b2.x': 'LUMOS gives children with high learning potential a path that stretches them, inside the same school community as everyone else.',
+  'me.b3.x': 'MATAU tracks each child\'s progress, records it and explains it to parents. Progress is measured against the child\'s own past, never against other children.',
+  'me.b4.x': 'CREATE is the name of our integrated learning model. It ties academic education, our programmes and future competencies together, in kindergarten and in gymnasium alike.',
   'me.renzulli.t': 'Renzulli enrichment triad',
   'me.renzulli.d': 'The method behind our Knowledge Lab: broad exposure, hands-on skills and an individual project.',
 

@@ -24,8 +24,10 @@ function track(name, params = {}) {
 }
 
 // ---- A/B test: floating button. A = Book a visit, B = Ask us a question. Assigned only with consent.
+// Paused: the button always reads "Book a visit". Set AB_ACTIVE to true to run the test again.
+const AB_ACTIVE = false;
 function variant() {
-  if (consent !== 'yes') return 'A';
+  if (!AB_ACTIVE || consent !== 'yes') return 'A';
   let v = store.get('pzm_ab_float');
   if (v !== 'A' && v !== 'B') { v = Math.random() < 0.5 ? 'A' : 'B'; store.set('pzm_ab_float', v); }
   return v;
@@ -34,8 +36,8 @@ function applyVariant() {
   const v = variant();
   const btn = document.getElementById('float-book');
   if (btn && v === 'B') { btn.href = btn.dataset.hrefB; btn.textContent = btn.dataset.labelB; }
-  document.querySelectorAll('input[name="ab_variant"]').forEach((i) => (i.value = consent === 'yes' ? v : ''));
-  if (consent === 'yes' && window.gtag) {
+  document.querySelectorAll('input[name="ab_variant"]').forEach((i) => (i.value = AB_ACTIVE && consent === 'yes' ? v : ''));
+  if (AB_ACTIVE && consent === 'yes' && window.gtag) {
     window.gtag('set', 'user_properties', { float_variant: v });
     window.gtag('event', 'ab_exposure', { experiment: 'float_button', variant: v });
   }

@@ -4,6 +4,7 @@ Astro static site for Netlify. English and Lithuanian under /en/ and /lt/.
 
 - `npm install`, `npm run dev`, `npm run build`
 - `npm run i18n:report` shows UI strings still missing Lithuanian (they fall back to English)
+- Floating button A/B test is paused (`AB_ACTIVE` in `src/scripts/site.js`). The button always reads "Book a visit".
 - Search hiding: `X-Robots-Tag` noindex header in `netlify.toml` and a robots meta in `Layout.astro`. Remove both at launch.
 - Default language: `defaultLang` in `src/i18n/index.ts` and the "/" redirect in `netlify.toml`. Currently `lt` (switched from `en`).
 - Netlify: add a form-notification webhook to Make for Pipedrive. Preview and branch deploys show the demo campaign banner (`PUBLIC_DEMO_BANNER`).

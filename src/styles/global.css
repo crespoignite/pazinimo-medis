@@ -195,3 +195,15 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 .prose{max-width:46em}
 .prose img{border-radius:var(--radius)}
 .crumbs{font-size:.9rem;margin-bottom:12px}
+
+.meth-list{display:grid;gap:12px;margin-top:28px;max-width:52em}
+.meth{background:#fff;border:1px solid var(--line);border-radius:var(--radius)}
+.meth summary{cursor:pointer;padding:18px 22px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.meth summary::-webkit-details-marker{display:none}
+.meth summary::after{content:"+";font-size:1.6rem;line-height:1;color:var(--purple);flex:none}
+.meth[open] summary::after{content:"–"}
+.meth-t{display:block;font-size:1.25rem;color:var(--ink)}
+.meth-d{display:block;color:var(--ink-soft);margin-top:4px}
+.meth-x{padding:0 22px 20px;border-top:1px solid var(--line);padding-top:16px}
+.meth-x p{margin:0 0 10px}
+.meth:hover{border-color:var(--purple)}

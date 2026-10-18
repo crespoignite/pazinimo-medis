@@ -9,7 +9,12 @@ const t = useT(lang);
 <Layout lang={lang} title={t('me.title')} description={t('me.desc')} path="about/methodologies">
   <section class="section"><div class="wrap">
     <h1>{t('me.h1')}</h1><p class="lead">{t('me.lead')}</p>
-    <div class="grid g4" style="margin-top:28px">{[1,2,3,4].map((n) => <div class="card p"><h3>{t(`sc.b${n}.t`)}</h3><p>{t(`sc.b${n}.d`)}</p></div>)}</div>
+    <div class="meth-list">{[1,2,3,4].map((n) => (
+      <details class="meth">
+        <summary><span><strong class="meth-t">{t(`sc.b${n}.t`)}</strong><span class="meth-d">{t(`sc.b${n}.d`)}</span></span></summary>
+        <div class="meth-x"><p>{t(`me.b${n}.x`)}</p><p class="campus-note">{t('me.more')}</p></div>
+      </details>
+    ))}</div>
     <div class="card" style="margin-top:20px"><h3>{t('me.renzulli.t')}</h3><p>{t('me.renzulli.d')}</p></div>
   </div></section>
 </Layout>
