@@ -2,9 +2,11 @@
 import Layout from '../../layouts/Layout.astro';
 import Photo from '../../components/Photo.astro';
 import FaqList from '../../components/FaqList.astro';
+import CityTabs from '../../components/CityTabs.astro';
 import { useT, localePath, type Lang } from '../../i18n';
 import { langPaths } from '../../i18n/paths';
 import { topFaqs } from '../../data/faq';
+import { startingFrom } from '../../data/pricing';
 export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
@@ -12,45 +14,76 @@ const p = (s: string) => localePath(lang, s);
 ---
 <Layout lang={lang} title={t('sc.title')} description={t('sc.desc')} path="school" stage="school">
   <section class="section">
-    <div class="wrap grid g2" style="align-items:center">
-      <div>
-        <p class="eyebrow">{t('nav.school')}</p>
-        <h1>{t('sc.h1')}</h1>
-        <p class="lead">{t('sc.lead')}</p>
-        <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
-        <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">{t('nav.school')}</p>
+          <h1>{t('sc.h1')}</h1>
+          <p class="lead">{t('sc.lead')}</p>
+          <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
+          <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
+        </div>
+        <Photo lang={lang} tone="s" ratio="4/3" label={t('nav.school')} />
       </div>
-      <Photo lang={lang} tone="s" ratio="4/3" label={t('nav.school')} />
+      <CityTabs lang={lang} />
     </div>
   </section>
-  <section class="section alt">
+
+  <section class="section alt" aria-labelledby="stages">
     <div class="wrap">
-      <h2>{t('sc.blocks.title')}</h2>
+      <h2 id="stages">{t('sc.stages.title')}</h2>
       <div class="grid g4">
-        {[1,2,3,4].map((n) => <div class="card s"><h3>{t(`sc.b${n}.t`)}</h3><p>{t(`sc.b${n}.d`)}</p></div>)}
+        {[1, 2, 3].map((n) => <div class="card s"><h3>{t(`sc.st.${n}.t`)}</h3><p>{t(`sc.st.${n}.d`)}</p>{n > 1 && <p class="campus-note">{t('st.more')}</p>}</div>)}
+        <div class="card s"><h3>{t('sc.st.4.t')}</h3><p>{t('sc.after.d')}</p><a class="link" href={p('about/programs')}>{t('nav.programs')}</a></div>
       </div>
+      <p class="campus-note" style="margin-top:14px">{t('sc.stages.note')}</p>
     </div>
   </section>
-  <section class="section">
+
+  <section class="section" aria-labelledby="teacher">
+    <div class="wrap split">
+      <Photo lang={lang} tone="s" ratio="4/3" label={t('sc.teacher.title')} />
+      <div><h2 id="teacher">{t('sc.teacher.title')}</h2><p class="lead">{t('sc.teacher.body')}</p></div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="prog">
     <div class="wrap">
-      <h2>{t('sc.campuses.title')}</h2>
-      <div class="grid g2">
-        <div class="card s" id="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vg')}</li><li>{t('ft.vp')}</li></ul></div>
-        <div class="card s" id="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')}</li></ul></div>
+      <h2 id="prog">{t('sc.prog.title')}</h2>
+      <div class="grid g3">
+        {[1, 2].map((n) => <div class="card s"><h3>{t(`sc.prog.${n}.t`)}</h3><p>{t(`sc.prog.${n}.d`)}</p></div>)}
+        <a class="card s" style="text-decoration:none" href={p('about/methodologies')}><h3>{t('sc.prog.3.t')}</h3><p>{t('sc.prog.3.d')}</p><span class="link">{t('cta.learnMore')}</span></a>
       </div>
     </div>
   </section>
-  <section class="section alt">
+
+  <section class="section" aria-labelledby="price">
+    <div class="wrap">
+      <h2 id="price">{t('st.price.title')}</h2>
+      <p class="lead">{t('pr.from')} €{startingFrom.school} {t('pr.monthlyNote')}. {t('st.price.d')}</p>
+      <a class="btn ghost" href={p('pricing') + '#school'} data-cta="sc_pricing">{t('cta.seePricing')}</a>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="addr">
+    <div class="wrap split rev">
+      <div>
+        <h2 id="addr">{t('st.addr.title')}</h2>
+        <div id="vilnius" data-city="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vg')}</li><li>{t('ft.vp')}</li></ul></div>
+        <div id="kaunas" data-city="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')}</li></ul></div>
+      </div>
+      <Photo lang={lang} tone="s" ratio="4/3" label={t('st.addr.title')} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="voice">
     <div class="wrap grid g2">
-      <div><h2>{t('sc.after.title')}</h2><p class="lead">{t('sc.after.d')}</p><a class="btn" href={p('about/programs')}>{t('nav.programs')}</a></div>
-      <div class="card s"><h3>{t('sc.cta.title')}</h3><p>{t('sc.cta.d')}</p><a class="btn accent" href={p('admissions/book')}>{t('cta.trial')}</a></div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="wrap">
-      <h2>{t('home.faq.title')}</h2>
-      <FaqList lang={lang} items={topFaqs('s')} />
-      <p><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>
+      <div class="card s voice"><h2 id="voice" style="font-size:1.4rem">{t('sc.voice.title')}</h2><p class="campus-note">{t('home.quotes.note')}</p></div>
+      <div>
+        <h2 style="font-size:1.4rem">{t('home.faq.title')}</h2>
+        <FaqList lang={lang} items={topFaqs('s')} />
+        <p><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>
+      </div>
     </div>
   </section>
 </Layout>

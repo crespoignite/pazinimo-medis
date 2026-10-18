@@ -1,7 +1,7 @@
 ---
 import Photo from './Photo.astro';
 import { useT, localePath, type Lang } from '../i18n';
-const { lang } = Astro.props as { lang: Lang };
+const { lang, ratio = '21/9' } = Astro.props as { lang: Lang; ratio?: string };
 const t = useT(lang);
 const slides = [
   { href: 'kindergarten', k: 'hero.1', tone: 'k' },
@@ -14,7 +14,7 @@ const slides = [
   <div class="slides" aria-live="off">
     {slides.map((s, i) => (
       <a class="slide" href={localePath(lang, s.href)} role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${slides.length}`} data-cta={`hero_${i + 1}`}>
-        <Photo lang={lang} tone={s.tone as any} ratio="21/9" label={t(`${s.k}.t`)} />
+        <Photo lang={lang} tone={s.tone as any} ratio={ratio} label={t(`${s.k}.t`)} />
         <div class="cap"><strong>{t(`${s.k}.t`)}</strong><span>{t(`${s.k}.d`)}</span></div>
       </a>
     ))}

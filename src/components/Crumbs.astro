@@ -1,0 +1,14 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+const { lang, path, title } = Astro.props as { lang: Lang; path: string; title: string };
+const t = useT(lang);
+const keys: Record<string, string> = { kindergarten: 'nav.kindergarten', school: 'nav.school', pricing: 'nav.pricing', admissions: 'nav.admissions', faq: 'nav.faq', about: 'nav.about', programs: 'nav.programs', international: 'nav.international', news: 'nav.news', methodologies: 'nav.methodologies', team: 'nav.team' };
+const segs = path.split('/').filter(Boolean);
+const items = segs.map((s, i) => ({ label: keys[s] ? t(keys[s]) : title.split(' | ')[0], href: localePath(lang, segs.slice(0, i + 1).join('/')) }));
+---
+{segs.length > 0 && (
+  <nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><ol>
+    <li><a href={localePath(lang)}>{t('crumb.home')}</a></li>
+    {items.map((c, i) => i < items.length - 1 ? <li><a href={c.href}>{c.label}</a></li> : <li aria-current="page">{c.label}</li>)}
+  </ol></div></nav>
+)}

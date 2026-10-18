@@ -7,6 +7,7 @@ import Footer from '../components/Footer.astro';
 import FloatingBook from '../components/FloatingBook.astro';
 import CampaignBanner from '../components/CampaignBanner.astro';
 import Consent from '../components/Consent.astro';
+import Crumbs from '../components/Crumbs.astro';
 interface Props { lang: Lang; title: string; description?: string; path?: string; stage?: 'kindergarten' | 'school'; bare?: boolean; noindex?: boolean; ld?: object }
 const PRELAUNCH = true; // set to false at launch
 const { lang, title, description = '', path = '', stage, bare = false, noindex = false, ld } = Astro.props;
@@ -32,8 +33,9 @@ const base = Astro.site ? Astro.site.origin : '';
 </head>
 <body data-stage={stage} data-lang={lang} data-ga={site.ga4}>
   <a class="skip" href="#main">{t('skip')}</a>
-  {!bare && <CampaignBanner lang={lang} />}
   {!bare && <Header lang={lang} path={path} />}
+  {!bare && <CampaignBanner lang={lang} />}
+  {!bare && <Crumbs lang={lang} path={path} title={title} />}
   {bare && <div class="bare-top"><a href={localePath(lang)} aria-label={t('site.name')}><img src={site.logoDark} alt={t('site.name')} /></a></div>}
   <main id="main"><slot /></main>
   {!bare && <FloatingBook lang={lang} />}

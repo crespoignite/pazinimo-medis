@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import LeadForm from '../../../components/LeadForm.astro';
+import Photo from '../../../components/Photo.astro';
 import { useT, locales, type Lang } from '../../../i18n';
 import { site } from '../../../data/site';
 export const getStaticPaths = () => locales.map((lang) => ({ params: { lang, slug: site.campaign.slug } }));
@@ -8,9 +9,20 @@ const lang = Astro.params.lang as Lang;
 const slug = Astro.params.slug;
 const t = useT(lang);
 ---
-<Layout lang={lang} title={t('cp.title')} path={`campaign/${slug}`} noindex>
-  <section class="section"><div class="wrap">
-    <h1>{t('cp.h1')}</h1><p class="lead">{t('cp.lead')}</p><p class="campus-note">{t('cp.placeholder')}</p>
-    <LeadForm lang={lang} kind="campaign" />
-  </div></section>
+<Layout lang={lang} title={t('cp.title')} path={`campaign/${slug}`} noindex bare>
+  <section class="section alt" aria-labelledby="opener">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 id="opener">{t('cp.h1')}</h1>
+        <p class="lead">{t('cp.lead')}</p>
+        <p class="campus-note">{t('cp.slogan')}</p>
+        <a class="btn accent" href="#form" data-cta="campaign_form">{t('banner.cta')}</a>
+      </div>
+      <Photo lang={lang} ratio="4/3" label={t('cp.h1')} />
+    </div>
+  </section>
+  <section class="section" id="form" aria-label={t('cta.book')}>
+    <div class="wrap"><LeadForm lang={lang} kind="campaign" /></div>
+  </section>
+  <section class="strip"><div class="wrap"><strong>{t('site.slogan')}</strong></div></section>
 </Layout>

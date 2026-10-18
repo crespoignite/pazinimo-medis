@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Carousel from '../../components/Carousel.astro';
 import Photo from '../../components/Photo.astro';
 import NewsList from '../../components/NewsList.astro';
+import VideoDivider from '../../components/VideoDivider.astro';
 import { useT, localePath, pick, type Lang } from '../../i18n';
 import { langPaths } from '../../i18n/paths';
 import { topFaqs } from '../../data/faq';
@@ -11,17 +12,24 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
-import VideoDivider from '../../components/VideoDivider.astro';
+const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/programs'], ['home.how.3', 'faq#k-meals'], ['home.how.4', 'faq#s-class-size']];
 ---
 <Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
-  <section class="hero">
+  <section class="hero" aria-labelledby="h1">
     <div class="wrap">
-      <div class="hero-copy">
-        <p class="eyebrow">{t('home.eyebrow')}</p>
-        <h1>{t('home.opener')}</h1>
-        <p class="lead">{t('home.valueprop')}</p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">{t('home.eyebrow')}</p>
+          <h1 id="h1">{t('home.opener')}</h1>
+          <p class="lead">{t('home.valueprop')}</p>
+          <p><a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('cta.book')}</a></p>
+        </div>
+        <Carousel lang={lang} ratio="4/3" />
       </div>
-      <Carousel lang={lang} />
+      <div class="hero-base">
+        <span class="proof-line"><strong>{t('home.proof')}</strong> <small class="campus-note">({t('home.proofSource')})</small></span>
+        <span class="slogan">{t('site.slogan')}</span>
+      </div>
     </div>
   </section>
 
@@ -33,23 +41,10 @@ import VideoDivider from '../../components/VideoDivider.astro';
           <div class="card p"><h3>{t(`home.values.${n}.t`)}</h3><p>{t(`home.values.${n}.d`)}</p></div>
         ))}
       </div>
-      <div class="proof" style="margin-top:28px"><span>{t('home.proof')} <small>({t('home.proofSource')})</small></span></div>
-    </div>
-  </section>
-
-  <section class="section alt" aria-labelledby="slogan">
-    <div class="wrap" style="text-align:center">
-      <h2 id="slogan" style="font-size:clamp(1.9rem,5vw,3.4rem);color:var(--purple)">{t('site.slogan')}</h2>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="stage">
-    <div class="wrap">
-      <h2 id="stage">{t('home.stage.title')}</h2>
+      <h2 id="stage" style="margin-top:48px">{t('home.stage.title')}</h2>
       <p class="lead">{t('home.stage.sub')}</p>
       <div class="grid g2">
         <div class="card k stage-card">
-          <Photo lang={lang} tone="k" ratio="16/8" label={t('home.stage.k.t')} />
           <h3>{t('home.stage.k.t')}</h3><p>{t('home.stage.k.d')}</p>
           <div class="cities">
             <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#vilnius'} data-cta="home_k_vilnius">{t('home.city.vilnius')}</a>
@@ -58,7 +53,6 @@ import VideoDivider from '../../components/VideoDivider.astro';
           </div>
         </div>
         <div class="card s stage-card">
-          <Photo lang={lang} tone="s" ratio="16/8" label={t('home.stage.s.t')} />
           <h3>{t('home.stage.s.t')}</h3><p>{t('home.stage.s.d')}</p>
           <div class="cities">
             <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#vilnius'} data-cta="home_s_vilnius">{t('home.city.vilnius')}</a>
@@ -84,9 +78,13 @@ import VideoDivider from '../../components/VideoDivider.astro';
     </div>
   </section>
 
-  <section class="section" aria-labelledby="faqs">
+  <section class="section" aria-labelledby="how">
     <div class="wrap">
-      <h2 id="faqs">{t('home.faq.title')}</h2>
+      <h2 id="how">{t('home.how.title')}</h2>
+      <div class="grid g4">
+        {how.map(([k, h]) => <a class="card p" style="text-decoration:none" href={p(h.split('#')[0]) + (h.includes('#') ? '#' + h.split('#')[1] : '')}><h3>{t(`${k}.t`)}</h3><p>{t(`${k}.d`)}</p></a>)}
+      </div>
+      <h3 style="margin-top:36px">{t('home.faq.title')}</h3>
       <div class="grid g2">
         <div>
           <h3 style="color:var(--green)">{t('home.faq.k')}</h3>
@@ -101,31 +99,31 @@ import VideoDivider from '../../components/VideoDivider.astro';
     </div>
   </section>
 
-  <section class="section alt" aria-labelledby="quotes">
+  <section class="section alt" aria-labelledby="join">
+    <div class="wrap">
+      <h2 id="join">{t('home.join.title')}</h2>
+      <div class="grid g4 steps">
+        {[1, 2, 3, 4].map((n) => <div class="card step"><h3>{t(`step.${n}.t`)}</h3><p>{t(`step.${n}.d`)}</p></div>)}
+      </div>
+      <div class="row" style="margin-top:24px">
+        <a class="btn ghost" href={p('admissions/ask')} data-cta="home_ask">{t('cta.ask')}</a>
+        <a class="btn accent" href={p('admissions/book')} data-cta="home_book_2">{t('cta.book')}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="quotes">
     <div class="wrap">
       <h2 id="quotes">{t('home.quotes.title')}</h2>
       <div class="grid g3">
-        {['parent', 'student', 'teacher'].map((r) => <div class="card p"><p class="campus-note">{t('home.quotes.note')}</p></div>)}
+        {['student', 'parent', 'teacher'].map((r) => (
+          <div class="card p voice"><h3>{t(`voice.${r}`)}</h3><p class="campus-note">{t('home.quotes.note')}</p><Photo lang={lang} ratio="4/3" label={t(`voice.${r}`)} /></div>
+        ))}
       </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="news">
-    <div class="wrap">
-      <h2 id="news">{t('home.news.title')}</h2>
+      <p class="ratings">{t('home.ratings')}</p>
+      <h2 id="news" style="margin-top:48px">{t('home.news.title')}</h2>
       <NewsList lang={lang} limit={3} />
       <p style="margin-top:16px"><a class="link" href={p('about/news')}>{t('cta.allNews')}</a></p>
-    </div>
-  </section>
-
-  <section class="section alt">
-    <div class="wrap" style="text-align:center">
-      <h2>{t('home.cta.title')}</h2>
-      <p class="lead" style="margin-inline:auto">{t('home.cta.sub')}</p>
-      <div class="row" style="justify-content:center">
-        <a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('cta.book')}</a>
-        <a class="btn ghost" href={p('admissions/ask')} data-cta="home_ask">{t('cta.ask')}</a>
-      </div>
     </div>
   </section>
 </Layout>

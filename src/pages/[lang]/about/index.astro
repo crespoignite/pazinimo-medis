@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Photo from '../../../components/Photo.astro';
 import { useT, localePath, type Lang } from '../../../i18n';
 import { langPaths } from '../../../i18n/paths';
 export const getStaticPaths = langPaths;
@@ -10,8 +11,25 @@ const cards = [['about/programs','nav.programs','ab.programs.d'],['about/interna
 <Layout lang={lang} title={t('ab.title')} description={t('ab.desc')} path="about">
   <section class="section"><div class="wrap">
     <h1>{t('ab.h1')}</h1><p class="lead">{t('ab.lead')}</p>
-    <div class="grid g3" style="margin-top:28px">
+    <div class="proof" style="margin-top:20px"><span>{t('home.proof')} <small>({t('home.proofSource')})</small></span></div>
+  </div></section>
+  <section class="section alt" aria-labelledby="story"><div class="wrap split">
+    <Photo lang={lang} ratio="4/3" label={t('ab.story.title')} />
+    <div><h2 id="story">{t('ab.story.title')}</h2><p class="lead">{t('ab.story.body')}</p></div>
+  </div></section>
+  <section class="section" aria-labelledby="team"><div class="wrap">
+    <h2 id="team">{t('ab.team.title')}</h2>
+    <div class="team4">{[1, 2, 3, 4].map(() => <Photo lang={lang} ratio="4/5" label={t('ab.team.title')} />)}</div>
+    <p style="margin-top:16px"><a class="link" href={localePath(lang, 'about/team')}>{t('cta.learnMore')}</a></p>
+  </div></section>
+  <section class="section alt"><div class="wrap">
+    <h2>{t('ab.more.title')}</h2>
+    <div class="grid g3">
       {cards.map(([h, k, d]) => <a class="card p" style="text-decoration:none" href={localePath(lang, h)}><h3>{t(k)}</h3><p>{t(d)}</p><span class="link">{t('cta.learnMore')}</span></a>)}
     </div>
+  </div></section>
+  <section class="section"><div class="wrap" style="text-align:center">
+    <h2>{t('ab.next.title')}</h2>
+    <p><a class="btn accent" href={localePath(lang, 'admissions/book')} data-cta="about_book">{t('cta.book')}</a></p>
   </div></section>
 </Layout>

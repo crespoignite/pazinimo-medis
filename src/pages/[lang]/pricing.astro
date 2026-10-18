@@ -1,5 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import CityTabs from '../../components/CityTabs.astro';
+import FaqList from '../../components/FaqList.astro';
+import { faqs } from '../../data/faq';
 import { useT, localePath, type Lang } from '../../i18n';
 import { langPaths } from '../../i18n/paths';
 import { kindergarten, school, extras, eur } from '../../data/pricing';
@@ -15,6 +18,7 @@ const cell = (r: any) => r;
       <h1>{t('pr.h1')}</h1>
       <p class="lead">{t('pr.lead')}</p>
       <p class="campus-note"><em>{t('pr.verify')}</em></p>
+      <CityTabs lang={lang} year />
 
       <h2 id="kindergarten" style="margin-top:40px;color:var(--green)">{t('pr.tab.k')}</h2>
       <div class="scroll" data-stage="kindergarten" style="--accent-bg:var(--green-bg)">
@@ -28,7 +32,7 @@ const cell = (r: any) => r;
           <thead><tr><th>{t('pr.preprimary')}</th><th></th><th></th></tr></thead>
           <tbody>
             {kindergarten.preprimary.map((r: any) => (
-              <tr><td>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+              <tr data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
             ))}
           </tbody>
         </table>
@@ -38,7 +42,7 @@ const cell = (r: any) => r;
       <h2 id="school" style="margin-top:48px;color:var(--blue)">{t('pr.tab.s')}</h2>
       <div class="grid g2">
         {[['vilnius', school.vilnius], ['kaunas', school.kaunas]].map(([city, rows]: any) => (
-          <div class="scroll" style="--accent-bg:var(--blue-bg)">
+          <div class="scroll" data-city={city} style="--accent-bg:var(--blue-bg)">
             <table class="price">
               <thead><tr><th>{t(`pr.${city}`)}</th><th></th><th></th></tr></thead>
               <tbody>
@@ -52,6 +56,11 @@ const cell = (r: any) => r;
       </div>
       <p class="campus-note">{t('pr.meals.s')}</p>
 
+      <h2 style="margin-top:48px">{t('pr.inc.title')}</h2>
+      <div class="grid g3">
+        {[1, 2, 3].map((n) => <div class="card p"><h3>{t(`pr.inc.${n}`)}</h3><p>{t('pr.inc.d')}</p></div>)}
+      </div>
+
       <div class="grid g2" style="margin-top:40px">
         <div class="card p"><h3>{t('pr.extras.title')}</h3>
           <ul class="tick"><li>{t('pr.enrol')}: €{extras.enrolment}</li><li>{t('pr.after')}: €{extras.afterSchool}</li></ul></div>
@@ -59,6 +68,9 @@ const cell = (r: any) => r;
           <ul class="tick">{[1,2,3,4].map((n) => <li>{t(`pr.d.${n}`)}</li>)}</ul>
           <p class="campus-note">{t('pr.discounts.note')} {t('pr.d.pct')}</p></div>
       </div>
+
+      <h2 style="margin-top:48px">{t('pr.q.title')}</h2>
+      <FaqList lang={lang} items={[faqs.find((f) => f.id === 'price')!, faqs.find((f) => f.id === 'subsidies')!]} />
 
       <div class="card" style="margin-top:40px;text-align:center">
         <h3>{t('pr.cta.title')}</h3><p>{t('pr.cta.d')}</p>

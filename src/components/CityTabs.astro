@@ -1,0 +1,22 @@
+---
+import { useT, type Lang } from '../i18n';
+const { lang, year = false } = Astro.props as { lang: Lang; year?: boolean };
+const t = useT(lang);
+---
+<div class="tabs" role="tablist" aria-label={t('tabs.city')} data-city-tabs>
+  <button type="button" role="tab" data-tab="vilnius" aria-selected="true">{t('home.city.vilnius')}</button>
+  <button type="button" role="tab" data-tab="kaunas" aria-selected="false">{t('home.city.kaunas')}</button>
+  {year && <span class="chip">{t('tabs.year')}</span>}
+</div>
+<script>
+  const tabs = document.querySelector('[data-city-tabs]');
+  if (tabs) {
+    const btns = [...tabs.querySelectorAll<HTMLElement>('[data-tab]')];
+    const show = (city: string) => {
+      btns.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === city)));
+      document.querySelectorAll<HTMLElement>('[data-city]').forEach((el) => el.classList.toggle('is-off', el.dataset.city !== city));
+    };
+    btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.tab!)));
+    show(location.hash === '#kaunas' ? 'kaunas' : 'vilnius');
+  }
+</script>

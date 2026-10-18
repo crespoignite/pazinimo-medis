@@ -1,14 +1,33 @@
 ---
 import news from '../data/news.json';
+import Photo from './Photo.astro';
 import { useT, localePath, type Lang } from '../i18n';
-const local = new Set(Object.keys(import.meta.glob('../articles/news/*/lt.md')).map((k) => k.split('/').slice(-2)[0]));
-const href = (n: any) => (local.has(n.slug) ? localePath(lang, `about/news/${n.slug}`) : n.url);
-const ext = (n: any) => (local.has(n.slug) ? {} : { rel: 'noopener' });
 const { lang, limit = 0 } = Astro.props as { lang: Lang; limit?: number };
 const t = useT(lang);
-const list = limit ? news.slice(0, limit) : news;
-const years = [...new Set(list.map((n) => n.date.slice(0, 4)))];
+const raw = import.meta.glob('../articles/news/*/lt.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const local = new Map<string, { image?: string }>();
+for (const [k, v] of Object.entries(raw)) {
+  const slug = k.split('/').slice(-2)[0];
+  const m = v.match(/^image:\s*(.+)$/m);
+  local.set(slug, { image: m ? m[1].trim() : undefined });
+}
+const href = (n: any) => (local.has(n.slug) ? localePath(lang, `about/news/${n.slug}`) : n.url);
+const ext = (n: any) => (local.has(n.slug) ? {} : { rel: 'noopener' });
+const tags = (title: string) => {
+  const o: string[] = [];
+  if (/erasmus|nordplus/i.test(title)) o.push('erasmus');
+  if (/rezultat|egzamin|olimpiad|laure|akredit|geriausi|vidurkius|pasiekim|konkurs|cambridge|apdovan/i.test(title)) o.push('ach');
+  if (/darželi|darželis|priešmokykl|ikimokykl|vaikų grup/i.test(title)) o.push('k');
+  if (/mokykl|gimnazij|klas|abiturient|mokinių|moksleiv/i.test(title)) o.push('s');
+  return o.join(' ');
+};
 const fmt = (d: string) => new Date(d).toLocaleDateString(lang === 'lt' ? 'lt-LT' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const list = limit ? news.slice(0, limit) : news;
+const featured = news.find((n) => local.get(n.slug)?.image) ?? news.find((n) => local.has(n.slug));
+const grid = news.filter((n) => n !== featured).slice(0, 12);
+const older = news.filter((n) => n !== featured && !grid.includes(n));
+const years = [...new Set(older.map((n) => n.date.slice(0, 4)))];
+const filters = [['all', 'nw.f.all'], ['ach', 'nw.f.ach'], ['erasmus', 'nw.f.erasmus'], ['k', 'nw.f.k'], ['s', 'nw.f.s']];
 ---
 {limit ? (
   <div class="grid g3">
@@ -23,15 +42,50 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(lang === 'lt' ? 'lt-LT
 ) : (
   <>
     <p class="campus-note">{t('nw.note')}</p>
+    <div class="tabs" role="group" aria-label="Filters" data-news-filters>
+      {filters.map(([k, l], i) => <button type="button" data-f={k} aria-selected={i === 0 ? 'true' : 'false'}>{t(l)}</button>)}
+    </div>
+    {featured && (
+      <section aria-labelledby="feat" style="margin-top:32px" data-news-item data-tags={tags(featured.title)}>
+        <h2 id="feat" class="campus-note" style="font-size:.9rem;letter-spacing:.06em;text-transform:uppercase">{t('nw.featured')}</h2>
+        <a class="feat" href={href(featured)}>
+          {local.get(featured.slug)?.image ? <img src={local.get(featured.slug)!.image} alt="" loading="lazy" style="width:100%;border-radius:var(--radius)" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
+          <div><p class="campus-note">{fmt(featured.date)}</p><h3 style="font-size:1.6rem">{featured.title}</h3><span class="link">{t('cta.readMore')}</span></div>
+        </a>
+      </section>
+    )}
+    <div class="grid g3" style="margin-top:32px">
+      {grid.map((n) => (
+        <a class="ncard card" href={href(n)} {...ext(n)} data-news-item data-tags={tags(n.title)}>
+          {local.get(n.slug)?.image ? <img src={local.get(n.slug)!.image} alt="" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--radius);margin-bottom:12px" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
+          <span class="campus-note">{fmt(n.date)}</span>
+          <h3>{n.title}</h3>
+        </a>
+      ))}
+    </div>
+    <h2 style="margin-top:48px">{t('nw.older')}</h2>
     {years.map((y) => (
       <section>
-        <h2 style="margin-top:32px">{y}</h2>
+        <h3 style="margin-top:24px">{y}</h3>
         <ul class="tick" style="--accent:var(--purple)">
-          {list.filter((n) => n.date.startsWith(y)).map((n) => (
-            <li><a class="link" href={href(n)} {...ext(n)}>{n.title}</a> <span class="campus-note">{fmt(n.date)}</span></li>
+          {older.filter((n) => n.date.startsWith(y)).map((n) => (
+            <li data-news-item data-tags={tags(n.title)}><a class="link" href={href(n)} {...ext(n)}>{n.title}</a> <span class="campus-note">{fmt(n.date)}</span></li>
           ))}
         </ul>
       </section>
     ))}
+    <script>
+      const bar = document.querySelector('[data-news-filters]');
+      if (bar) {
+        const btns = [...bar.querySelectorAll<HTMLElement>('button')];
+        btns.forEach((b) => b.addEventListener('click', () => {
+          const f = b.dataset.f!;
+          btns.forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+          document.querySelectorAll<HTMLElement>('[data-news-item]').forEach((el) => {
+            el.style.display = f === 'all' || (el.dataset.tags || '').split(' ').includes(f) ? '' : 'none';
+          });
+        }));
+      }
+    </script>
   </>
 )}
