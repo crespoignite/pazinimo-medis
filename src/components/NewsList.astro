@@ -1,27 +1,34 @@
 ---
-import { useT, localePath, type Lang } from '../i18n';
+import news from '../data/news.json';
+import { useT, type Lang } from '../i18n';
 const { lang, limit = 0 } = Astro.props as { lang: Lang; limit?: number };
 const t = useT(lang);
+const list = limit ? news.slice(0, limit) : news;
+const years = [...new Set(list.map((n) => n.date.slice(0, 4)))];
+const fmt = (d: string) => new Date(d).toLocaleDateString(lang === 'lt' ? 'lt-LT' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
-<div data-news data-limit={limit} data-article={localePath(lang, 'about/article')} data-loading={t('nw.loading')} data-empty={t('nw.empty')} data-error={t('nw.error')} data-more={t('cta.readMore')}>
-  <p class="campus-note">{t('nw.loading')}</p>
-</div>
-<script>
-  const root = document.querySelector<HTMLElement>('[data-news]');
-  if (root) {
-    const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
-    const limit = Number(root.dataset.limit) || 0;
-    fetch('/.netlify/functions/articles').then((r) => r.json()).then((posts: any[]) => {
-      if (!posts.length) { root.innerHTML = `<p class="campus-note">${esc(root.dataset.empty!)}</p>`; return; }
-      const list = limit ? posts.slice(0, limit) : posts;
-      root.innerHTML = `<div class="grid g3">${list.map((p) => `
-        <a class="card news-item" href="${root.dataset.article}?slug=${encodeURIComponent(p.slug)}">
-          ${p.coverImage ? `<img src="${esc(p.coverImage)}" alt="" loading="lazy">` : ''}
-          <span class="chip">${esc(p.category)}</span>
-          <h3>${esc(p.title)}</h3>
-          <p class="campus-note">${esc(p.excerpt)}</p>
-          <span class="link">${esc(root.dataset.more!)}</span>
-        </a>`).join('')}</div>`;
-    }).catch(() => { root.innerHTML = `<p class="campus-note">${esc(root.dataset.error!)}</p>`; });
-  }
-</script>
+{limit ? (
+  <div class="grid g3">
+    {list.map((n) => (
+      <a class="card news-item" href={n.url} rel="noopener">
+        <span class="campus-note">{fmt(n.date)}</span>
+        <h3>{n.title}</h3>
+        <span class="link">{t('cta.readMore')}</span>
+      </a>
+    ))}
+  </div>
+) : (
+  <>
+    <p class="campus-note">{t('nw.note')}</p>
+    {years.map((y) => (
+      <section>
+        <h2 style="margin-top:32px">{y}</h2>
+        <ul class="tick" style="--accent:var(--purple)">
+          {list.filter((n) => n.date.startsWith(y)).map((n) => (
+            <li><a class="link" href={n.url} rel="noopener">{n.title}</a> <span class="campus-note">{fmt(n.date)}</span></li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </>
+)}

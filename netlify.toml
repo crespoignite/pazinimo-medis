@@ -5,11 +5,6 @@
 [build.environment]
   NODE_VERSION = "22"
 
-[functions]
-  directory = "netlify/functions"
-
-# Deploy previews and branch deploys show a sample campaign banner so the
-# banner position can be reviewed. Production never sets this variable.
 [context.deploy-preview.environment]
   PUBLIC_DEMO_BANNER = "true"
 

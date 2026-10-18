@@ -244,6 +244,7 @@ const en: Record<string, string> = {
   'nw.title': 'News | Pažinimo medis',
   'nw.desc': 'News, events and stories from Pažinimo medis.',
   'nw.h1': 'News',
+  'nw.note': 'Articles from the current school website, in Lithuanian. They open on pazinimomedis.lt until they move here.',
   'nw.loading': 'Loading news',
   'nw.empty': 'News will appear here soon.',
   'nw.error': 'We could not load the news just now. Please try again later.',
