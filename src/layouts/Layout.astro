@@ -8,6 +8,7 @@ import FloatingBook from '../components/FloatingBook.astro';
 import CampaignBanner from '../components/CampaignBanner.astro';
 import Consent from '../components/Consent.astro';
 interface Props { lang: Lang; title: string; description?: string; path?: string; stage?: 'kindergarten' | 'school'; bare?: boolean; noindex?: boolean; ld?: object }
+const PRELAUNCH = true; // set to false at launch
 const { lang, title, description = '', path = '', stage, bare = false, noindex = false, ld } = Astro.props;
 const t = useT(lang);
 const base = Astro.site ? Astro.site.origin : '';
@@ -19,7 +20,7 @@ const base = Astro.site ? Astro.site.origin : '';
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   {description && <meta name="description" content={description} />}
-  {noindex && <meta name="robots" content="noindex" />}
+  {(noindex || PRELAUNCH) && <meta name="robots" content="noindex, nofollow" />}
   <link rel="canonical" href={`${base}${localePath(lang, path)}`} />
   {locales.map((l) => <link rel="alternate" hreflang={l} href={`${base}${localePath(l, path)}`} />)}
   <link rel="alternate" hreflang="x-default" href={`${base}${localePath(defaultLang, path)}`} />
