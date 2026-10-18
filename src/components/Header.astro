@@ -1,0 +1,42 @@
+---
+import { useT, localePath, otherLang, locales, type Lang } from '../i18n';
+import { site } from '../data/site';
+const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+const cur = Astro.url.pathname;
+const is = (s: string) => cur.startsWith(p(s));
+const sub = [['about/programs','nav.programs'],['about/international','nav.international'],['about/news','nav.news'],['about/methodologies','nav.methodologies'],['about/team','nav.team']];
+---
+<header class="header" id="header">
+  <div class="wrap">
+    <a class="brand" href={p('')} aria-label={`${t('site.name')}, ${t('site.cities')}`}>
+      <img src={site.logoDark} alt={t('site.name')} width="85" height="34" />
+      <small>{t('site.cities')}</small>
+    </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" id="burger">{t('nav.menu')}</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href={p('kindergarten')} aria-current={is('kindergarten') ? 'page' : undefined}>{t('nav.kindergarten')}</a>
+      <a href={p('school')} aria-current={is('school') ? 'page' : undefined}>{t('nav.school')}</a>
+      <a href={p('pricing')} aria-current={is('pricing') ? 'page' : undefined}>{t('nav.pricing')}</a>
+      <a href={p('admissions')} aria-current={is('admissions') ? 'page' : undefined}>{t('nav.admissions')}</a>
+      <a href={p('faq')} aria-current={is('faq') ? 'page' : undefined}>{t('nav.faq')}</a>
+      <div class="has-sub">
+        <a href={p('about')} aria-haspopup="true" aria-current={cur === p('about') ? 'page' : undefined}>{t('nav.about')} ▾</a>
+        <div class="sub">
+          {sub.map(([h, k]) => <a href={p(h)} aria-current={is(h) ? 'page' : undefined}>{t(k)}</a>)}
+        </div>
+      </div>
+    </nav>
+    <div class="head-tools">
+      <a class="phone" href={site.phoneHref}>{site.phone}</a>
+      <div class="lang" role="group" aria-label={t('nav.language')}>
+        {locales.map((l) => <a href={localePath(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} data-lang-switch={l}>{l.toUpperCase()}</a>)}
+      </div>
+    </div>
+  </div>
+</header>
+<script>
+  const h = document.getElementById('header'); const b = document.getElementById('burger');
+  b?.addEventListener('click', () => { const o = h!.classList.toggle('open'); b.setAttribute('aria-expanded', String(o)); });
+</script>

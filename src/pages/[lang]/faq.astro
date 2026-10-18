@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FaqList from '../../components/FaqList.astro';
+import { useT, localePath, pick, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { faqs, type Group } from '../../data/faq';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const groups: Group[] = ['general', 'kindergarten', 'school'];
+const by = (g: Group) => faqs.filter((f) => f.group === g).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: pick(f.q, lang), acceptedAnswer: { '@type': 'Answer', text: pick(f.a, lang).replace(/\n\n/g, ' ') } })) };
+---
+<Layout lang={lang} title={t('faq.title')} description={t('faq.desc')} path="faq" ld={ld}>
+  <section class="section">
+    <div class="wrap">
+      <h1>{t('faq.h1')}</h1>
+      <div class="tabs" role="tablist" data-tabs>
+        {groups.map((g, i) => <button role="tab" type="button" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${g}`} id={`tab-${g}`} data-tab={g}>{t(`faq.tab.${g}`)}</button>)}
+      </div>
+      {groups.map((g, i) => (
+        <div role="tabpanel" id={`panel-${g}`} aria-labelledby={`tab-${g}`} hidden={i !== 0} data-panel={g}>
+          <FaqList lang={lang} items={by(g)} />
+        </div>
+      ))}
+      <p style="margin-top:24px"><a class="btn accent" href={localePath(lang, 'admissions/ask')}>{t('cta.ask')}</a></p>
+    </div>
+  </section>
+</Layout>
+<script>
+  const tabs = [...document.querySelectorAll<HTMLElement>('[data-tab]')];
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]')];
+  const show = (g: string) => { tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === g))); panels.forEach((p) => (p.hidden = p.dataset.panel !== g)); };
+  tabs.forEach((b) => b.addEventListener('click', () => show(b.dataset.tab!)));
+  const open = () => { const id = location.hash.slice(1); if (!id) return; const el = document.getElementById(id) as HTMLDetailsElement | null; const panel = el?.closest<HTMLElement>('[data-panel]'); if (el && panel) { show(panel.dataset.panel!); el.open = true; el.scrollIntoView(); } };
+  open(); addEventListener('hashchange', open);
+</script>

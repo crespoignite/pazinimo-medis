@@ -1,0 +1,33 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+const { lang, kind } = Astro.props as { lang: Lang; kind: 'ask' | 'book' | 'campaign' };
+const t = useT(lang);
+const name = kind;
+---
+<form class="form" name={name} method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-lead
+  data-thanks={localePath(lang, 'thank-you')} data-sending={t('form.sending')} data-error={t('form.error')}>
+  <input type="hidden" name="form-name" value={name} />
+  <p class="hp"><label>Do not fill <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+  {['lang','page','source','ab_variant','faq_topic','utm_source','utm_medium','utm_campaign','utm_content','utm_term'].map((n) => <input type="hidden" name={n} value={n === 'source' ? name : ''} />)}
+
+  <div class="f"><label for={`${name}-name`}>{t('form.name')}</label><input id={`${name}-name`} name="name" autocomplete="name" required /></div>
+  <div class="f"><label for={`${name}-email`}>{t('form.email')}</label><input id={`${name}-email`} name="email" type="email" autocomplete="email" required /></div>
+  <div class="f"><label for={`${name}-phone`}>{t('form.phone')} <span class="opt">({t('form.optional')})</span></label><input id={`${name}-phone`} name="phone" type="tel" autocomplete="tel" /></div>
+  <div class="f"><label for={`${name}-stage`}>{t('form.stage')}</label>
+    <select id={`${name}-stage`} name="stage">
+      <option value="kindergarten">{t('form.stage.k')}</option><option value="school">{t('form.stage.s')}</option><option value="unsure">{t('form.stage.unsure')}</option>
+    </select></div>
+  <div class="f"><label for={`${name}-city`}>{t('form.campus')}</label>
+    <select id={`${name}-city`} name="city"><option value="vilnius">{t('home.city.vilnius')}</option><option value="kaunas">{t('home.city.kaunas')}</option></select></div>
+  <div class="f"><label for={`${name}-child`}>{t('form.child')} <span class="opt">({t('form.optional')})</span></label><input id={`${name}-child`} name="child" /></div>
+  {kind === 'book' && (<>
+    <div class="f"><label for="book-date">{t('form.date')}</label><input id="book-date" name="preferred_date" type="date" /></div>
+    <div class="f"><label for="book-time">{t('form.time')}</label>
+      <select id="book-time" name="preferred_time"><option>09:00–11:00</option><option>11:00–13:00</option><option>13:00–15:00</option><option>15:00–17:00</option></select></div>
+  </>)}
+  {kind !== 'book' && (<div class="f"><label for={`${name}-msg`}>{t('form.message')}</label><textarea id={`${name}-msg`} name="message" required></textarea></div>)}
+  <div class="f check"><input id={`${name}-consent`} type="checkbox" name="consent" value="yes" required /><label for={`${name}-consent`}>{t('form.consent')}</label></div>
+  <button class="btn accent" type="submit">{t('cta.send')}</button>
+  <p class="status" data-status role="status" aria-live="polite"></p>
+  <p class="campus-note">{t('form.reply')}</p>
+</form>

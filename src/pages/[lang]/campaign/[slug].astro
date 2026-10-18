@@ -1,0 +1,16 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import LeadForm from '../../../components/LeadForm.astro';
+import { useT, locales, type Lang } from '../../../i18n';
+import { site } from '../../../data/site';
+export const getStaticPaths = () => locales.map((lang) => ({ params: { lang, slug: site.campaign.slug } }));
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('cp.title')} path={`campaign/${slug}`} noindex>
+  <section class="section"><div class="wrap">
+    <h1>{t('cp.h1')}</h1><p class="lead">{t('cp.lead')}</p><p class="campus-note">{t('cp.placeholder')}</p>
+    <LeadForm lang={lang} kind="campaign" />
+  </div></section>
+</Layout>

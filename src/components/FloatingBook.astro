@@ -1,0 +1,8 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+---
+<a class="btn accent float-book" id="float-book" href={localePath(lang, 'admissions/book')}
+   data-cta="floating_book" data-href-a={localePath(lang, 'admissions/book')} data-href-b={localePath(lang, 'admissions/ask')}
+   data-label-a={t('cta.book')} data-label-b={t('cta.ask')}>{t('cta.book')}</a>

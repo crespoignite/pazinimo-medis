@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Photo from '../../components/Photo.astro';
+import FaqList from '../../components/FaqList.astro';
+import { useT, localePath, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { topFaqs } from '../../data/faq';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+---
+<Layout lang={lang} title={t('sc.title')} description={t('sc.desc')} path="school" stage="school">
+  <section class="section">
+    <div class="wrap grid g2" style="align-items:center">
+      <div>
+        <p class="eyebrow">{t('nav.school')}</p>
+        <h1>{t('sc.h1')}</h1>
+        <p class="lead">{t('sc.lead')}</p>
+        <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
+        <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
+      </div>
+      <Photo lang={lang} tone="s" ratio="4/3" label={t('nav.school')} />
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <h2>{t('sc.blocks.title')}</h2>
+      <div class="grid g4">
+        {[1,2,3,4].map((n) => <div class="card s"><h3>{t(`sc.b${n}.t`)}</h3><p>{t(`sc.b${n}.d`)}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>{t('sc.campuses.title')}</h2>
+      <div class="grid g2">
+        <div class="card s" id="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vg')}</li><li>{t('ft.vp')}</li></ul></div>
+        <div class="card s" id="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')}</li></ul></div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap grid g2">
+      <div><h2>{t('sc.after.title')}</h2><p class="lead">{t('sc.after.d')}</p><a class="btn" href={p('about/programs')}>{t('nav.programs')}</a></div>
+      <div class="card s"><h3>{t('sc.cta.title')}</h3><p>{t('sc.cta.d')}</p><a class="btn accent" href={p('admissions/book')}>{t('cta.trial')}</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>{t('home.faq.title')}</h2>
+      <FaqList lang={lang} items={topFaqs('s')} />
+      <p><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>
+    </div>
+  </section>
+</Layout>

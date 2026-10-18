@@ -1,0 +1,1590 @@
+{
+ "campuses": {
+  "vg": {
+   "en": "Vilnius, K. Kalinausko g. 13",
+   "lt": "Vilnius, K. Kalinausko g. 13",
+   "sub": {
+    "en": "Gymnasium, grades 0 to 12",
+    "lt": "Gimnazija, 0–12 kl."
+   }
+  },
+  "vp": {
+   "en": "Vilnius, Ozo g. 37",
+   "lt": "Vilnius, Ozo g. 37",
+   "sub": {
+    "en": "Primary school, grades 0 to 4",
+    "lt": "Pradinė mokykla, 0–4 kl."
+   }
+  },
+  "k": {
+   "en": "Kaunas, Vilties g. 2",
+   "lt": "Kaunas, Vilties g. 2",
+   "sub": {
+    "en": "School, grades 0 to 5",
+    "lt": "Mokykla, 0–5 kl."
+   }
+  }
+ },
+ "directions": {
+  "tech": {
+   "en": "Technology and natural sciences",
+   "lt": "Technologijos ir gamtos mokslai",
+   "strategic": "technology"
+  },
+  "think": {
+   "en": "Thinking, language and leadership",
+   "lt": "Mąstymas, kalba ir lyderystė",
+   "strategic": "entrepreneurship"
+  },
+  "create": {
+   "en": "Creativity and crafts",
+   "lt": "Kūryba ir rankų darbai",
+   "strategic": "creativity"
+  },
+  "stage": {
+   "en": "Music, dance and stage",
+   "lt": "Muzika, šokis ir scena",
+   "strategic": null
+  },
+  "move": {
+   "en": "Sport and movement",
+   "lt": "Sportas ir judesys",
+   "strategic": null
+  }
+ },
+ "items": [
+  {
+   "id": "robotics-academy-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "tech",
+   "name": {
+    "lt": "Robotikos akademija",
+    "en": "Robotics academy"
+   },
+   "desc": {
+    "lt": "LEGO robotų konstravimas ir programavimas.",
+    "en": "Building and programming LEGO robots."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "16:15–17:45"
+    }
+   ],
+   "grades": {
+    "lt": "1–4 kl.",
+    "en": "Grades 1 to 4"
+   },
+   "price": {
+    "lt": "79 €/mėn.",
+    "en": "€79 a month"
+   },
+   "amount": 79,
+   "nvs": {
+    "lt": "su NVŠ 54 €/mėn.",
+    "en": "€54 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "roblox-pro-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "tech",
+   "name": {
+    "lt": "CodeAcademy Kids – Roblox Pro",
+    "en": "CodeAcademy Kids: Roblox Pro"
+   },
+   "desc": {
+    "lt": "Žaidimų kūrimas „Roblox Studio“, „Lua“ programavimas, DI įrankiai.",
+    "en": "Game making in Roblox Studio, Lua programming and AI tools."
+   },
+   "slots": [
+    {
+     "day": "Fri",
+     "time": "16:15–17:45"
+    }
+   ],
+   "grades": {
+    "lt": "1–4 kl.",
+    "en": "Grades 1 to 4"
+   },
+   "price": {
+    "lt": "69 €/mėn.",
+    "en": "€69 a month"
+   },
+   "amount": 69,
+   "nvs": {
+    "lt": "su NVŠ 44 €/mėn.",
+    "en": "€44 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "3d-lab-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "tech",
+   "name": {
+    "lt": "3D modeliavimo ir spausdinimo laboratorija",
+    "en": "3D modelling and printing lab"
+   },
+   "desc": {
+    "lt": "3D modelių kūrimas ir spausdinimas.",
+    "en": "Making and printing 3D models."
+   },
+   "slots": [
+    {
+     "day": "Sat",
+     "time": "12:30–14:00"
+    }
+   ],
+   "grades": {
+    "lt": "5–7 kl.",
+    "en": "Grades 5 to 7"
+   },
+   "price": {
+    "lt": "69 €/mėn.",
+    "en": "€69 a month"
+   },
+   "amount": 69,
+   "nvs": {
+    "lt": "su NVŠ 44 €/mėn.",
+    "en": "€44 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "chess-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "think",
+   "name": {
+    "lt": "Šachmatai ir šaškės",
+    "en": "Chess and draughts"
+   },
+   "desc": {
+    "lt": "Žaidimo pagrindai, užduotys, turnyrai.",
+    "en": "The basics of the game, exercises and tournaments."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "15:00–15:45"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "debate-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "think",
+   "name": {
+    "lt": "World Scholar Debate & Trivia",
+    "en": "World Scholar Debate and Trivia"
+   },
+   "desc": {
+    "lt": "Debatai, viktorinos, kūrybinis rašymas. „World Scholar’s Cup“ renginiai.",
+    "en": "Debates, quizzes and creative writing, with World Scholar's Cup events."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "17:30–18:30"
+    }
+   ],
+   "grades": {
+    "lt": "5–8 kl.",
+    "en": "Grades 5 to 8"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "extra": {
+    "lt": "+ galimos kelionių išlaidos",
+    "en": "+ possible travel costs"
+   },
+   "flags": [
+    "english"
+   ]
+  },
+  {
+   "id": "muster-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "think",
+   "name": {
+    "lt": "MUST’er academy",
+    "en": "MUST’er academy"
+   },
+   "desc": {
+    "lt": "Verslumas, finansinis raštingumas, karjeros tyrinėjimas, susitikimai su verslininkais.",
+    "en": "Entrepreneurship, financial literacy, career exploration and meetings with business people."
+   },
+   "slots": [
+    {
+     "day": "Sat",
+     "time": "10:00–12:00"
+    }
+   ],
+   "grades": {
+    "lt": "9–12 m. ir 13–16 m.",
+    "en": "Ages 9 to 12 and 13 to 16"
+   },
+   "price": {
+    "lt": "190 €/mėn.; bendruomenei 150 €/mėn.",
+    "en": "€190 a month, or €150 for the community"
+   },
+   "amount": 150,
+   "flags": []
+  },
+  {
+   "id": "kalbykla-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "think",
+   "name": {
+    "lt": "Kalbykla. Jaunimui",
+    "en": "Kalbykla for teenagers"
+   },
+   "desc": {
+    "lt": "Iškalba, argumentavimas, viešojo kalbėjimo baimės įveika.",
+    "en": "Eloquence, argument and overcoming the fear of public speaking."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "17:00–18:30",
+     "note": "arba / or"
+    },
+    {
+     "day": "Wed",
+     "time": "17:00–18:30",
+     "note": "arba / or"
+    }
+   ],
+   "grades": {
+    "lt": "14–18 m.",
+    "en": "Ages 14 to 18"
+   },
+   "price": {
+    "lt": "12 užsiėmimų: 360 € arba 3 × 140 €",
+    "en": "12 sessions: €360, or 3 × €140"
+   },
+   "amount": 360,
+   "flags": []
+  },
+  {
+   "id": "connected-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "think",
+   "name": {
+    "lt": "Ryšyje su savimi ir pasauliu",
+    "en": "Connected to yourself and the world"
+   },
+   "desc": {
+    "lt": "Emocijų pažinimas, bendravimas, streso valdymas.",
+    "en": "Understanding emotions, communication and managing stress."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "15:00",
+     "note": "kas antrą / every second week, 2,5–3 val. / hours"
+    }
+   ],
+   "grades": {
+    "lt": "1–4 kl.",
+    "en": "Grades 1 to 4"
+   },
+   "price": {
+    "lt": "70 €, priemonės įskaičiuotos",
+    "en": "€70, materials included"
+   },
+   "amount": 70,
+   "flags": []
+  },
+  {
+   "id": "art-lab-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "create",
+   "name": {
+    "lt": "Dailės laboratorija",
+    "en": "Art lab"
+   },
+   "desc": {
+    "lt": "Piešimas, tapyba, grafika, origami, mozaika. Pradedančiųjų ir pažengusiųjų grupės.",
+    "en": "Drawing, painting, graphics, origami and mosaic, in beginner and advanced groups."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "15:00–16:00",
+     "note": "pradedantieji / beginners"
+    },
+    {
+     "day": "Thu",
+     "time": "16:15–17:15",
+     "note": "pažengusieji / advanced"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ 20 €/mėn.",
+    "en": "€20 a month with NVŠ"
+   },
+   "extra": {
+    "lt": "+ 10 € priemonėms",
+    "en": "+ €10 for materials"
+   },
+   "flags": []
+  },
+  {
+   "id": "ceramics-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "create",
+   "name": {
+    "lt": "Keramika",
+    "en": "Ceramics"
+   },
+   "desc": {
+    "lt": "Molio darbai, pasakų personažai, liaudies ornamentai. Darbų paroda.",
+    "en": "Clay work, fairy-tale characters and folk ornaments, ending with an exhibition of the work."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "15:00–16:00",
+     "note": "arba / or"
+    },
+    {
+     "day": "Mon",
+     "time": "16:15–17:15",
+     "note": "arba / or"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "55 €/mėn.",
+    "en": "€55 a month"
+   },
+   "amount": 55,
+   "nvs": {
+    "lt": "su NVŠ 30 €/mėn.",
+    "en": "€30 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "cardboard-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "create",
+   "name": {
+    "lt": "Cardboard Creation Lab",
+    "en": "Cardboard Creation Lab"
+   },
+   "desc": {
+    "lt": "Konstravimas iš kartono ir antrinių medžiagų.",
+    "en": "Building from cardboard and recycled materials."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–8 kl.",
+    "en": "Grades 0 to 8"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "extra": {
+    "lt": "+ 10 € priemonėms",
+    "en": "+ €10 for materials"
+   },
+   "flags": [
+    "english"
+   ]
+  },
+  {
+   "id": "pastry-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "create",
+   "name": {
+    "lt": "Konditerija",
+    "en": "Pastry"
+   },
+   "desc": {
+    "lt": "Desertų gamyba nuo nulio ir dekoravimas.",
+    "en": "Making desserts from scratch and decorating them."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "15:00–16:00",
+     "note": "arba / or"
+    },
+    {
+     "day": "Tue",
+     "time": "16:15–17:15",
+     "note": "arba / or"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "70 €/mėn.",
+    "en": "€70 a month"
+   },
+   "amount": 70,
+   "flags": []
+  },
+  {
+   "id": "theatre-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "stage",
+   "name": {
+    "lt": "Teatras",
+    "en": "Theatre"
+   },
+   "desc": {
+    "lt": "Teatriniai žaidimai, improvizacija, istorijų kūrimas. Veda aktorė Giedrė Giedraitytė.",
+    "en": "Theatre games, improvisation and storytelling, led by the actress Giedrė Giedraitytė."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "kpop-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "stage",
+   "name": {
+    "lt": "K-pop šokiai",
+    "en": "K-pop dance"
+   },
+   "desc": {
+    "lt": "Korėjietiškos pop muzikos choreografijos.",
+    "en": "Choreography to Korean pop music."
+   },
+   "slots": [
+    {
+     "day": "Sat",
+     "time": "10:30–11:30",
+     "note": "10–14 m. / ages 10 to 14"
+    },
+    {
+     "day": "Sat",
+     "time": "11:45–13:15",
+     "note": "14+ m. / ages 14+"
+    }
+   ],
+   "grades": {
+    "lt": "10–14 m. ir 14+ m.",
+    "en": "Ages 10 to 14 and 14+"
+   },
+   "price": {
+    "lt": "45 € (10–14 m.) ir 55 € (14+ m.)",
+    "en": "€45 for ages 10 to 14, €55 for 14+"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ 20 € ir 30 €",
+    "en": "with NVŠ €20 and €30"
+   },
+   "flags": []
+  },
+  {
+   "id": "karate-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "move",
+   "name": {
+    "lt": "Karatė",
+    "en": "Karate"
+   },
+   "desc": {
+    "lt": "Savikontrolė, pasitikėjimas savimi, savigyna. Veda Rimantas Balčius.",
+    "en": "Self-control, confidence and self-defence, led by Rimantas Balčius."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "15:00–16:00"
+    },
+    {
+     "day": "Fri",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "nvs": {
+    "lt": "su NVŠ 25 €/mėn.",
+    "en": "€25 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "sporto-galia-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "move",
+   "name": {
+    "lt": "Sporto Galia",
+    "en": "Sporto Galia"
+   },
+   "desc": {
+    "lt": "Taisyklingas judėjimas, laikysena, koordinacija per žaidimus.",
+    "en": "Correct movement, posture and coordination through games."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "16:15–17:15"
+    },
+    {
+     "day": "Thu",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–6 kl.",
+    "en": "Grades 0 to 6"
+   },
+   "price": {
+    "lt": "2 k./sav.: 70 €; 1 k./sav.: 45 €/mėn.",
+    "en": "Twice a week €70, once a week €45 a month"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ (2 k./sav.) 45 €",
+    "en": "with NVŠ (twice a week) €45"
+   },
+   "flags": []
+  },
+  {
+   "id": "ballet-fitness-vg",
+   "kind": "club",
+   "campus": "vg",
+   "direction": "move",
+   "name": {
+    "lt": "Ballet Fitness moterims nuo 14 m.",
+    "en": "Ballet Fitness for women from 14"
+   },
+   "desc": {
+    "lt": "Strength ir Motion & Balance užsiėmimai bendruomenei.",
+    "en": "Strength and Motion & Balance sessions for the community."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "19:00–19:50",
+     "note": "arba / or 20:00–20:50"
+    },
+    {
+     "day": "Wed",
+     "time": "19:00–19:50",
+     "note": "arba / or 20:00–20:50"
+    }
+   ],
+   "grades": {
+    "lt": "moterims nuo 14 m.",
+    "en": "Women from 14"
+   },
+   "price": {
+    "lt": "45 €/mėn.; „Pažinimo medžio“ bendruomenei 35 €/mėn.",
+    "en": "€45 a month, or €35 for the Pažinimo medis community"
+   },
+   "amount": 35,
+   "flags": [
+    "community"
+   ]
+  },
+  {
+   "id": "frog-nature-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "tech",
+   "name": {
+    "lt": "Varliuko gamtos klasė",
+    "en": "Little Frog nature class"
+   },
+   "desc": {
+    "lt": "Gamtos tyrinėjimas, mikroskopai, ekologija. Klasėje ir lauke.",
+    "en": "Exploring nature with microscopes and ecology, in class and outdoors."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "flags": []
+  },
+  {
+   "id": "chess-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "think",
+   "name": {
+    "lt": "Šachmatai ir šaškės",
+    "en": "Chess and draughts"
+   },
+   "desc": {
+    "lt": "Žaidimo pagrindai, užduotys, turnyrai.",
+    "en": "The basics of the game, exercises and tournaments."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "16:45–17:30"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "art-lab-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "create",
+   "name": {
+    "lt": "Dailės laboratorija",
+    "en": "Art lab"
+   },
+   "desc": {
+    "lt": "Piešimas, tapyba, grafika, origami, mozaika, dekupažas.",
+    "en": "Drawing, painting, graphics, origami, mosaic and decoupage."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ 20 €/mėn.",
+    "en": "€20 a month with NVŠ"
+   },
+   "extra": {
+    "lt": "+ 10 € priemonėms",
+    "en": "+ €10 for materials"
+   },
+   "flags": []
+  },
+  {
+   "id": "ceramics-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "create",
+   "name": {
+    "lt": "Keramika",
+    "en": "Ceramics"
+   },
+   "desc": {
+    "lt": "Molio darbai, pasakų personažai, liaudies ornamentai.",
+    "en": "Clay work, fairy-tale characters and folk ornaments."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": [
+    "full"
+   ]
+  },
+  {
+   "id": "nature-makers-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "create",
+   "name": {
+    "lt": "Nature Makers",
+    "en": "Nature Makers"
+   },
+   "desc": {
+    "lt": "Kūryba iš gamtos medžiagų. Dalis veiklų lauke.",
+    "en": "Making things from natural materials, with part of the activities outdoors."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "40 €/mėn.",
+    "en": "€40 a month"
+   },
+   "amount": 40,
+   "flags": [
+    "english"
+   ]
+  },
+  {
+   "id": "pastry-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "create",
+   "name": {
+    "lt": "Konditerija",
+    "en": "Pastry"
+   },
+   "desc": {
+    "lt": "Sausainiai, keksiukai ir tortukai nuo nulio.",
+    "en": "Cookies, cupcakes and small cakes from scratch."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "65 €/mėn.",
+    "en": "€65 a month"
+   },
+   "amount": 65,
+   "flags": []
+  },
+  {
+   "id": "ukulele-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "stage",
+   "name": {
+    "lt": "Ukulelė",
+    "en": "Ukulele"
+   },
+   "desc": {
+    "lt": "Populiarios melodijos ir dainos, pasirodymai mokyklos koncertuose.",
+    "en": "Popular tunes and songs, with performances at school concerts."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "karate-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "move",
+   "name": {
+    "lt": "Karatė",
+    "en": "Karate"
+   },
+   "desc": {
+    "lt": "Savikontrolė, pasitikėjimas savimi, savigyna. Veda Rimantas Balčius.",
+    "en": "Self-control, confidence and self-defence, led by Rimantas Balčius."
+   },
+   "slots": [
+    {
+     "day": "Tue",
+     "time": "15:00–16:00"
+    },
+    {
+     "day": "Thu",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–4 kl.",
+    "en": "Grades 0 to 4"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "nvs": {
+    "lt": "su NVŠ 25 €/mėn.",
+    "en": "€25 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "sporto-galia-vp",
+   "kind": "club",
+   "campus": "vp",
+   "direction": "move",
+   "name": {
+    "lt": "Sporto Galia",
+    "en": "Sporto Galia"
+   },
+   "desc": {
+    "lt": "Taisyklingas judėjimas, laikysena, koordinacija per žaidimus.",
+    "en": "Correct movement, posture and coordination through games."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "16:15–17:15"
+    },
+    {
+     "day": "Fri",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–8 kl.",
+    "en": "Grades 0 to 8"
+   },
+   "price": {
+    "lt": "2 k./sav.: 70 €; 1 k./sav.: 45 €/mėn.",
+    "en": "Twice a week €70, once a week €45 a month"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ (2 k./sav.) 45 €",
+    "en": "with NVŠ (twice a week) €45"
+   },
+   "flags": []
+  },
+  {
+   "id": "robotics-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "tech",
+   "name": {
+    "lt": "Robotika",
+    "en": "Robotics"
+   },
+   "desc": {
+    "lt": "Robotų konstravimas ir programavimas mažiesiems.",
+    "en": "Building and programming robots for younger children."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "16:30–17:30"
+    }
+   ],
+   "grades": {
+    "lt": "Darželis nuo 4 m. ir 0 kl.",
+    "en": "Kindergarten from age 4 and grade 0"
+   },
+   "price": {
+    "lt": "59 €/mėn.",
+    "en": "€59 a month"
+   },
+   "amount": 59,
+   "extra": {
+    "lt": "4 užsiėmimai po 60 min.",
+    "en": "4 sessions of 60 minutes"
+   },
+   "flags": []
+  },
+  {
+   "id": "steam-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "tech",
+   "name": {
+    "lt": "STEAM tyrinėjimai",
+    "en": "STEAM explorations"
+   },
+   "desc": {
+    "lt": "Eksperimentai, mikroskopas, konstravimas.",
+    "en": "Experiments, microscope and building."
+   },
+   "slots": [
+    {
+     "day": "Fri",
+     "time": "15:00–17:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "10 €/mėn.",
+    "en": "€10 a month"
+   },
+   "amount": 10,
+   "flags": []
+  },
+  {
+   "id": "chess-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "think",
+   "name": {
+    "lt": "Šachmatai",
+    "en": "Chess"
+   },
+   "desc": {
+    "lt": "Taisyklės, strategija, sprendimų priėmimas.",
+    "en": "Rules, strategy and decision making."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "flags": []
+  },
+  {
+   "id": "art-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "create",
+   "name": {
+    "lt": "Dailė",
+    "en": "Art"
+   },
+   "desc": {
+    "lt": "Tapyba, piešimas, koliažas. Studija „Dailė kitaip“.",
+    "en": "Painting, drawing and collage, with the studio Dailė kitaip."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "50 €/mėn., priemonės įskaičiuotos",
+    "en": "€50 a month, materials included"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "ceramics-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "create",
+   "name": {
+    "lt": "Keramika",
+    "en": "Ceramics"
+   },
+   "desc": {
+    "lt": "Molio darbai, pasakų personažai, liaudies ornamentai.",
+    "en": "Clay work, fairy-tale characters and folk ornaments."
+   },
+   "slots": [
+    {
+     "day": "Wed",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "50 €/mėn.",
+    "en": "€50 a month"
+   },
+   "amount": 50,
+   "flags": []
+  },
+  {
+   "id": "bold-chords-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "stage",
+   "name": {
+    "lt": "Drąsūs akordai",
+    "en": "Bold Chords"
+   },
+   "desc": {
+    "lt": "Perkusija, dainavimas dviem balsais, drąsa scenoje.",
+    "en": "Percussion, two-part singing and courage on stage."
+   },
+   "slots": [
+    {
+     "day": "Thu",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "30 €/mėn.",
+    "en": "€30 a month"
+   },
+   "amount": 30,
+   "flags": []
+  },
+  {
+   "id": "street-dance-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "stage",
+   "name": {
+    "lt": "Gatvės šokiai",
+    "en": "Street dance"
+   },
+   "desc": {
+    "lt": "Gatvės šokių stiliai, ritmas, koordinacija.",
+    "en": "Street dance styles, rhythm and coordination."
+   },
+   "slots": [
+    {
+     "day": "Fri",
+     "time": "15:00–16:00"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "40 €/mėn.",
+    "en": "€40 a month"
+   },
+   "amount": 40,
+   "flags": []
+  },
+  {
+   "id": "piano-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "stage",
+   "name": {
+    "lt": "Individualios fortepijono pamokos",
+    "en": "Individual piano lessons"
+   },
+   "desc": {
+    "lt": "Pradedantiesiems ir pažengusiems.",
+    "en": "For beginners and advanced pupils."
+   },
+   "slots": [],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "25 €/val.",
+    "en": "€25 an hour"
+   },
+   "amount": 25,
+   "extra": {
+    "lt": "Sutartu laiku",
+    "en": "At a time agreed with the teacher"
+   },
+   "flags": []
+  },
+  {
+   "id": "karate-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "move",
+   "name": {
+    "lt": "Karatė (kyokushin)",
+    "en": "Karate (kyokushin)"
+   },
+   "desc": {
+    "lt": "Kyokushin technika, fizinė būklė, disciplina.",
+    "en": "Kyokushin technique, fitness and discipline."
+   },
+   "slots": [
+    {
+     "day": "Mon",
+     "time": "16:30–17:30"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "40 €/mėn.",
+    "en": "€40 a month"
+   },
+   "amount": 40,
+   "flags": []
+  },
+  {
+   "id": "basketball-k",
+   "kind": "club",
+   "campus": "k",
+   "direction": "move",
+   "name": {
+    "lt": "Krepšinis",
+    "en": "Basketball"
+   },
+   "desc": {
+    "lt": "Treniruotės su treneriu Luku Šitkausku.",
+    "en": "Training with the coach Lukas Šitkauskas."
+   },
+   "slots": [
+    {
+     "day": "Wed",
+     "time": "15:00–16:00"
+    },
+    {
+     "day": "Fri",
+     "time": "16:15–17:15"
+    }
+   ],
+   "grades": {
+    "lt": "0–5 kl.",
+    "en": "Grades 0 to 5"
+   },
+   "price": {
+    "lt": "45 €/mėn.",
+    "en": "€45 a month"
+   },
+   "amount": 45,
+   "nvs": {
+    "lt": "su NVŠ 30 €/mėn.",
+    "en": "€30 a month with NVŠ"
+   },
+   "flags": []
+  },
+  {
+   "id": "knowledge-lab",
+   "kind": "program",
+   "campus": [
+    "vg",
+    "vp",
+    "k"
+   ],
+   "direction": "tech",
+   "name": {
+    "lt": "Pažinimo laboratorija",
+    "en": "Knowledge Lab"
+   },
+   "tag": {
+    "lt": "Mokslių vaikų programa · LUMOS",
+    "en": "Programme for gifted learners · LUMOS"
+   },
+   "desc": {
+    "lt": "Popamokinė programa smalsiems, kūrybiškiems ir iššūkių ieškantiems mokiniams, kuriems norisi daugiau nei standartinis mokymo turinys. Vaikai eksperimentuoja, susitinka su profesionalais ir kuria savo projektą nuo problemos iki veikiančio prototipo.",
+    "en": "An after-school programme for curious, creative pupils who look for challenges and want more than the standard curriculum. Children experiment, meet professionals and build their own project, from a problem to a working prototype."
+   },
+   "grades": {
+    "lt": "Motyvuoti 1–5 kl. mokiniai",
+    "en": "Motivated pupils in grades 1 to 5"
+   },
+   "whenText": {
+    "vg": {
+     "lt": "Kalinausko g. 13: Tr 15:00–16:30",
+     "en": "K. Kalinausko g. 13: Wednesdays 15:00 to 16:30"
+    },
+    "vp": {
+     "lt": "Ozo g. 37: Tr 15:00–16:30",
+     "en": "Ozo g. 37: Wednesdays 15:00 to 16:30"
+    },
+    "k": {
+     "lt": "Vilties g. 2, Kaunas: An 15:00–16:30",
+     "en": "Vilties g. 2, Kaunas: Tuesdays 15:00 to 16:30"
+    }
+   },
+   "duration": {
+    "lt": "Rugsėjis–gegužė, kartą per savaitę",
+    "en": "September to May, once a week"
+   },
+   "price": {
+    "lt": "88 €/mėn. bendruomenei; 118 €/mėn. kitiems. Pavakariai įskaičiuoti",
+    "en": "€88 a month for the community, €118 for others. Afternoon snack included"
+   },
+   "amount": 88,
+   "steps": [
+    {
+     "t": {
+      "lt": "1. Susipažinimas",
+      "en": "1. Getting acquainted"
+     },
+     "w": {
+      "lt": "Rugsėjis, 3 sav.",
+      "en": "September, 3 weeks"
+     },
+     "d": {
+      "lt": "Komanda, pirmieji iššūkiai, pvz., „Kaip pastatyti tiltą?“",
+      "en": "The team and the first challenges, such as \"How do you build a bridge?\""
+     }
+    },
+    {
+     "t": {
+      "lt": "2. Atradimai",
+      "en": "2. Discoveries"
+     },
+     "w": {
+      "lt": "Spalis–sausis, 14 sav.",
+      "en": "October to January, 14 weeks"
+     },
+     "d": {
+      "lt": "Gamta, išradimai, menai ir scena, kūrybinės dirbtuvės.",
+      "en": "Nature, inventions, arts and stage, and creative workshops."
+     }
+    },
+    {
+     "t": {
+      "lt": "3. Savo sprendimas",
+      "en": "3. Your own solution"
+     },
+     "w": {
+      "lt": "Vasaris–gegužė, 14 sav.",
+      "en": "February to May, 14 weeks"
+     },
+     "d": {
+      "lt": "Projektas su mentoriais, pristatymas Mokslo šventėje.",
+      "en": "A project with mentors, presented at the Science Festival."
+     }
+    }
+   ],
+   "note": {
+    "lt": "Metodika: J. Renzulli praturtinimo triados modelis ir dizaino mąstymas. Per Erasmus+ projektą LUMOS mokytojai mokosi atpažinti ir ugdyti gabius vaikus mišriose klasėse.",
+    "en": "Method: the Renzulli enrichment triad and design thinking. Through the Erasmus+ project LUMOS, teachers learn to recognise and nurture gifted children in mixed classes."
+   },
+   "flags": []
+  },
+  {
+   "id": "reading-journey",
+   "kind": "program",
+   "campus": [
+    "k"
+   ],
+   "direction": "think",
+   "name": {
+    "lt": "Skaitymo kelionė",
+    "en": "Reading Journey"
+   },
+   "tag": {
+    "lt": "Akademinis pagrindas",
+    "en": "Academic foundation"
+   },
+   "desc": {
+    "lt": "Programa priešmokyklinukams ir pirmokams, kuri stiprina skaitymą ir teksto supratimą. Kiekvienas vaikas mokosi savo tempu ir lyginamas tik su savimi. Programos žinutė: „Man pavyksta. Aš galiu. Skaitau ir mėgaujuosi.“",
+    "en": "A programme for pre-primary children and first graders that strengthens reading and text comprehension. Each child learns at their own pace and is compared only with themselves. The message of the programme: \"I can do it. I succeed. I read and I enjoy it.\""
+   },
+   "grades": {
+    "lt": "5–7 m. vaikai, priešmokyklinukai ir pirmokai",
+    "en": "Children aged 5 to 7, in pre-primary and grade 1"
+   },
+   "whenText": {
+    "k": {
+     "lt": "Vilties g. 2, Kaunas: An 15:00–17:00, nuo spalio",
+     "en": "Vilties g. 2, Kaunas: Tuesdays 15:00 to 17:00, from October"
+    }
+   },
+   "duration": {
+    "lt": "Grupė iki 10 vaikų",
+    "en": "Groups of up to 10 children"
+   },
+   "price": {
+    "lt": "70 €/mėn. Pavakariai įskaičiuoti",
+    "en": "€70 a month. Afternoon snack included"
+   },
+   "amount": 70,
+   "steps": [
+    {
+     "t": {
+      "lt": "Ką lavina",
+      "en": "What it builds"
+     },
+     "w": {
+      "lt": "",
+      "en": ""
+     },
+     "d": {
+      "lt": "Skaitymą, garsinę analizę, teksto suvokimą, kalbinę raišką.",
+      "en": "Reading, sound analysis, text comprehension and spoken expression."
+     }
+    },
+    {
+     "t": {
+      "lt": "Knygų šventė",
+      "en": "Book celebration"
+     },
+     "w": {
+      "lt": "Kartą per mėnesį",
+      "en": "Once a month"
+     },
+     "d": {
+      "lt": "Vaikai pristato, ką nuveikė, ir išsikelia naują tikslą.",
+      "en": "Children present what they have done and set a new goal."
+     }
+    },
+    {
+     "t": {
+      "lt": "Ryšys su šeima",
+      "en": "Link with the family"
+     },
+     "w": {
+      "lt": "Kartą per mėnesį",
+      "en": "Once a month"
+     },
+     "d": {
+      "lt": "Tėvai gauna mokytojos grįžtamąjį ryšį apie pažangą.",
+      "en": "Parents receive the teacher's feedback on progress."
+     }
+    }
+   ],
+   "note": {
+    "lt": "Vadovė: priešmokyklinio ugdymo mokytoja Raimonda.",
+    "en": "Led by the pre-primary teacher Raimonda."
+   },
+   "flags": []
+  },
+  {
+   "id": "business-academy",
+   "kind": "program",
+   "campus": [
+    "vg"
+   ],
+   "direction": "think",
+   "name": {
+    "lt": "Verslumo akademija",
+    "en": "Business Academy"
+   },
+   "tag": {
+    "lt": "Strateginė kryptis: verslumas",
+    "en": "Strategic direction: entrepreneurship"
+   },
+   "desc": {
+    "lt": "Trijų dienų praktinė akademija: nuo pastebėtos problemos iki drąsiai pristatytos idėjos. Komandos ieško realių problemų, kuria sprendimą, parengia prototipą ir pristato jį kviestinei komisijai. Verslo idėjos iš anksto turėti nereikia.",
+    "en": "A three-day hands-on academy that takes teams from a problem they notice to an idea they present with confidence. Teams look for real problems, build a solution, prepare a prototype and present it to an invited panel. You do not need a business idea in advance."
+   },
+   "grades": {
+    "lt": "7–9 kl. mokiniai; 20 dalyvių, 4 komandos",
+    "en": "Pupils in grades 7 to 9; 20 participants in 4 teams"
+   },
+   "whenText": {
+    "vg": {
+     "lt": "Kalinausko g. 13 ir partnerių erdvės, lapkritį, 9:00–17:00",
+     "en": "K. Kalinausko g. 13 and partner spaces, in November, 9:00 to 17:00"
+    }
+   },
+   "duration": {
+    "lt": "Trys dienos",
+    "en": "Three days"
+   },
+   "price": {
+    "lt": "89 € „Pažinimo medžio“ mokiniams ir darbuotojų vaikams; 119 € kitiems",
+    "en": "€89 for Pažinimo medis pupils and children of staff, €119 for others"
+   },
+   "amount": 89,
+   "steps": [
+    {
+     "t": {
+      "lt": "1 diena – Atrask",
+      "en": "Day 1: Discover"
+     },
+     "w": {
+      "lt": "",
+      "en": ""
+     },
+     "d": {
+      "lt": "Komandos, miesto iššūkis, vizitas į startuolių centrą ROCKIT.",
+      "en": "Teams, a city challenge and a visit to the ROCKIT start-up centre."
+     }
+    },
+    {
+     "t": {
+      "lt": "2 diena – Sukurk",
+      "en": "Day 2: Build"
+     },
+     "w": {
+      "lt": "",
+      "en": ""
+     },
+     "d": {
+      "lt": "Dizaino mąstymas, prototipas, sesija su FIRSTPICK investuotojais.",
+      "en": "Design thinking, a prototype and a session with FIRSTPICK investors."
+     }
+    },
+    {
+     "t": {
+      "lt": "3 diena – Pristatyk",
+      "en": "Day 3: Present"
+     },
+     "w": {
+      "lt": "",
+      "en": ""
+     },
+     "d": {
+      "lt": "Repeticijos su LJA mentoriais, finalinis pristatymas komisijai.",
+      "en": "Rehearsals with LJA mentors and the final presentation to the panel."
+     }
+    }
+   ],
+   "note": {
+    "lt": "Partneriai: ROCKIT, FIRSTPICK ir LJA (Lietuvos Junior Achievement) mentoriai.",
+    "en": "Partners: ROCKIT, FIRSTPICK and mentors from LJA (Junior Achievement Lithuania)."
+   },
+   "flags": []
+  }
+ ],
+ "info": {
+  "who": {
+   "lt": "Ir kitų mokyklų mokiniai. Kai vietų trūksta, pirmenybė „Pažinimo medžio“ mokiniams.",
+   "en": "Pupils from other schools are welcome too. When places run short, Pažinimo medis pupils come first."
+  },
+  "nvs": {
+   "lt": "Valstybės finansavimas neformaliajam švietimui. Kaina „su NVŠ“ yra jau pritaikius krepšelį.",
+   "en": "State funding for non-formal education. A price \"with NVŠ\" already has the voucher applied."
+  },
+  "cancel": {
+   "lt": "Atšaukus mokestis taikomas iki einamojo mėnesio pabaigos.",
+   "en": "If you cancel, the fee applies until the end of the current month."
+  },
+  "contact": "kristina.balci@pazinimo-medis.lt",
+  "source": {
+   "lt": "Informacija iš pazinimomedis.lt, 2026-10-15.",
+   "en": "Information from pazinimomedis.lt, 15 October 2026."
+  },
+  "dayNames": {
+   "Mon": {
+    "en": "Monday",
+    "lt": "Pirmadienis"
+   },
+   "Tue": {
+    "en": "Tuesday",
+    "lt": "Antradienis"
+   },
+   "Wed": {
+    "en": "Wednesday",
+    "lt": "Trečiadienis"
+   },
+   "Thu": {
+    "en": "Thursday",
+    "lt": "Ketvirtadienis"
+   },
+   "Fri": {
+    "en": "Friday",
+    "lt": "Penktadienis"
+   },
+   "Sat": {
+    "en": "Saturday",
+    "lt": "Šeštadienis"
+   }
+  }
+ }
+}

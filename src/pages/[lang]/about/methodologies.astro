@@ -1,0 +1,15 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { useT, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('me.title')} description={t('me.desc')} path="about/methodologies">
+  <section class="section"><div class="wrap">
+    <h1>{t('me.h1')}</h1><p class="lead">{t('me.lead')}</p>
+    <div class="grid g4" style="margin-top:28px">{[1,2,3,4].map((n) => <div class="card p"><h3>{t(`sc.b${n}.t`)}</h3><p>{t(`sc.b${n}.d`)}</p></div>)}</div>
+    <div class="card" style="margin-top:20px"><h3>{t('me.renzulli.t')}</h3><p>{t('me.renzulli.d')}</p></div>
+  </div></section>
+</Layout>

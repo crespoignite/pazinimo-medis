@@ -1,0 +1,16 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ProgramsMatrix from '../../../components/ProgramsMatrix.astro';
+import { useT, localePath, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('pg.title')} description={t('pg.desc')} path="about/programs">
+  <section class="section"><div class="wrap">
+    <h1>{t('pg.h1')}</h1><p class="lead">{t('pg.lead')}</p>
+    <ProgramsMatrix lang={lang} />
+    <p style="margin-top:28px"><a class="btn accent" href={localePath(lang, 'admissions/ask')}>{t('cta.ask')}</a></p>
+  </div></section>
+</Layout>

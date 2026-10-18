@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useT, localePath, defaultLang } from '../i18n';
+const lang = defaultLang; const t = useT(lang);
+---
+<Layout lang={lang} title={t('404.title')} noindex>
+  <section class="section"><div class="wrap" style="text-align:center"><h1>{t('404.h1')}</h1><p class="lead" style="margin-inline:auto">{t('404.d')}</p><a class="btn" href={localePath(lang)}>{t('ty.back')}</a></div></section>
+</Layout>

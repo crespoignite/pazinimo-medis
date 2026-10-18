@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import NewsList from '../../../components/NewsList.astro';
+import { useT, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('nw.title')} description={t('nw.desc')} path="about/news">
+  <section class="section"><div class="wrap"><h1>{t('nw.h1')}</h1><NewsList lang={lang} /></div></section>
+</Layout>

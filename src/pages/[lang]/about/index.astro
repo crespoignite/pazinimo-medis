@@ -1,0 +1,17 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { useT, localePath, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const cards = [['about/programs','nav.programs','ab.programs.d'],['about/international','nav.international','ab.international.d'],['about/news','nav.news','ab.news.d'],['about/methodologies','nav.methodologies','ab.methodologies.d'],['about/team','nav.team','ab.team.d']];
+---
+<Layout lang={lang} title={t('ab.title')} description={t('ab.desc')} path="about">
+  <section class="section"><div class="wrap">
+    <h1>{t('ab.h1')}</h1><p class="lead">{t('ab.lead')}</p>
+    <div class="grid g3" style="margin-top:28px">
+      {cards.map(([h, k, d]) => <a class="card p" style="text-decoration:none" href={localePath(lang, h)}><h3>{t(k)}</h3><p>{t(d)}</p><span class="link">{t('cta.learnMore')}</span></a>)}
+    </div>
+  </div></section>
+</Layout>

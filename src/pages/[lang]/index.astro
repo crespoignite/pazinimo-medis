@@ -1,0 +1,128 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Carousel from '../../components/Carousel.astro';
+import Photo from '../../components/Photo.astro';
+import NewsList from '../../components/NewsList.astro';
+import { useT, localePath, pick, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { topFaqs } from '../../data/faq';
+import { startingFrom } from '../../data/pricing';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+---
+<Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">{t('home.eyebrow')}</p>
+        <h1>{t('home.opener')}</h1>
+        <p class="lead">{t('home.valueprop')}</p>
+      </div>
+      <Carousel lang={lang} />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="values">
+    <div class="wrap">
+      <h2 id="values">{t('home.values.title')}</h2>
+      <div class="grid g4">
+        {[1, 2, 3, 4].map((n) => (
+          <div class="card p"><h3>{t(`home.values.${n}.t`)}</h3><p>{t(`home.values.${n}.d`)}</p></div>
+        ))}
+      </div>
+      <div class="proof" style="margin-top:28px"><span>{t('home.proof')} <small>({t('home.proofSource')})</small></span></div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="slogan">
+    <div class="wrap" style="text-align:center">
+      <h2 id="slogan" lang="lt" style="font-size:clamp(1.9rem,5vw,3.4rem);color:var(--purple)">{t('site.slogan')}</h2>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="stage">
+    <div class="wrap">
+      <h2 id="stage">{t('home.stage.title')}</h2>
+      <p class="lead">{t('home.stage.sub')}</p>
+      <div class="grid g2">
+        <div class="card k stage-card">
+          <Photo lang={lang} tone="k" ratio="16/8" label={t('home.stage.k.t')} />
+          <h3>{t('home.stage.k.t')}</h3><p>{t('home.stage.k.d')}</p>
+          <div class="cities">
+            <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#vilnius'} data-cta="home_k_vilnius">{t('home.city.vilnius')}</a>
+            <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#kaunas'} data-cta="home_k_kaunas">{t('home.city.kaunas')}</a>
+            <a class="btn sm ghost" href={p('kindergarten')}>{t('cta.learnMore')}</a>
+          </div>
+        </div>
+        <div class="card s stage-card">
+          <Photo lang={lang} tone="s" ratio="16/8" label={t('home.stage.s.t')} />
+          <h3>{t('home.stage.s.t')}</h3><p>{t('home.stage.s.d')}</p>
+          <div class="cities">
+            <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#vilnius'} data-cta="home_s_vilnius">{t('home.city.vilnius')}</a>
+            <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#kaunas'} data-cta="home_s_kaunas">{t('home.city.kaunas')}</a>
+            <a class="btn sm ghost" href={p('school')}>{t('cta.learnMore')}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="price">
+    <div class="wrap">
+      <h2 id="price">{t('home.pricing.title')}</h2>
+      <p class="lead">{t('home.pricing.sub')}</p>
+      <div class="grid g2">
+        <a class="card k" href={p('pricing') + '#kindergarten'} style="text-decoration:none"><h3>{t('pr.tab.k')}</h3><p class="num">{t('pr.from')} €{startingFrom.kindergarten}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
+        <a class="card s" href={p('pricing') + '#school'} style="text-decoration:none"><h3>{t('pr.tab.s')}</h3><p class="num">{t('pr.from')} €{startingFrom.school}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
+      </div>
+      <p style="margin-top:20px"><a class="btn" href={p('pricing')}>{t('cta.seePricing')}</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faqs">
+    <div class="wrap">
+      <h2 id="faqs">{t('home.faq.title')}</h2>
+      <div class="grid g2">
+        <div>
+          <h3 style="color:var(--green)">{t('home.faq.k')}</h3>
+          {topFaqs('k').map((f) => <a class="callout" style="border-left-color:var(--green);margin-bottom:10px" href={p('faq') + `#${f.id}`}>{pick(f.q, lang)}</a>)}
+        </div>
+        <div>
+          <h3 style="color:var(--blue)">{t('home.faq.s')}</h3>
+          {topFaqs('s').map((f) => <a class="callout" style="border-left-color:var(--blue);margin-bottom:10px" href={p('faq') + `#${f.id}`}>{pick(f.q, lang)}</a>)}
+        </div>
+      </div>
+      <p style="margin-top:12px"><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>
+    </div>
+  </section>
+
+  <section class="section alt" aria-labelledby="quotes">
+    <div class="wrap">
+      <h2 id="quotes">{t('home.quotes.title')}</h2>
+      <div class="grid g3">
+        {['parent', 'student', 'teacher'].map((r) => <div class="card p"><p class="campus-note">{t('home.quotes.note')}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="news">
+    <div class="wrap">
+      <h2 id="news">{t('home.news.title')}</h2>
+      <NewsList lang={lang} limit={3} />
+      <p style="margin-top:16px"><a class="link" href={p('about/news')}>{t('cta.allNews')}</a></p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap" style="text-align:center">
+      <h2>{t('home.cta.title')}</h2>
+      <p class="lead" style="margin-inline:auto">{t('home.cta.sub')}</p>
+      <div class="row" style="justify-content:center">
+        <a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('cta.book')}</a>
+        <a class="btn ghost" href={p('admissions/ask')} data-cta="home_ask">{t('cta.ask')}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

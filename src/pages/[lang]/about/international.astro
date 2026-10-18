@@ -1,0 +1,18 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { useT, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('in.title')} description={t('in.desc')} path="about/international">
+  <section class="section"><div class="wrap">
+    <h1>{t('in.h1')}</h1><p class="lead">{t('in.lead')}</p>
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card p"><h3>{t('in.erasmus.t')}</h3><p>{t('in.erasmus.d')}</p></div>
+      <div class="card p"><h3>{t('in.nordplus.t')}</h3><p>{t('in.nordplus.d')}</p><ul class="tick">{[1,2,3,4].map((n) => <li>{t(`in.np.${n}`)}</li>)}</ul></div>
+      <div class="card p"><h3>{t('in.lumos.t')}</h3><p>{t('in.lumos.d')}</p></div>
+    </div>
+  </div></section>
+</Layout>

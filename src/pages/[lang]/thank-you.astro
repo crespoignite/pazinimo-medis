@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useT, localePath, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('ty.title')} path="thank-you" bare noindex>
+  <section class="section"><div class="wrap" style="text-align:center">
+    <h1>{t('ty.h1')}</h1><p class="lead" style="margin-inline:auto">{t('ty.d')}</p>
+    <a class="btn" href={localePath(lang)}>{t('ty.back')}</a>
+  </div></section>
+</Layout>

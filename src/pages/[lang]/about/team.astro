@@ -1,0 +1,19 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Photo from '../../../components/Photo.astro';
+import { useT, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const groups = ['directors', 'specialists', 'admissions'];
+---
+<Layout lang={lang} title={t('tm.title')} description={t('tm.desc')} path="about/team">
+  <section class="section"><div class="wrap">
+    <h1>{t('tm.h1')}</h1><p class="lead">{t('tm.lead')}</p>
+    {groups.map((g) => (
+      <h2 style="margin-top:36px">{t(`tm.group.${g}`)}</h2>
+      <div class="grid g4">{[1,2,3,4].map(() => <div class="card"><Photo lang={lang} ratio="1/1" /><p class="campus-note" style="margin-top:10px">{t('tm.placeholder')}</p></div>)}</div>
+    ))}
+  </div></section>
+</Layout>

@@ -1,0 +1,39 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+import { site } from '../data/site';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="grid g4">
+      <div>
+        <img class="logo" src={site.logoWhite} alt={t('site.name')} />
+        <p>{t('site.slogan')}</p>
+      </div>
+      <div>
+        <h4>{t('ft.contact')}</h4>
+        <ul>
+          <li>{t('ft.phone')}: <a href={site.phoneHref}>{site.phone}</a></li>
+          <li>{t('ft.email')}: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><a href={p('admissions/ask')}>{t('cta.ask')}</a></li>
+          <li><a href={p('admissions/book')}>{t('cta.book')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>{t('ft.addresses')}</h4>
+        <ul><li>{t('ft.vg')}</li><li>{t('ft.vp')}</li><li>{t('ft.vk')}</li><li>{t('ft.k')}</li></ul>
+      </div>
+      <div>
+        <h4>{t('ft.more')}</h4>
+        <ul>
+          <li><a href={p('about/international')}>{t('nav.international')}</a></li>
+          <li><a href={p('about/news')}>{t('ft.events')}</a></li>
+          <li><a href={p('faq')}>{t('nav.faq')}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">{t('ft.rights')}</div>
+  </div>
+</footer>

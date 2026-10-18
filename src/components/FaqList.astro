@@ -1,0 +1,17 @@
+---
+import { pick, localePath, useT, type Lang } from '../i18n';
+import type { Faq } from '../data/faq';
+const { lang, items, open = false } = Astro.props as { lang: Lang; items: Faq[]; open?: boolean };
+const t = useT(lang);
+---
+<div class="faq">
+  {items.map((f) => (
+    <details id={f.id} open={open}>
+      <summary>{pick(f.q, lang)}</summary>
+      <div class="ans">
+        {pick(f.a, lang).split('\n\n').map((para) => <p>{para}</p>)}
+        <p><a class="link" href={localePath(lang, 'admissions/ask') + `?q=${f.id}`} data-cta="faq_ask">{t('cta.ask')}</a></p>
+      </div>
+    </details>
+  ))}
+</div>

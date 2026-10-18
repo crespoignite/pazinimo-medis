@@ -1,0 +1,6 @@
+---
+import { useT, type Lang } from '../i18n';
+const { lang = 'en', label = '', ratio = '16/10', tone = '', alt = '' } = Astro.props as { lang?: Lang; label?: string; ratio?: string; tone?: 'k' | 's' | ''; alt?: string };
+const t = useT(lang);
+---
+<div class={`ph ${tone}`} style={`aspect-ratio:${ratio}`} role="img" aria-label={alt || label || t('photo.label')}>{label || t('photo.label')}</div>

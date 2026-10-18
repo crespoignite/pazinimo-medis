@@ -1,0 +1,24 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+---
+<a class="link" href={localePath(lang, 'about/news')}>← {t('nw.back')}</a>
+<article id="article" class="prose" data-error={t('nw.error')}><p class="campus-note">{t('nw.loading')}</p></article>
+<script>
+  import { marked } from 'marked';
+  import DOMPurify from 'dompurify';
+  const el = document.getElementById('article')!;
+  const slug = new URLSearchParams(location.search).get('slug');
+  fetch('/.netlify/functions/articles').then((r) => r.json()).then(async (posts: any[]) => {
+    const p = posts.find((x) => x.slug === slug);
+    if (!p) throw new Error('nf');
+    document.title = `${p.title} | Pažinimo medis`;
+    const html = DOMPurify.sanitize(await marked.parse(p.body));
+    const h = document.createElement('h1'); h.textContent = p.title;
+    const meta = document.createElement('p'); meta.className = 'campus-note'; meta.textContent = `${p.date} · ${p.readingTime}`;
+    el.replaceChildren(h, meta);
+    if (p.coverImage) { const i = document.createElement('img'); i.src = p.coverImage; i.alt = ''; el.append(i); }
+    const d = document.createElement('div'); d.innerHTML = html; el.append(d);
+  }).catch(() => { el.textContent = el.dataset.error!; });
+</script>

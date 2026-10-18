@@ -1,0 +1,12 @@
+---
+import { useT, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+---
+<div class="consent" id="consent" role="dialog" aria-label="Cookies" hidden>
+  <p>{t('consent.text')}</p>
+  <div class="row">
+    <button class="btn ghost sm" type="button" data-consent="no">{t('consent.decline')}</button>
+    <button class="btn sm" type="button" data-consent="yes">{t('consent.accept')}</button>
+  </div>
+</div>

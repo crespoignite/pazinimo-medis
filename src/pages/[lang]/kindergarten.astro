@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Photo from '../../components/Photo.astro';
+import FaqList from '../../components/FaqList.astro';
+import { useT, localePath, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { topFaqs } from '../../data/faq';
+import { site } from '../../data/site';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+---
+<Layout lang={lang} title={t('kg.title')} description={t('kg.desc')} path="kindergarten" stage="kindergarten">
+  <section class="section">
+    <div class="wrap grid g2" style="align-items:center">
+      <div>
+        <p class="eyebrow">{t('nav.kindergarten')}</p>
+        <h1>{t('kg.h1')}</h1>
+        <p class="lead">{t('kg.lead')}</p>
+        <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="kg_come_see">{t('cta.comeSee')}</a><a class="btn ghost" href={p('pricing') + '#kindergarten'}>{t('cta.seePricing')}</a></div>
+      </div>
+      <Photo lang={lang} tone="k" ratio="4/3" label={t('nav.kindergarten')} />
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap grid g2">
+      <div><h2>{t('kg.includes.title')}</h2>
+        <ul class="tick">{[1,2,3,4,5,6,7].map((n) => <li>{t(`kg.includes.${n}`)}</li>)}</ul></div>
+      <div class="card k"><h3>{t('kg.adapt.title')}</h3><p>{t('kg.adapt.body')}</p></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>{t('kg.where.title')}</h2>
+      <div class="grid g2">
+        <div class="card k" id="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vp')}</li><li>{t('ft.vk')}</li></ul></div>
+        <div class="card k" id="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')}</li></ul></div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <h2>{t('home.faq.title')}</h2>
+      <FaqList lang={lang} items={topFaqs('k')} />
+      <p><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="text-align:center">
+      <h2>{t('kg.cta.title')}</h2>
+      <div class="row" style="justify-content:center"><a class="btn accent" href={p('admissions/book')}>{t('cta.book')}</a><a class="btn ghost" href={p('admissions/ask')}>{t('cta.ask')}</a></div>
+      <p class="campus-note" style="margin-top:28px">{t('kg.proof')}</p>
+    </div>
+  </section>
+</Layout>

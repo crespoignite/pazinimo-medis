@@ -1,0 +1,69 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useT, localePath, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { kindergarten, school, extras, eur } from '../../data/pricing';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+const cell = (r: any) => r;
+---
+<Layout lang={lang} title={t('pr.title')} description={t('pr.desc')} path="pricing">
+  <section class="section">
+    <div class="wrap">
+      <h1>{t('pr.h1')}</h1>
+      <p class="lead">{t('pr.lead')}</p>
+      <p class="campus-note"><em>{t('pr.verify')}</em></p>
+
+      <h2 id="kindergarten" style="margin-top:40px;color:var(--green)">{t('pr.tab.k')}</h2>
+      <div class="scroll" data-stage="kindergarten" style="--accent-bg:var(--green-bg)">
+        <table class="price">
+          <thead><tr><th>{t('pr.preschool')}</th><th>{t('pr.col.month')}</th><th></th></tr></thead>
+          <tbody>
+            {kindergarten.preschool.map((r) => (
+              <tr><td>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+            ))}
+          </tbody>
+          <thead><tr><th>{t('pr.preprimary')}</th><th></th><th></th></tr></thead>
+          <tbody>
+            {kindergarten.preprimary.map((r: any) => (
+              <tr><td>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="campus-note">{t('pr.meals.k')}</p>
+
+      <h2 id="school" style="margin-top:48px;color:var(--blue)">{t('pr.tab.s')}</h2>
+      <div class="grid g2">
+        {[['vilnius', school.vilnius], ['kaunas', school.kaunas]].map(([city, rows]: any) => (
+          <div class="scroll" style="--accent-bg:var(--blue-bg)">
+            <table class="price">
+              <thead><tr><th>{t(`pr.${city}`)}</th><th></th><th></th></tr></thead>
+              <tbody>
+                {rows.map((r: any) => (
+                  <tr><td>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
+      <p class="campus-note">{t('pr.meals.s')}</p>
+
+      <div class="grid g2" style="margin-top:40px">
+        <div class="card p"><h3>{t('pr.extras.title')}</h3>
+          <ul class="tick"><li>{t('pr.enrol')}: €{extras.enrolment}</li><li>{t('pr.after')}: €{extras.afterSchool}</li></ul></div>
+        <div class="card p"><h3>{t('pr.discounts.title')}</h3>
+          <ul class="tick">{[1,2,3,4].map((n) => <li>{t(`pr.d.${n}`)}</li>)}</ul>
+          <p class="campus-note">{t('pr.discounts.note')} {t('pr.d.pct')}</p></div>
+      </div>
+
+      <div class="card" style="margin-top:40px;text-align:center">
+        <h3>{t('pr.cta.title')}</h3><p>{t('pr.cta.d')}</p>
+        <a class="btn accent" href={p('admissions/ask')} data-cta="pricing_ask">{t('cta.ask')}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

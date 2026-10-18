@@ -1,0 +1,94 @@
+---
+import data from '../data/clubs.json';
+import { pick, useT, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+const L = (o: any) => (o?.[lang] || o?.en || '');
+const campuses = Object.entries(data.campuses as Record<string, any>);
+const dirs = Object.entries(data.directions as Record<string, any>);
+const items = (data.items as any[]);
+const campusLabel = (c: string) => L((data.campuses as any)[c]);
+const dayName = (d: string) => L((data.info.dayNames as any)[d]);
+---
+<div id="matrix" data-matrix>
+  <div class="filters" role="search">
+    <div><label for="f-campus">{t('pg.campus')}</label>
+      <select id="f-campus"><option value="">{t('pg.all')}</option>{campuses.map(([k, c]) => <option value={k}>{L(c)} ({L(c.sub)})</option>)}</select></div>
+    <div><label for="f-dir">{t('pg.direction')}</label>
+      <select id="f-dir"><option value="">{t('pg.all')}</option>{dirs.map(([k, d]) => <option value={k}>{L(d)}</option>)}</select></div>
+    <div><label for="f-type">{t('pg.type')}</label>
+      <select id="f-type"><option value="">{t('pg.all')}</option><option value="club">{t('pg.type.club')}</option><option value="program">{t('pg.type.program')}</option></select></div>
+    <div><label for="f-q">{t('pg.search')}</label><input id="f-q" type="search" placeholder={t('pg.search.ph')} /></div>
+  </div>
+  <p class="campus-note" aria-live="polite"><span id="m-count"></span> <button type="button" class="link" id="m-clear" style="background:none;border:0;cursor:pointer;font:inherit">{t('pg.clear')}</button></p>
+  <div class="grid g2" id="m-list">
+    {items.map((it) => {
+      const cs: string[] = Array.isArray(it.campus) ? it.campus : [it.campus];
+      const strategic = it.direction && (data.directions as any)[it.direction]?.strategic;
+      const search = `${it.name.en} ${it.name.lt} ${L(it.desc)}`.toLowerCase();
+      return (
+      <article class="item" data-campus={cs.join(' ')} data-dir={it.direction || ''} data-kind={it.kind} data-q={search} data-amount={it.amount ?? ''}>
+        <div class="tags">
+          {it.kind === 'program' && <span class="chip">{L(it.tag)}</span>}
+          {it.flags?.includes('full') && <span class="chip full">{t('pg.full')}</span>}
+          {it.flags?.includes('english') && <span class="chip">{t('pg.english')}</span>}
+          {it.flags?.includes('community') && <span class="chip">{t('pg.community')}</span>}
+          {strategic && <span class="chip">{t(`dir.${strategic}`)}</span>}
+        </div>
+        <h3>{L(it.name)}</h3>
+        <p>{L(it.desc)}</p>
+        <dl class="meta">
+          <dt>{t('pg.grades')}</dt><dd>{L(it.grades)}</dd>
+          {it.kind === 'club' && it.slots?.length > 0 && (<><dt>{t('pg.when')}</dt><dd>{it.slots.map((s: any) => `${dayName(s.day)} ${s.time}${s.note ? ` (${s.note})` : ''}`).join('; ')}</dd></>)}
+          {it.kind === 'club' && it.extra && !it.slots?.length && (<><dt>{t('pg.when')}</dt><dd>{L(it.extra)}</dd></>)}
+          {it.kind === 'program' && (<><dt>{t('pg.when')}</dt><dd>{cs.map((c) => L(it.whenText[c])).join('; ')}. {L(it.duration)}</dd></>)}
+          <dt>{t('pg.campus')}</dt><dd>{cs.map(campusLabel).join('; ')}</dd>
+        </dl>
+        <div class="price-tag">{L(it.price)}</div>
+        {it.nvs && <div class="campus-note">{L(it.nvs)}</div>}
+        {it.kind === 'club' && it.extra && it.slots?.length > 0 && <div class="campus-note">{L(it.extra)}</div>}
+        {it.kind === 'program' && (
+          <details><summary>{t('pg.howItWorks')}</summary>
+            <ul class="tick">{it.steps.map((s: any) => <li><strong>{L(s.t)}</strong>{L(s.w) ? ` (${L(s.w)})` : ''}: {L(s.d)}</li>)}</ul>
+            <p class="campus-note">{L(it.note)}</p>
+          </details>
+        )}
+      </article>);
+    })}
+  </div>
+  <p id="m-none" hidden>{t('pg.none')}</p>
+  <div class="card p" style="margin-top:32px">
+    <h3>{t('pg.info.title')}</h3>
+    <ul class="tick">
+      <li>{L(data.info.who)}</li><li>{L(data.info.nvs)}</li><li>{L(data.info.cancel)}</li>
+      <li>{t('pg.cancel.contact')} <a class="link" href={`mailto:${data.info.contact}`}>{data.info.contact}</a></li>
+    </ul>
+    <p class="campus-note">{L(data.info.source)}</p>
+  </div>
+  <span id="m-i18n" hidden data-results={t('pg.results')}></span>
+</div>
+<script>
+  const root = document.querySelector<HTMLElement>('[data-matrix]');
+  if (root) {
+    const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+    const cards = [...root.querySelectorAll<HTMLElement>('.item')];
+    const tpl = document.getElementById('m-i18n')!.dataset.results!;
+    const params = new URLSearchParams(location.search);
+    ['campus', 'dir', 'type'].forEach((k) => { const v = params.get(k); if (v) $('f-' + k).value = v; });
+    const run = () => {
+      const c = $('f-campus').value, d = $('f-dir').value, ty = $('f-type').value, q = $('f-q').value.trim().toLowerCase();
+      let n = 0;
+      cards.forEach((el) => {
+        const ok = (!c || el.dataset.campus!.split(' ').includes(c)) && (!d || el.dataset.dir === d) && (!ty || el.dataset.kind === ty) && (!q || el.dataset.q!.includes(q));
+        el.classList.toggle('hidden', !ok); if (ok) n++;
+      });
+      document.getElementById('m-count')!.textContent = tpl.replace('{n}', String(n));
+      document.getElementById('m-none')!.hidden = n > 0;
+      const u = new URL(location.href); [['campus', c], ['dir', d], ['type', ty]].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
+      history.replaceState(null, '', u);
+    };
+    root.querySelectorAll('select,input').forEach((e) => e.addEventListener('input', run));
+    document.getElementById('m-clear')!.addEventListener('click', () => { ['f-campus', 'f-dir', 'f-type', 'f-q'].forEach((i) => ($(i).value = '')); run(); });
+    run();
+  }
+</script>

@@ -1,0 +1,32 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import FaqList from '../../../components/FaqList.astro';
+import { useT, localePath, type Lang } from '../../../i18n';
+import { langPaths } from '../../../i18n/paths';
+import { faqs } from '../../../data/faq';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+const p = (s: string) => localePath(lang, s);
+const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => faqs.find((f) => f.id === id)!);
+---
+<Layout lang={lang} title={t('ad.title')} description={t('ad.desc')} path="admissions">
+  <section class="section">
+    <div class="wrap">
+      <h1>{t('ad.h1')}</h1>
+      <p class="lead">{t('ad.lead')}</p>
+      <div class="grid g2" style="margin-top:28px">
+        <div class="card p"><h3>{t('ad.ask.t')}</h3><p>{t('ad.ask.d')}</p><a class="btn ghost" href={p('admissions/ask')} data-cta="adm_ask">{t('cta.ask')}</a></div>
+        <div class="card p"><h3>{t('ad.book.t')}</h3><p>{t('ad.book.d')}</p><a class="btn accent" href={p('admissions/book')} data-cta="adm_book">{t('cta.book')}</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap"><h2>{t('ad.next.title')}</h2>
+      <ol class="tick" style="list-style:decimal;padding-left:1.4em">{[1,2,3].map((n) => <li style="padding-left:.3em">{t(`ad.next.${n}`)}</li>)}</ol>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap"><h2>{t('ad.faq.title')}</h2><FaqList lang={lang} items={items} /></div>
+  </section>
+</Layout>

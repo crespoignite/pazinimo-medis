@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { useT, localePath, locales, defaultLang, type Lang } from '../i18n';
+import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingBook from '../components/FloatingBook.astro';
+import CampaignBanner from '../components/CampaignBanner.astro';
+import Consent from '../components/Consent.astro';
+interface Props { lang: Lang; title: string; description?: string; path?: string; stage?: 'kindergarten' | 'school'; bare?: boolean; noindex?: boolean; ld?: object }
+const { lang, title, description = '', path = '', stage, bare = false, noindex = false, ld } = Astro.props;
+const t = useT(lang);
+const base = Astro.site ? Astro.site.origin : '';
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="canonical" href={`${base}${localePath(lang, path)}`} />
+  {locales.map((l) => <link rel="alternate" hreflang={l} href={`${base}${localePath(l, path)}`} />)}
+  <link rel="alternate" hreflang="x-default" href={`${base}${localePath(defaultLang, path)}`} />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:type" content="website" />
+  <link rel="preload" href="/fonts/manrope-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+</head>
+<body data-stage={stage} data-lang={lang} data-ga={site.ga4}>
+  <a class="skip" href="#main">{t('skip')}</a>
+  {!bare && <CampaignBanner lang={lang} />}
+  {!bare && <Header lang={lang} path={path} />}
+  {bare && <div class="bare-top"><a href={localePath(lang)} aria-label={t('site.name')}><img src={site.logoDark} alt={t('site.name')} /></a></div>}
+  <main id="main"><slot /></main>
+  {!bare && <FloatingBook lang={lang} />}
+  {!bare && <Footer lang={lang} />}
+  <Consent lang={lang} />
+  <script>import '../scripts/site.js';</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+---
+import { useT, localePath, type Lang } from '../i18n';
+import { site } from '../data/site';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+// Shown on deploy previews and branch deploys (PUBLIC_DEMO_BANNER=true) so the position can be reviewed.
+// For production, set site.campaign.enabled and replace the text with the live campaign.
+const show = site.campaign.enabled && import.meta.env.PUBLIC_DEMO_BANNER === 'true';
+---
+{show && (
+  <div class="campaign" role="region" aria-label="Campaign">
+    {t('banner.text')} <a href={localePath(lang, `campaign/${site.campaign.slug}`)} data-cta="campaign_banner">{t('banner.cta')}</a>
+  </div>
+)}
