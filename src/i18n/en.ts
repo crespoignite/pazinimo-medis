@@ -2,7 +2,7 @@
 const en: Record<string, string> = {
   'site.name': 'Pažinimo medis',
   'site.cities': 'Vilnius · Kaunas',
-  'site.slogan': 'Auginam sparnus. Skrydis – tavo.',
+  'site.slogan': 'We grow wings. The flight is yours.',
   'skip': 'Skip to content',
 
   'nav.kindergarten': 'Kindergarten',
