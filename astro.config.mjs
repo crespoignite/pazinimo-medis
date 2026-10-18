@@ -6,5 +6,5 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   build: { format: 'directory' },
-  site: 'https://pazinimo-medis.netlify.app'
+  site: 'https://pazinimo-medis-website.netlify.app'
 });

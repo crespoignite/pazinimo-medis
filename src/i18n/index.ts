@@ -1,10 +1,10 @@
 import en from './en';
 import lt from './lt';
 
-export const locales = ['en', 'lt'] as const;
+export const locales = ['lt', 'en'] as const;
 export type Lang = (typeof locales)[number];
 /** Change to 'lt' at launch. Also change the "/" redirect in netlify.toml. */
-export const defaultLang: Lang = 'en';
+export const defaultLang: Lang = 'lt';
 
 const dict: Record<Lang, Record<string, string>> = { en, lt };
 

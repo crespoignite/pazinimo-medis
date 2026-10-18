@@ -11,16 +11,16 @@
 [context.branch-deploy.environment]
   PUBLIC_DEMO_BANNER = "true"
 
-# The first language a visitor sees. Change "en" to "lt" at launch.
+# The first language a visitor sees (now Lithuanian).
 # The same switch lives in src/i18n/index.ts (defaultLang).
 [[redirects]]
   from = "/"
-  to = "/en/"
+  to = "/lt/"
   status = 302
 
 [[redirects]]
   from = "/blog"
-  to = "/en/about/news/"
+  to = "/lt/about/news/"
   status = 301
 
 [[headers]]
