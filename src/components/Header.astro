@@ -30,7 +30,6 @@ const sub = [['about/programs','nav.programs'],['about/international','nav.inter
     </nav>
     <div class="head-tools">
       <a class="phone" href={site.phoneHref}>{site.phone}</a>
-      <a class="btn accent sm head-book" href={p('admissions/book')} data-cta="header_book">{t('cta.book')}</a>
       <div class="lang" role="group" aria-label={t('nav.language')}>
         {locales.map((l) => <a href={localePath(l, path)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} data-lang-switch={l}>{l.toUpperCase()}</a>)}
       </div>
