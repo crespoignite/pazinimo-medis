@@ -1,6 +1,9 @@
 ---
 import news from '../data/news.json';
-import { useT, type Lang } from '../i18n';
+import { useT, localePath, type Lang } from '../i18n';
+const local = new Set(Object.keys(import.meta.glob('../articles/news/*/lt.md')).map((k) => k.split('/').slice(-2)[0]));
+const href = (n: any) => (local.has(n.slug) ? localePath(lang, `about/news/${n.slug}`) : n.url);
+const ext = (n: any) => (local.has(n.slug) ? {} : { rel: 'noopener' });
 const { lang, limit = 0 } = Astro.props as { lang: Lang; limit?: number };
 const t = useT(lang);
 const list = limit ? news.slice(0, limit) : news;
@@ -10,7 +13,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(lang === 'lt' ? 'lt-LT
 {limit ? (
   <div class="grid g3">
     {list.map((n) => (
-      <a class="card news-item" href={n.url} rel="noopener">
+      <a class="card news-item" href={href(n)} {...ext(n)}>
         <span class="campus-note">{fmt(n.date)}</span>
         <h3>{n.title}</h3>
         <span class="link">{t('cta.readMore')}</span>
@@ -25,7 +28,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString(lang === 'lt' ? 'lt-LT
         <h2 style="margin-top:32px">{y}</h2>
         <ul class="tick" style="--accent:var(--purple)">
           {list.filter((n) => n.date.startsWith(y)).map((n) => (
-            <li><a class="link" href={n.url} rel="noopener">{n.title}</a> <span class="campus-note">{fmt(n.date)}</span></li>
+            <li><a class="link" href={href(n)} {...ext(n)}>{n.title}</a> <span class="campus-note">{fmt(n.date)}</span></li>
           ))}
         </ul>
       </section>

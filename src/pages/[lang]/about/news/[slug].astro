@@ -1,0 +1,41 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { parseMd } from '../../../../lib-md';
+import { useT, localePath, type Lang } from '../../../../i18n';
+import news from '../../../../data/news.json';
+
+export function getStaticPaths() {
+  const fs = import.meta.glob('../../../../articles/news/*/*.md', { query: '?raw', import: 'default', eager: true });
+  const ss = [...new Set(Object.keys(fs).map((k) => k.split('/').slice(-2)[0]))];
+  return ['en', 'lt'].flatMap((lang) => ss.map((slug) => ({ params: { lang, slug } })));
+}
+const files = import.meta.glob('../../../../articles/news/*/*.md', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const get = (slug: string, l: string) => files[`../../../../articles/news/${slug}/${l}.md`];
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as string;
+const t = useT(lang);
+const isDraft = lang === 'en';
+const raw = get(slug, lang) ?? get(slug, 'lt');
+const { meta, html } = parseMd(raw);
+const orig = news.find((n) => n.slug === slug);
+const p = (x: string) => localePath(lang, x);
+const date = new Date(meta.date).toLocaleDateString(lang === 'lt' ? 'lt-LT' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const lead = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 155);
+---
+<Layout lang={lang} title={`${meta.title} | Pažinimo medis`} description={lead} path={`about/news/${slug}`}>
+  <article class="section"><div class="wrap">
+    <a class="link" href={p('about/news')}>← {t('nw.back')}</a>
+    <p class="campus-note" style="margin-top:16px">{date}</p>
+    <h1>{meta.title}</h1>
+    {isDraft && <p class="campus-note">{t('nw.draft')} {orig && <a class="link" href={orig.url} rel="noopener">{t('nw.original')}</a>}</p>}
+    {meta.image && <img src={meta.image} alt="" loading="lazy" style="max-width:46em;width:100%;border-radius:var(--radius);margin:16px 0" />}
+    <div class="prose" set:html={html} />
+    <div class="card" style="margin-top:40px;max-width:46em">
+      <h2>{t('nw.ctaTitle')}</h2>
+      <p style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn accent" href={p('admissions/book')} data-cta="news_book">{t('cta.book')}</a>
+        <a class="btn ghost" href={p('admissions/ask')} data-cta="news_ask">{t('cta.ask')}</a>
+      </p>
+    </div>
+  </div></article>
+</Layout>
