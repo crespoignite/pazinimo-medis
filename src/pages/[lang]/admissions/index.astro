@@ -1,4 +1,5 @@
 ---
+import StepCards from '../../../components/StepCards.astro';
 import Layout from '../../../layouts/Layout.astro';
 import FaqList from '../../../components/FaqList.astro';
 import { useT, localePath, type Lang } from '../../../i18n';
@@ -16,9 +17,7 @@ const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => f
       <h1>{t('ad.h1')}</h1>
       <p class="lead">{t('ad.lead')}</p>
       <h2 style="margin-top:32px">{t('ad.steps.title')}</h2>
-      <div class="grid g4 steps">
-        {[1, 2, 3, 4].map((n) => <div class="card step"><h3>{t(`step.${n}.t`)}</h3><p>{t(`step.${n}.d`)}</p></div>)}
-      </div>
+      <StepCards lang={lang} />
     </div>
   </section>
   <section class="section alt">

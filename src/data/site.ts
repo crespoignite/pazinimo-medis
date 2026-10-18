@@ -25,3 +25,7 @@ export const divider = {
   webm: '' as string,
   poster: '' as string, // e.g. '/video/life-at-pazinimo-medis.jpg'
 };
+
+// Background photos for the four joining steps (Visit, Talk, Trial day, Contract).
+// Put the files in public/img/steps and set the paths, e.g. '/img/steps/visit.jpg'.
+export const stepImages: string[] = ['', '', '', ''];

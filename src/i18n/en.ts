@@ -165,7 +165,7 @@ const en: Record<string, string> = {
   'nw.featured': 'Featured',
   'nw.older': 'Older articles',
   'ad.steps.title': 'Four steps',
-  'ad.doors.title': 'Two doors',
+  'ad.doors.title': 'Two easy ways to start',
   'pr.inc.title': 'What is included',
   'pr.inc.1': 'English',
   'pr.inc.2': 'Art',

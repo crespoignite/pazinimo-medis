@@ -1,0 +1,18 @@
+---
+import { useT, type Lang } from '../i18n';
+import { stepImages } from '../data/site';
+const { lang } = Astro.props as { lang: Lang };
+const t = useT(lang);
+---
+<div class="grid g4 steps">
+  {[1, 2, 3, 4].map((n) => {
+    const img = stepImages[n - 1];
+    return (
+      <div class={`card step pic${img ? ' has-img' : ''}`} style={img ? `background-image:linear-gradient(180deg,rgba(20,15,50,.35),rgba(20,15,50,.8)),url('${img}')` : undefined}>
+        <h3>{t(`step.${n}.t`)}</h3>
+        <p>{t(`step.${n}.d`)}</p>
+        {!img && <span class="pic-tag">{t('photo.label')}</span>}
+      </div>
+    );
+  })}
+</div>

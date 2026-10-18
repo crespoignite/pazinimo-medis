@@ -250,3 +250,7 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 ol.olist{padding-left:1.4em;margin:0}
 ol.olist li{padding-left:.3em;margin:.4em 0}
 @media (max-width:600px){.team4{grid-template-columns:repeat(2,1fr)}.team4 .ph{aspect-ratio:1/1 !important}}
+.step.pic{min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;background:linear-gradient(180deg,rgba(40,30,90,.55),rgba(30,20,80,.92)),repeating-linear-gradient(135deg,#8b86b8 0 14px,#9893c2 14px 28px);background-size:cover;background-position:center;border:0;overflow:hidden}
+.step.pic h3,.step.pic p{color:#fff}
+.step.pic p{opacity:.92}
+.step.pic .pic-tag{position:absolute;top:16px;right:16px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
