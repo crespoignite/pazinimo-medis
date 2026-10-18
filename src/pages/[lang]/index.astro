@@ -11,6 +11,7 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
+import VideoDivider from '../../components/VideoDivider.astro';
 ---
 <Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
   <section class="hero">
@@ -41,6 +42,8 @@ const p = (s: string) => localePath(lang, s);
       <h2 id="slogan" style="font-size:clamp(1.9rem,5vw,3.4rem);color:var(--purple)">{t('site.slogan')}</h2>
     </div>
   </section>
+
+  <VideoDivider lang={lang} />
 
   <section class="section" aria-labelledby="stage">
     <div class="wrap">

@@ -248,6 +248,8 @@ const en: Record<string, string> = {
   'nw.loading': 'Loading news',
   'nw.empty': 'News will appear here soon.',
   'nw.error': 'We could not load the news just now. Please try again later.',
+  'vd.aria': 'A short film of life at Pažinimo medis: classrooms, playground, lab, clubs and our parent community',
+  'vd.placeholder': 'Video placeholder: 30 seconds of classroom, playground, lab, clubs and parents',
   'nw.back': 'Back to news',
   'nw.draft': 'This English text is a draft translation of the Lithuanian original.',
   'nw.original': 'Read the Lithuanian original',

@@ -17,3 +17,11 @@ export const site = {
     // The banner links to a standalone landing page with its own URL and form ID.
   },
 };
+
+// Homepage video divider. Drop the files in public/video and set the paths here.
+// Recommended: 30s loop, 1920x1080, H.264 MP4 under 8 MB, no audio. Optional WebM and poster image.
+export const divider = {
+  mp4: '' as string, // e.g. '/video/life-at-pazinimo-medis.mp4'
+  webm: '' as string,
+  poster: '' as string, // e.g. '/video/life-at-pazinimo-medis.jpg'
+};
