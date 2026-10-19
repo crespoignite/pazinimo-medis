@@ -1,5 +1,6 @@
 // Public documents the school must keep available. Titles are the school's own (Lithuanian) with an English gloss.
 // Documents hosted here live in public/documents/. The bullying procedure still links to the school's old site until its PDF is supplied.
+const old = 'https://pazinimomedis.lt/wp-content/uploads/';
 export interface Doc { id: string; title: { lt: string; en: string }; href: string }
 export const documents: Doc[] = [
   { id: 'edu-plan-individual', title: { lt: 'Individualus ugdymosi planas 2023–2024 ir 2024–2025 m. m. (III gimnazijos klasė)', en: 'Individual education plan 2023–2024 and 2024–2025 (grade 11)' }, href: '/documents/individualus-ugdymo-planas.pdf' },
