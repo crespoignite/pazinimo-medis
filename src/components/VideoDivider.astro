@@ -19,9 +19,9 @@ const has = Boolean(divider.mp4 || divider.webm);
 </section>
 <style>
   .vdivider{position:relative;width:100%;height:500px;overflow:hidden;background:var(--ink)}
-  .vd-media{position:absolute;left:0;right:0;top:-80px;bottom:-80px;will-change:transform}
+  .vd-media{position:absolute;left:0;right:0;top:-150px;bottom:-150px;will-change:transform}
   .vd-media video,.vd-ph{width:100%;height:100%;object-fit:cover;display:block}
-  .vd-ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;color:#fff;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;background:linear-gradient(135deg,var(--purple),var(--blue) 55%,var(--green))}
+  .vd-ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;color:#fff;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem;background:repeating-linear-gradient(135deg,rgba(255,255,255,.12) 0 40px,transparent 40px 80px),linear-gradient(135deg,var(--purple),var(--blue) 55%,var(--green))}
   @media (max-width:700px){.vdivider{height:360px}}
   @media (prefers-reduced-motion:reduce){.vd-media{top:0;bottom:0;transform:none!important}}
 </style>
@@ -37,7 +37,7 @@ const has = Boolean(divider.mp4 || divider.webm);
       const vh = window.innerHeight;
       if (r.bottom < 0 || r.top > vh) return;
       const p = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2); // -1 to 1
-      layer.style.transform = `translate3d(0, ${(-p * 60).toFixed(1)}px, 0)`;
+      layer.style.transform = `translate3d(0, ${(-p * 130).toFixed(1)}px, 0)`;
     };
     addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
     addEventListener('resize', update);
