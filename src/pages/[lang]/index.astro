@@ -47,7 +47,6 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
       <h2 id="stage" style="margin-top:48px">{t('home.stage.title')}</h2>
       <p class="lead">{t('home.stage.sub')}</p>
       <div class="grid g2">
-        <div class="stage-col">
         <div class="card k stage-card">
           <Rings tone="k" />
           <h3>{t('home.stage.k.t')}</h3><p>{t('home.stage.k.d')}</p>
@@ -57,10 +56,6 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
             <a class="btn sm ghost" href={p('kindergarten')}>{t('cta.learnMore')}</a>
           </div>
         </div>
-          <h3 class="ben-h" style="color:var(--green)">{t('home.benefits.k')}</h3>
-          <Benefits lang={lang} stage="k" />
-        </div>
-        <div class="stage-col">
         <div class="card s stage-card">
           <Rings tone="s" />
           <h3>{t('home.stage.s.t')}</h3><p>{t('home.stage.s.d')}</p>
@@ -70,8 +65,6 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
             <a class="btn sm ghost" href={p('school')}>{t('cta.learnMore')}</a>
           </div>
         </div>
-          <h3 class="ben-h" style="color:var(--blue)">{t('home.benefits.s')}</h3>
-          <Benefits lang={lang} stage="s" />
         </div>
       </div>
     </div>
@@ -82,8 +75,16 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
       <h2 id="price">{t('home.pricing.title')}</h2>
       <p class="lead">{t('home.pricing.sub')}</p>
       <div class="grid g2">
-        <a class="card k" href={p('pricing') + '#kindergarten'} style="text-decoration:none"><h3>{t('pr.tab.k')}</h3><p class="num">{t('pr.from')} €{startingFrom.kindergarten}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
-        <a class="card s" href={p('pricing') + '#school'} style="text-decoration:none"><h3>{t('pr.tab.s')}</h3><p class="num">{t('pr.from')} €{startingFrom.school}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
+        <div class="stage-col">
+          <a class="card k" href={p('pricing') + '#kindergarten'} style="text-decoration:none;display:block"><h3>{t('pr.tab.k')}</h3><p class="num">{t('pr.from')} €{startingFrom.kindergarten}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
+          <h3 class="ben-h" style="color:var(--green)">{t('home.benefits.k')}</h3>
+          <Benefits lang={lang} stage="k" />
+        </div>
+        <div class="stage-col">
+          <a class="card s" href={p('pricing') + '#school'} style="text-decoration:none;display:block"><h3>{t('pr.tab.s')}</h3><p class="num">{t('pr.from')} €{startingFrom.school}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
+          <h3 class="ben-h" style="color:var(--blue)">{t('home.benefits.s')}</h3>
+          <Benefits lang={lang} stage="s" />
+        </div>
       </div>
       <p style="margin-top:20px"><a class="btn" href={p('pricing')}>{t('cta.seePricing')}</a></p>
     </div>
