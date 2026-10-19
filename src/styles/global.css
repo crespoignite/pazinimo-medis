@@ -226,8 +226,9 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 .split{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(20px,4vw,48px);align-items:center}
 .split.rev{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
 @media (max-width:760px){.split,.split.rev{grid-template-columns:1fr}}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(20px,4vw,48px);align-items:center}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,48px);align-items:center}
 @media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
+.hero-grid h1{font-size:clamp(2rem,3.3vw,3rem);line-height:1.1}
 .hero-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;align-items:center;margin-top:28px;padding:18px 0 28px;border-top:1px solid var(--line)}
 .hero-base .slogan{font-weight:800;color:var(--purple);font-size:1.15rem}
 .strip{background:var(--accent-bg);padding:18px 0;font-weight:700;text-align:center}
