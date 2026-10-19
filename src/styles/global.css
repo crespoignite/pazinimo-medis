@@ -252,3 +252,8 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
 .step.pic h3,.step.pic p{color:#fff}
 .step.pic p{opacity:.92}
 .step.pic .pic-tag{position:absolute;top:16px;right:16px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.stage-card{position:relative;overflow:hidden}
+.stage-card>*:not(.rings){position:relative;z-index:1}
+.stage-card .rings{position:absolute;z-index:0;right:-80px;top:-80px;width:250px;height:250px;pointer-events:none}
+.stage-card p{max-width:62%}
+@media (max-width:600px){.stage-card .rings{width:170px;height:170px;right:-55px;top:-55px}.stage-card p{max-width:68%}}

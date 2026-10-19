@@ -1,4 +1,5 @@
 ---
+import Rings from '../../components/Rings.astro';
 import StepCards from '../../components/StepCards.astro';
 import Layout from '../../layouts/Layout.astro';
 import Carousel from '../../components/Carousel.astro';
@@ -46,6 +47,7 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
       <p class="lead">{t('home.stage.sub')}</p>
       <div class="grid g2">
         <div class="card k stage-card">
+          <Rings tone="k" />
           <h3>{t('home.stage.k.t')}</h3><p>{t('home.stage.k.d')}</p>
           <div class="cities">
             <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#vilnius'} data-cta="home_k_vilnius">{t('home.city.vilnius')}</a>
@@ -54,6 +56,7 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
           </div>
         </div>
         <div class="card s stage-card">
+          <Rings tone="s" />
           <h3>{t('home.stage.s.t')}</h3><p>{t('home.stage.s.d')}</p>
           <div class="cities">
             <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#vilnius'} data-cta="home_s_vilnius">{t('home.city.vilnius')}</a>

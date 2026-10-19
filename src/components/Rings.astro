@@ -1,0 +1,18 @@
+---
+// Cropped logo rings, same device as the deliverable covers.
+// Kindergarten uses the warm logo colours, school the blue ones.
+const { tone = 'k' } = Astro.props as { tone?: 'k' | 's' };
+const pal = tone === 'k'
+  ? ['#7A59D1', '#3BAA7E', '#F0642D', '#C5A15A', '#3BAA7E', '#F0642D']
+  : ['#6B52C8', '#2D3FD0', '#2F8FE0', '#2D3FD0', '#4DB8D0', '#6B52C8'];
+---
+<svg class={`rings rings-${tone}`} viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+  <g fill="none" stroke-linecap="round" transform="rotate(-20 200 200)">
+    <circle cx="200" cy="200" r="190" stroke={pal[0]} stroke-width="10" stroke-dasharray="330 864" transform="rotate(-40 200 200)"/>
+    <circle cx="200" cy="200" r="160" stroke={pal[1]} stroke-width="10" stroke-dasharray="600 60 200 200"/>
+    <circle cx="200" cy="200" r="125" stroke={pal[2]} stroke-width="10" stroke-dasharray="230 70 300 185" transform="rotate(70 200 200)"/>
+    <circle cx="200" cy="200" r="90" stroke={pal[3]} stroke-width="10" stroke-dasharray="380 185" transform="rotate(150 200 200)"/>
+    <circle cx="200" cy="200" r="58" stroke={pal[4]} stroke-width="10" stroke-dasharray="190 175" transform="rotate(200 200 200)"/>
+    <circle cx="200" cy="200" r="28" stroke={pal[5]} stroke-width="10" stroke-dasharray="130 46" transform="rotate(10 200 200)"/>
+  </g>
+</svg>
