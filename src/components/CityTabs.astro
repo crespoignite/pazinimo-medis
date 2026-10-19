@@ -1,9 +1,9 @@
 ---
 import { useT, type Lang } from '../i18n';
-const { lang, year = false } = Astro.props as { lang: Lang; year?: boolean };
+const { lang, year = false, scrollTo = '' } = Astro.props as { lang: Lang; year?: boolean; scrollTo?: string };
 const t = useT(lang);
 ---
-<div class="tabs" role="tablist" aria-label={t('tabs.city')} data-city-tabs>
+<div class="tabs" role="tablist" aria-label={t('tabs.city')} data-city-tabs data-scroll={scrollTo || undefined}>
   <button type="button" role="tab" data-tab="vilnius" aria-selected="true">{t('home.city.vilnius')}</button>
   <button type="button" role="tab" data-tab="kaunas" aria-selected="false">{t('home.city.kaunas')}</button>
   {year && <span class="chip">{t('tabs.year')}</span>}
@@ -16,7 +16,11 @@ const t = useT(lang);
       btns.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === city)));
       document.querySelectorAll<HTMLElement>('[data-city]').forEach((el) => el.classList.toggle('is-off', el.dataset.city !== city));
     };
-    btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.tab!)));
+    btns.forEach((b) => b.addEventListener('click', () => {
+      show(b.dataset.tab!);
+      const target = (tabs as HTMLElement).dataset.scroll;
+      if (target) document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
     show(location.hash === '#kaunas' ? 'kaunas' : 'vilnius');
   }
 </script>
