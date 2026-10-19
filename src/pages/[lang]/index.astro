@@ -1,4 +1,5 @@
 ---
+import FaqList from '../../components/FaqList.astro';
 import Rings from '../../components/Rings.astro';
 import StepCards from '../../components/StepCards.astro';
 import Layout from '../../layouts/Layout.astro';
@@ -92,11 +93,11 @@ const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/progra
       <div class="grid g2">
         <div>
           <h3 style="color:var(--green)">{t('home.faq.k')}</h3>
-          {topFaqs('k').map((f) => <a class="callout" style="border-left-color:var(--green);margin-bottom:10px" href={p('faq') + `#${f.id}`}>{pick(f.q, lang)}</a>)}
+          <FaqList lang={lang} items={topFaqs('k')} />
         </div>
         <div>
           <h3 style="color:var(--blue)">{t('home.faq.s')}</h3>
-          {topFaqs('s').map((f) => <a class="callout" style="border-left-color:var(--blue);margin-bottom:10px" href={p('faq') + `#${f.id}`}>{pick(f.q, lang)}</a>)}
+          <FaqList lang={lang} items={topFaqs('s')} />
         </div>
       </div>
       <p style="margin-top:12px"><a class="link" href={p('faq')}>{t('cta.allFaq')}</a></p>

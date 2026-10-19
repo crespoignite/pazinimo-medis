@@ -257,3 +257,4 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
 .stage-card .rings{position:absolute;z-index:0;right:-80px;top:-80px;width:250px;height:250px;pointer-events:none}
 .stage-card p{max-width:62%}
 @media (max-width:600px){.stage-card .rings{width:170px;height:170px;right:-55px;top:-55px}.stage-card p{max-width:68%}}
+#addr{scroll-margin-top:96px}

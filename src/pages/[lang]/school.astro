@@ -9,6 +9,8 @@ import { topFaqs } from '../../data/faq';
 import { startingFrom } from '../../data/pricing';
 export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
+const mapUrl: Record<string,string> = {'ft.vg':'K. Kalinausko g. 13, Vilnius','ft.vp':'Ozo g. 37, Vilnius','ft.vk':'Pievų g. 4, Vilnius','ft.k':'Vilties g. 2, Kaunas'};
+const map = (k: string) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapUrl[k]);
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 ---
@@ -69,10 +71,13 @@ const p = (s: string) => localePath(lang, s);
     <div class="wrap split rev">
       <div>
         <h2 id="addr">{t('st.addr.title')}</h2>
-        <div id="vilnius" data-city="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vg')}</li><li>{t('ft.vp')}</li></ul></div>
-        <div id="kaunas" data-city="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')}</li></ul></div>
+        <div id="vilnius" data-city="vilnius"><h3>{t('home.city.vilnius')}</h3><ul class="tick"><li>{t('ft.vg')} <a class="link" href={map('ft.vg')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li><li>{t('ft.vp')} <a class="link" href={map('ft.vp')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li></ul></div>
+        <div id="kaunas" data-city="kaunas"><h3>{t('home.city.kaunas')}</h3><ul class="tick"><li>{t('ft.k')} <a class="link" href={map('ft.k')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li></ul></div>
       </div>
-      <Photo lang={lang} tone="s" ratio="4/3" label={t('st.addr.title')} />
+      <div>
+        <div data-city="vilnius"><Photo lang={lang} tone="s" ratio="4/3" label={t('st.addr.photo.vilnius')} /></div>
+        <div data-city="kaunas"><Photo lang={lang} tone="s" ratio="4/3" label={t('st.addr.photo.kaunas')} /></div>
+      </div>
     </div>
   </section>
 
