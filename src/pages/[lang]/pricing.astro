@@ -38,6 +38,10 @@ const cell = (r: any) => r;
         </table>
       </div>
       <p class="campus-note">{t('pr.meals.k')}</p>
+      <h3 style="margin-top:28px;color:var(--green)">{t('pr.inc.title')}</h3>
+      <div class="grid g3" style="margin-top:12px">
+        {[1, 2, 3].map((n) => <div class="card k"><h3>{t(`pr.inc.${n}`)}</h3><p>{t('pr.inc.d')}</p></div>)}
+      </div>
 
       <h2 id="school" style="margin-top:48px;color:var(--blue)">{t('pr.tab.s')}</h2>
       <div class="grid g2">
@@ -55,11 +59,6 @@ const cell = (r: any) => r;
         ))}
       </div>
       <p class="campus-note">{t('pr.meals.s')}</p>
-
-      <h2 style="margin-top:48px">{t('pr.inc.title')}</h2>
-      <div class="grid g3">
-        {[1, 2, 3].map((n) => <div class="card p"><h3>{t(`pr.inc.${n}`)}</h3><p>{t('pr.inc.d')}</p></div>)}
-      </div>
 
       <div class="grid g2" style="margin-top:40px">
         <div class="card p"><h3>{t('pr.extras.title')}</h3>

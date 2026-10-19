@@ -1,0 +1,13 @@
+---
+import { useT, type Lang } from '../i18n';
+const { lang, stage } = Astro.props as { lang: Lang; stage: 'k' | 's' };
+const t = useT(lang);
+---
+<div class="faq benefits" style={`--accent:var(--${stage === 'k' ? 'green' : 'blue'})`}>
+  {[1, 2, 3, 4].map((n) => (
+    <details>
+      <summary>{t(`ben.${stage}.${n}.t`)}</summary>
+      <div class="ans"><p>{t(`ben.${stage}.${n}.d`)}</p></div>
+    </details>
+  ))}
+</div>

@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useT, pick, type Lang } from '../../i18n';
+import { langPaths } from '../../i18n/paths';
+import { documents } from '../../data/documents';
+export const getStaticPaths = langPaths;
+const lang = Astro.params.lang as Lang;
+const t = useT(lang);
+---
+<Layout lang={lang} title={t('doc.title')} description={t('doc.desc')} path="documents">
+  <section class="section"><div class="wrap">
+    <h1>{t('doc.h1')}</h1>
+    <p class="lead">{t('doc.lead')}</p>
+    <ul class="doclist">
+      {documents.map((d) => (
+        <li><a href={d.href} target="_blank" rel="noopener"><span class="doc-t">{pick(d.title, lang)}</span><span class="doc-m">PDF</span></a></li>
+      ))}
+    </ul>
+  </div></section>
+</Layout>
