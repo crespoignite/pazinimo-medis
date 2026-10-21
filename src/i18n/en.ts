@@ -449,6 +449,9 @@ const en: Record<string, string> = {
   'img.sc.swing': 'A boy laughing on a swing in the school yard',
   'img.sc.xylophone': 'A boy smiling as he plays a xylophone',
   'img.sc.teacher': 'A music teacher helping pupils at their desks',
+  'img.sc.grade5': 'Two older primary pupils working through a puzzle together',
+  'img.sc.teen': 'A smiling teenager holding up a science experiment',
+  'img.sc.high': 'A high school student laughing at his desk',
   'photo.label': 'Photo placeholder',
 };
 export default en;

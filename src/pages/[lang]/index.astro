@@ -17,10 +17,11 @@ const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/programs'], ['home.how.3', 'faq#k-meals'], ['home.how.4', 'faq#s-class-size']];
 const heroSlides = [
-  { src: '/photos/kindergarten-friends.jpg', alt: t('img.kg.friends'), pos: '50% 35%', href: p('kindergarten'), cap: t('hero.1.t') },
-  { src: '/photos/school-drum.jpg', alt: t('img.sc.drum'), pos: '50% 40%', href: p('school'), cap: t('hero.2.t') },
-  { src: '/photos/school-explore.jpg', alt: t('img.sc.explore'), pos: '50% 50%', href: p('about/programs'), cap: t('hero.3.t') },
-  { src: '/photos/school-swing.jpg', alt: t('img.sc.swing'), pos: '50% 55%', href: p('about/news'), cap: t('hero.4.t') },
+  { src: '/photos/kindergarten-hands-up.jpg', alt: t('img.kg.hands'), pos: '50% 45%' },
+  { src: '/photos/school-drum.jpg', alt: t('img.sc.drum'), pos: '50% 40%' },
+  { src: '/photos/school-grade5.jpg', alt: t('img.sc.grade5'), pos: '50% 40%' },
+  { src: '/photos/school-teen-lab.jpg', alt: t('img.sc.teen'), pos: '50% 35%' },
+  { src: '/photos/school-highschool.jpg', alt: t('img.sc.high'), pos: '50% 30%' },
 ];
 ---
 <Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
