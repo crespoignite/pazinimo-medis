@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Photo from '../../components/Photo.astro';
+import HeroCover from '../../components/HeroCover.astro';
 import FaqList from '../../components/FaqList.astro';
 import CityTabs from '../../components/CityTabs.astro';
 import { useT, localePath, type Lang } from '../../i18n';
@@ -15,19 +16,14 @@ const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 ---
 <Layout lang={lang} title={t('kg.title')} description={t('kg.desc')} path="kindergarten" stage="kindergarten">
-  <section class="section">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow">{t('nav.kindergarten')}</p>
-          <h1>{t('kg.h1')}</h1>
-          <p class="lead">{t('kg.lead')}</p>
-          <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="kg_come_see">{t('cta.comeSee')}</a><a class="btn ghost" href={p('pricing') + '#kindergarten'}>{t('cta.seePricing')}</a></div>
-        </div>
-        <Photo lang={lang} tone="k" ratio="4/3" label={t('nav.kindergarten')} />
-      </div>
-      <CityTabs lang={lang} scrollTo="addr" />
-    </div>
+  <section class="hero">
+    <HeroCover lang={lang} stage="k" slides={[{ src: '/photos/kindergarten-hands-up.jpg', alt: t('img.kg.hands'), pos: '50% 45%' }]}>
+      <p class="eyebrow">{t('nav.kindergarten')}</p>
+      <h1>{t('kg.h1')}</h1>
+      <p class="lead">{t('kg.lead')}</p>
+      <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="kg_come_see">{t('cta.comeSee')}</a><a class="btn ghost" href={p('pricing') + '#kindergarten'}>{t('cta.seePricing')}</a></div>
+    </HeroCover>
+    <div class="wrap" style="padding-top:20px"><CityTabs lang={lang} scrollTo="addr" /></div>
   </section>
 
   <section class="section alt" aria-labelledby="day">
@@ -41,7 +37,7 @@ const p = (s: string) => localePath(lang, s);
 
   <section class="section" aria-labelledby="groups">
     <div class="wrap split">
-      <Photo lang={lang} tone="k" ratio="4/3" label={t('kg.groups.title')} />
+      <Photo lang={lang} tone="k" ratio="4/3" src="/photos/kindergarten-joy.jpg" pos="50% 40%" alt={t('img.kg.joy')} />
       <div><h2 id="groups">{t('kg.groups.title')}</h2><p class="lead">{t('kg.groups.body')}</p></div>
     </div>
   </section>

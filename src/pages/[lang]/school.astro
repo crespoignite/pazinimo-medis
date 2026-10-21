@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Photo from '../../components/Photo.astro';
+import HeroCover from '../../components/HeroCover.astro';
 import FaqList from '../../components/FaqList.astro';
 import CityTabs from '../../components/CityTabs.astro';
 import { useT, localePath, type Lang } from '../../i18n';
@@ -15,20 +16,15 @@ const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 ---
 <Layout lang={lang} title={t('sc.title')} description={t('sc.desc')} path="school" stage="school">
-  <section class="section">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow">{t('nav.school')}</p>
-          <h1>{t('sc.h1')}</h1>
-          <p class="lead">{t('sc.lead')}</p>
-          <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
-          <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
-        </div>
-        <Photo lang={lang} tone="s" ratio="4/3" label={t('nav.school')} />
-      </div>
-      <CityTabs lang={lang} scrollTo="addr" />
-    </div>
+  <section class="hero">
+    <HeroCover lang={lang} stage="s" slides={[{ src: '/photos/school-xylophone.jpg', alt: t('img.sc.xylophone'), pos: '50% 40%' }]}>
+      <p class="eyebrow">{t('nav.school')}</p>
+      <h1>{t('sc.h1')}</h1>
+      <p class="lead">{t('sc.lead')}</p>
+      <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
+      <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
+    </HeroCover>
+    <div class="wrap" style="padding-top:20px"><CityTabs lang={lang} scrollTo="addr" /></div>
   </section>
 
   <section class="section alt" aria-labelledby="stages">
@@ -44,7 +40,7 @@ const p = (s: string) => localePath(lang, s);
 
   <section class="section" aria-labelledby="teacher">
     <div class="wrap split">
-      <Photo lang={lang} tone="s" ratio="4/3" label={t('sc.teacher.title')} />
+      <Photo lang={lang} tone="s" ratio="4/3" src="/photos/school-music-teacher.jpg" pos="70% 40%" alt={t('img.sc.teacher')} />
       <div><h2 id="teacher">{t('sc.teacher.title')}</h2><p class="lead">{t('sc.teacher.body')}</p></div>
     </div>
   </section>

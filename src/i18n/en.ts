@@ -441,6 +441,14 @@ const en: Record<string, string> = {
   '404.h1': 'This page has wandered off',
   '404.d': 'Try the menu, or head back to the homepage.',
 
+  'img.kg.friends': 'Young children hugging and smiling together in their classroom',
+  'img.kg.hands': 'Children in class with their hands up, eager to answer',
+  'img.kg.joy': 'Three girls laughing and waving at the camera',
+  'img.sc.drum': 'A smiling girl playing a drum in music class',
+  'img.sc.explore': 'Two boys exploring the human body together on the classroom floor',
+  'img.sc.swing': 'A boy laughing on a swing in the school yard',
+  'img.sc.xylophone': 'A boy smiling as he plays a xylophone',
+  'img.sc.teacher': 'A music teacher helping pupils at their desks',
   'photo.label': 'Photo placeholder',
 };
 export default en;

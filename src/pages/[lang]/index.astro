@@ -3,7 +3,7 @@ import FaqList from '../../components/FaqList.astro';
 import Rings from '../../components/Rings.astro';
 import StepCards from '../../components/StepCards.astro';
 import Layout from '../../layouts/Layout.astro';
-import Carousel from '../../components/Carousel.astro';
+import HeroCover from '../../components/HeroCover.astro';
 import Photo from '../../components/Photo.astro';
 import NewsList from '../../components/NewsList.astro';
 import Benefits from '../../components/Benefits.astro';
@@ -16,19 +16,22 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 const how = [['home.how.1', 'about/methodologies'], ['home.how.2', 'about/programs'], ['home.how.3', 'faq#k-meals'], ['home.how.4', 'faq#s-class-size']];
+const heroSlides = [
+  { src: '/photos/kindergarten-friends.jpg', alt: t('img.kg.friends'), pos: '50% 35%', href: p('kindergarten'), cap: t('hero.1.t') },
+  { src: '/photos/school-drum.jpg', alt: t('img.sc.drum'), pos: '50% 40%', href: p('school'), cap: t('hero.2.t') },
+  { src: '/photos/school-explore.jpg', alt: t('img.sc.explore'), pos: '50% 50%', href: p('about/programs'), cap: t('hero.3.t') },
+  { src: '/photos/school-swing.jpg', alt: t('img.sc.swing'), pos: '50% 55%', href: p('about/news'), cap: t('hero.4.t') },
+];
 ---
 <Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
   <section class="hero" aria-labelledby="h1">
+    <HeroCover lang={lang} slides={heroSlides}>
+      <p class="eyebrow">{t('home.eyebrow')}</p>
+      <h1 id="h1">{t('home.opener')}</h1>
+      <p class="lead">{t('home.valueprop')}</p>
+      <p><a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('cta.book')}</a></p>
+    </HeroCover>
     <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow">{t('home.eyebrow')}</p>
-          <h1 id="h1">{t('home.opener')}</h1>
-          <p class="lead">{t('home.valueprop')}</p>
-          <p><a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('cta.book')}</a></p>
-        </div>
-        <Carousel lang={lang} ratio="4/3" />
-      </div>
       <div class="hero-base">
         <span class="proof-line"><strong>{t('home.proof')}</strong> <small class="campus-note">({t('home.proofSource')})</small></span>
         <span class="slogan">{t('site.slogan')}</span>

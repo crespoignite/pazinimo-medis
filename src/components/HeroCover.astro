@@ -1,0 +1,56 @@
+---
+import { useT, type Lang } from '../i18n';
+export interface Slide { src: string; alt: string; pos?: string; href?: string; cap?: string }
+const { lang, slides, stage = '' } = Astro.props as { lang: Lang; slides: Slide[]; stage?: 'k' | 's' | '' };
+const t = useT(lang);
+const multi = slides.length > 1;
+---
+<div class={`hero-cover ${stage}`} data-hero-cover>
+  <div class="hc-media">
+    {slides.map((s, i) => (
+      <figure class="hc-slide" data-active={i === 0 ? 'true' : 'false'} aria-hidden={i === 0 ? undefined : 'true'}>
+        <img src={s.src} alt={s.alt} style={`object-position:${s.pos ?? '50% 40%'}`} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+        {s.cap && s.href && <a class="hc-cap" href={s.href} tabindex={i === 0 ? undefined : -1}>{s.cap} <span aria-hidden="true">→</span></a>}
+      </figure>
+    ))}
+  </div>
+  <div class="hc-fade" aria-hidden="true"></div>
+  <div class="wrap hc-copy"><slot /></div>
+  {multi && (
+    <div class="hc-ctl">
+      <button type="button" data-prev aria-label={t('hero.prev')}>‹</button>
+      <button type="button" data-next aria-label={t('hero.next')}>›</button>
+      <button type="button" data-toggle aria-label={t('hero.pause')} data-pause={t('hero.pause')} data-play={t('hero.play')}>❚❚</button>
+    </div>
+  )}
+  {multi && (
+    <div class="hc-dots">
+      {slides.map((_, i) => <button type="button" aria-label={t('hero.goto', { n: i + 1 })} aria-current={i === 0 ? 'true' : undefined} data-dot={i}></button>)}
+    </div>
+  )}
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-hero-cover]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('.hc-slide')];
+    const n = slides.length; if (n < 2) return;
+    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
+    const tog = root.querySelector<HTMLElement>('[data-toggle]')!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0, timer: any = null, playing = !reduce;
+    const go = (k: number) => {
+      i = (k + n) % n;
+      slides.forEach((s, j) => { s.dataset.active = String(j === i); j === i ? s.removeAttribute('aria-hidden') : s.setAttribute('aria-hidden', 'true'); s.querySelector('a')?.setAttribute('tabindex', j === i ? '0' : '-1'); });
+      dots.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+    };
+    const stop = () => timer && clearInterval(timer);
+    const start = () => { stop(); if (playing) timer = setInterval(() => go(i + 1), 6500); };
+    root.querySelector('[data-prev]')!.addEventListener('click', () => go(i - 1));
+    root.querySelector('[data-next]')!.addEventListener('click', () => go(i + 1));
+    dots.forEach((d, j) => d.addEventListener('click', () => go(j)));
+    tog.addEventListener('click', () => { playing = !playing; tog.textContent = playing ? '❚❚' : '▶'; tog.setAttribute('aria-label', tog.dataset[playing ? 'pause' : 'play']!); playing ? start() : stop(); });
+    root.addEventListener('mouseenter', stop); root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop); root.addEventListener('focusout', start);
+    if (reduce) tog.textContent = '▶';
+    start();
+  });
+</script>
