@@ -28,4 +28,4 @@ export const divider = {
 
 // Background photos for the four joining steps (Visit, Talk, Trial day, Contract).
 // Put the files in public/img/steps and set the paths, e.g. '/img/steps/visit.jpg'.
-export const stepImages: string[] = ['', '', '', ''];
+export const stepImages: string[] = ['/photos/step-visit.jpg', '/photos/step-talk.jpg', '/photos/step-trial.jpg', '/photos/step-join.jpg'];
