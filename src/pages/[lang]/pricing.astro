@@ -12,6 +12,7 @@ const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 let rid = 0;
 const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}`));
+import BrandShapes from '../../components/BrandShapes.astro';
 ---
 <Layout lang={lang} title={t('pr.title')} description={t('pr.desc')} path="pricing">
   <section class="section">
@@ -81,9 +82,13 @@ const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}
       <h2 style="margin-top:48px">{t('pr.q.title')}</h2>
       <FaqList lang={lang} items={[faqs.find((f) => f.id === 'price')!, faqs.find((f) => f.id === 'subsidies')!]} />
 
-      <div class="card" style="margin-top:40px;text-align:center">
-        <h3>{t('pr.cta.title')}</h3><p>{t('pr.cta.d')}</p>
-        <a class="btn accent" href={p('admissions/ask')} data-cta="pricing_ask">{t('cta.ask')}</a>
+      <div class="card cta-deco" style="margin-top:40px;text-align:center">
+        <BrandShapes items={[
+          { s: 'pent', x: 2, y: 8, w: 84, r: -10 }, { s: 'circ', x: 90, y: 10, w: 80, r: 0 },
+          { s: 'quat', x: 90, y: 60, w: 0 },
+        ].filter((i) => i.w)} />
+        <div class="cta-in"><h3>{t('pr.cta.title')}</h3><p>{t('pr.cta.d')}</p>
+        <a class="btn accent" href={p('admissions/ask')} data-cta="pricing_ask">{t('cta.ask')}</a></div>
       </div>
     </div>
   </section>

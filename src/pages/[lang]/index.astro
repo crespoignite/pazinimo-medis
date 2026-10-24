@@ -23,6 +23,7 @@ const heroSlides = [
   { src: '/photos/school-teen-lab.jpg', alt: t('img.sc.teen'), pos: '50% 35%' },
   { src: '/photos/school-highschool.jpg', alt: t('img.sc.high'), pos: '50% 30%' },
 ];
+import BrandShapes from '../../components/BrandShapes.astro';
 ---
 <Layout lang={lang} title={t('home.title')} description={t('home.desc')} path="">
   <section class="hero" aria-labelledby="h1">
@@ -115,7 +116,11 @@ const heroSlides = [
     </div>
   </section>
 
-  <section class="section alt" aria-labelledby="join">
+  <section class="section alt has-deco band-cream" aria-labelledby="join">
+    <BrandShapes items={[
+      { s: 'cross', x: 88, y: 3, w: 100, r: 14 }, { s: 'hex', x: 1, y: 4, w: 84, r: -10, m: true },
+      { s: 'bar', x: 80, y: 84, w: 130, r: 0, m: true }, { s: 'semi', x: 4, y: 88, w: 90, r: -6, m: true },
+    ]} />
     <div class="wrap">
       <h2 id="join">{t('home.join.title')}</h2>
       <StepCards lang={lang} />

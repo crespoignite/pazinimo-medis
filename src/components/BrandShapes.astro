@@ -1,0 +1,37 @@
+---
+// Broken-outline shapes from the 2025 brand book (graphic elements 1.11).
+// Decorative only. Place inside a position:relative section.
+export interface Item { s: string; x: number; y: number; w: number; r?: number; m?: boolean; }
+const { items = [] } = Astro.props as { items?: Item[] };
+const C = { p: '#6d53d4', o: '#ff5311', g: '#c29548', t: '#01b683' };
+// shape: element + colour segments [start%, length%, colour]
+const S: Record<string, { d?: string; el?: string; seg: [number, number, string][] }> = {
+  pent: { d: 'M60 12 L108 47 L90 104 L30 104 L12 47 Z', seg: [[2, 20, 'o'], [26, 24, 'g'], [54, 20, 'g'], [78, 20, 'p']] },
+  hex: { d: 'M60 8 L106 34 L106 86 L60 112 L14 86 L14 34 Z', seg: [[0, 22, 't'], [28, 20, 't'], [52, 20, 'p'], [76, 22, 'p']] },
+  rect: { d: 'M14 34 H106 V86 H14 Z', seg: [[1, 30, 'p'], [34, 14, 'p'], [52, 30, 'o'], [86, 12, 'o']] },
+  square: { d: 'M24 24 H96 V96 H24 Z', seg: [[2, 22, 'o'], [29, 22, 'o'], [55, 20, 'g'], [78, 20, 'g']] },
+  tri: { d: 'M10 40 H110 L60 90 Z', seg: [[2, 30, 'p'], [40, 28, 'p'], [72, 26, 'o']] },
+  semi: { d: 'M12 84 A48 48 0 0 1 108 84 Z', seg: [[2, 50, 'p'], [58, 38, 'o']] },
+  ell: { el: '<ellipse cx="60" cy="60" rx="36" ry="50"/>', seg: [[0, 46, 'p'], [52, 44, 'g']] },
+  circ: { el: '<circle cx="60" cy="60" r="46"/>', seg: [[0, 45, 'o'], [50, 28, 'p'], [84, 12, 'p']] },
+  arch: { d: 'M10 100 A50 50 0 0 1 110 100 H88 A28 28 0 0 0 32 100 Z', seg: [[1, 40, 't'], [44, 24, 'o'], [72, 26, 't']] },
+  clover: { d: 'M42 36 A20 20 0 1 1 78 36 L84 42 A20 20 0 1 1 84 78 L78 84 A20 20 0 1 1 42 84 L36 78 A20 20 0 1 1 36 42 Z', seg: [[2, 30, 'o'], [36, 30, 't'], [70, 28, 'o']] },
+  cross: { d: 'M45 10 H75 A35 35 0 0 0 110 45 V75 A35 35 0 0 0 75 110 H45 A35 35 0 0 0 10 75 V45 A35 35 0 0 0 45 10 Z', seg: [[1, 30, 'p'], [34, 30, 't'], [68, 30, 'p']] },
+  cone: { d: 'M62 8 L104 96 A56 56 0 0 1 20 96 Z', seg: [[1, 36, 'p'], [41, 30, 'g'], [75, 22, 'g']] },
+  bar: { el: '<rect x="10" y="48" width="100" height="24" transform="rotate(-25 60 60)"/>', seg: [[1, 36, 't'], [42, 28, 'g'], [74, 24, 'g']] },
+};
+---
+<div class="deco" aria-hidden="true">
+  {items.map((it) => {
+    const sh = S[it.s];
+    if (!sh) return null;
+    const shape = (col: string, len: number, start: number) => {
+      const attrs = `pathLength="100" fill="none" stroke="${C[col as keyof typeof C]}" stroke-width="4" stroke-dasharray="${len} ${100 - len}" stroke-dashoffset="${-start}"`;
+      return sh.d ? `<path d="${sh.d}" ${attrs}/>` : sh.el!.replace(/\/>$/, ` ${attrs}/>`);
+    };
+    return (
+      <svg class={`shape${it.m ? ' hide-m' : ''}`} viewBox="0 0 120 120" style={`left:${it.x}%;top:${it.y}%;width:${it.w}px;transform:rotate(${it.r || 0}deg)`} focusable="false"
+        set:html={sh.seg.map(([st, ln, c]) => shape(c, ln, st)).join('')} />
+    );
+  })}
+</div>

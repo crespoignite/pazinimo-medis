@@ -351,3 +351,20 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
   .day.on{display:flex}
   .day h3{display:none}
 }
+
+/* brand graphic elements (brand book 1.11, 2.09), used sparingly */
+.has-deco{position:relative;overflow:hidden}
+.has-deco>.wrap,.has-deco>.cta-in{position:relative;z-index:1}
+.deco{position:absolute;inset:0;pointer-events:none;z-index:0}
+.shape{position:absolute;height:auto;overflow:visible;opacity:.95}
+.deco.arcs svg{position:absolute;width:420px;height:auto;bottom:-230px}
+.deco.arcs.right svg{right:-120px}
+.deco.arcs.left svg{left:-120px;transform:scaleX(-1)}
+.band-sky{background:var(--sky)!important;border-block:0!important}
+.band-peach{background:#FFE9D2!important;border-block:0!important}
+.band-cream{background:#FFF6CF!important;border-block:0!important}
+.band-mint{background:var(--mint)!important;border-block:0!important}
+.cta-deco{position:relative;overflow:hidden;background:var(--peach);border:0}
+.cta-deco.s{background:var(--sky)}
+.cta-deco .cta-in{position:relative;z-index:1}
+@media (max-width:760px){.shape.hide-m{display:none}.deco.arcs svg{width:300px;bottom:auto;top:-190px;opacity:.7}.deco.arcs.right svg{right:-110px}.deco.arcs.left svg{left:-110px}}

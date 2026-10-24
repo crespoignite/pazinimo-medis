@@ -14,6 +14,7 @@ const mapUrl: Record<string,string> = {'ft.vg':'K. Kalinausko g. 13, Vilnius','f
 const map = (k: string) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapUrl[k]);
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
+import BrandArcs from '../../components/BrandArcs.astro';
 ---
 <Layout lang={lang} title={t('sc.title')} description={t('sc.desc')} path="school" stage="school">
   <section class="hero">
@@ -45,7 +46,8 @@ const p = (s: string) => localePath(lang, s);
     </div>
   </section>
 
-  <section class="section" aria-labelledby="teacher">
+  <section class="section has-deco band-sky" aria-labelledby="teacher">
+    <BrandArcs side="right" />
     <div class="wrap split">
       <Photo lang={lang} tone="s" ratio="4/3" src="/photos/school-music-teacher.jpg" pos="70% 40%" alt={t('img.sc.teacher')} />
       <div><h2 id="teacher">{t('sc.teacher.title')}</h2><p class="lead">{t('sc.teacher.body')}</p></div>
