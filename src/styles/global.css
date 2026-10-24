@@ -46,7 +46,7 @@ p{margin:0 0 1em}
 .header{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .header .wrap{display:flex;align-items:center;gap:20px;min-height:72px}
 .brand{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
-.brand img{height:34px;width:auto;display:block}
+.brand img{height:40px;width:auto;display:block}
 .brand small{font-size:.74rem;font-weight:600;color:var(--ink-soft);margin-top:3px;letter-spacing:.02em}
 .nav{margin-left:auto;display:flex;align-items:center;gap:4px}
 .nav a,.nav button.navbtn{font:inherit;font-weight:600;font-size:.96rem;text-decoration:none;padding:.5em .8em;border-radius:var(--radius);color:var(--ink);background:none;border:0;cursor:pointer}
@@ -297,3 +297,5 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
   .hc-dots{position:absolute;right:0;left:0;bottom:18px;z-index:4;display:flex;gap:8px;justify-content:center}
   .hc-cap{bottom:44px}
 }
+
+.brand-logo{height:40px;width:auto;display:block}

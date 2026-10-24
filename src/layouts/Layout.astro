@@ -33,7 +33,7 @@ const base = Astro.site ? Astro.site.origin : '';
 </head>
 <body data-stage={stage} data-lang={lang} data-ga={site.ga4}>
   <a class="skip" href="#main">{t('skip')}</a>
-  {!bare && <Header lang={lang} path={path} />}
+  {!bare && <Header lang={lang} path={path} stage={stage} />}
   {!bare && <CampaignBanner lang={lang} />}
   {!bare && <Crumbs lang={lang} path={path} title={title} />}
   {bare && <div class="bare-top"><a href={localePath(lang)} aria-label={t('site.name')}><img src={site.logoDark} alt={t('site.name')} /></a></div>}

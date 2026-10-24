@@ -3,8 +3,10 @@ export const site = {
   phoneHref: 'tel:+37070077015',
   email: 'info@pazinimo-medis.lt',
   ga4: 'G-PMXJ553E9Y',
-  logoDark: 'https://pazinimomedis.lt/wp-content/uploads/2026/02/Be-pavadinimo-1920-x-776-piks.-1.svg',
-  logoWhite: 'https://pazinimomedis.lt/wp-content/uploads/2026/02/Pazinimo_medis_Mokykla_White.svg',
+  logoDark: '/brand/logo-navy.png',
+  logoBlue: '/brand/logo-blue.png',
+  logoGreen: '/brand/logo-green.png',
+  logoWhite: '/brand/logo-white.png',
   campuses: {
     vg: { name: 'Vilnius, K. Kalinausko g. 13', city: 'vilnius' },
     vp: { name: 'Vilnius, Ozo g. 37', city: 'vilnius' },

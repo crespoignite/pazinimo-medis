@@ -1,7 +1,8 @@
 ---
 import { useT, localePath, otherLang, locales, type Lang } from '../i18n';
 import { site } from '../data/site';
-const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
+const { lang, path = '', stage } = Astro.props as { lang: Lang; path?: string; stage?: 'kindergarten' | 'school' };
+const logo = stage === 'school' ? site.logoBlue : stage === 'kindergarten' ? site.logoGreen : site.logoDark;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 const cur = Astro.url.pathname;
@@ -11,7 +12,7 @@ const sub = [['about/programs','nav.programs'],['about/international','nav.inter
 <header class="header" id="header">
   <div class="wrap">
     <a class="brand" href={p('')} aria-label={`${t('site.name')}, ${t('site.cities')}`}>
-      <img src={site.logoDark} alt={t('site.name')} width="85" height="34" />
+      <img class="brand-logo" src={logo} alt={t('site.name')} width="107" height="40" />
       <small>{t('site.cities')}</small>
     </a>
     <button class="burger" type="button" aria-expanded="false" aria-controls="nav" id="burger">{t('nav.menu')}</button>

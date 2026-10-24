@@ -21,7 +21,7 @@ const p = (s: string) => localePath(lang, s);
       <p class="eyebrow">{t('nav.school')}</p>
       <h1>{t('sc.h1')}</h1>
       <p class="lead">{t('sc.lead')}</p>
-      <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small>{t('sc.proof.d')}</small></span></div>
+      <div class="proof" style="margin-bottom:20px"><span>{t('sc.proof.title')}. <small><a href="https://topmokyklos.lt/" target="_blank" rel="noopener">{t('sc.proof.d')}</a></small></span></div>
       <div class="row"><a class="btn accent" href={p('admissions/book')} data-cta="sc_book">{t('cta.book')}</a><a class="btn ghost" href={p('pricing') + '#school'}>{t('cta.seePricing')}</a></div>
     </HeroCover>
     <div class="wrap" style="padding-top:20px"><CityTabs lang={lang} scrollTo="addr" /></div>
