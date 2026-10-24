@@ -55,8 +55,8 @@ const heroSlides = [
           <Rings tone="k" />
           <h3>{t('home.stage.k.t')}</h3><p>{t('home.stage.k.d')}</p>
           <div class="cities">
-            <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#vilnius'} data-cta="home_k_vilnius">{t('home.city.vilnius')}</a>
-            <a class="btn sm" style="background:var(--green);border-color:var(--green)" href={p('kindergarten') + '#kaunas'} data-cta="home_k_kaunas">{t('home.city.kaunas')}</a>
+            <a class="btn sm" style="background:var(--green);border-color:var(--green-ink)" href={p('kindergarten') + '#vilnius'} data-cta="home_k_vilnius">{t('home.city.vilnius')}</a>
+            <a class="btn sm" style="background:var(--green);border-color:var(--green-ink)" href={p('kindergarten') + '#kaunas'} data-cta="home_k_kaunas">{t('home.city.kaunas')}</a>
             <a class="btn sm ghost" href={p('kindergarten')}>{t('cta.learnMore')}</a>
           </div>
         </div>
@@ -64,8 +64,8 @@ const heroSlides = [
           <Rings tone="s" />
           <h3>{t('home.stage.s.t')}</h3><p>{t('home.stage.s.d')}</p>
           <div class="cities">
-            <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#vilnius'} data-cta="home_s_vilnius">{t('home.city.vilnius')}</a>
-            <a class="btn sm" style="background:var(--blue);border-color:var(--blue)" href={p('school') + '#kaunas'} data-cta="home_s_kaunas">{t('home.city.kaunas')}</a>
+            <a class="btn sm" style="background:var(--blue);border-color:var(--blue-ink)" href={p('school') + '#vilnius'} data-cta="home_s_vilnius">{t('home.city.vilnius')}</a>
+            <a class="btn sm" style="background:var(--blue);border-color:var(--blue-ink)" href={p('school') + '#kaunas'} data-cta="home_s_kaunas">{t('home.city.kaunas')}</a>
             <a class="btn sm ghost" href={p('school')}>{t('cta.learnMore')}</a>
           </div>
         </div>
@@ -81,12 +81,12 @@ const heroSlides = [
       <div class="grid g2">
         <div class="stage-col">
           <a class="card k" href={p('pricing') + '#kindergarten'} style="text-decoration:none;display:block"><h3>{t('pr.tab.k')}</h3><p class="num">{t('pr.from')} €{startingFrom.kindergarten}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
-          <h3 class="ben-h" style="color:var(--green)">{t('home.benefits.k')}</h3>
+          <h3 class="ben-h" style="color:var(--green-ink)">{t('home.benefits.k')}</h3>
           <Benefits lang={lang} stage="k" />
         </div>
         <div class="stage-col">
           <a class="card s" href={p('pricing') + '#school'} style="text-decoration:none;display:block"><h3>{t('pr.tab.s')}</h3><p class="num">{t('pr.from')} €{startingFrom.school}</p><p class="campus-note">{t('pr.monthlyNote')}</p></a>
-          <h3 class="ben-h" style="color:var(--blue)">{t('home.benefits.s')}</h3>
+          <h3 class="ben-h" style="color:var(--blue-ink)">{t('home.benefits.s')}</h3>
           <Benefits lang={lang} stage="s" />
         </div>
       </div>
@@ -103,11 +103,11 @@ const heroSlides = [
       <h3 style="margin-top:36px">{t('home.faq.title')}</h3>
       <div class="grid g2">
         <div>
-          <h3 style="color:var(--green)">{t('home.faq.k')}</h3>
+          <h3 style="color:var(--green-ink)">{t('home.faq.k')}</h3>
           <FaqList lang={lang} items={topFaqs('k')} />
         </div>
         <div>
-          <h3 style="color:var(--blue)">{t('home.faq.s')}</h3>
+          <h3 style="color:var(--blue-ink)">{t('home.faq.s')}</h3>
           <FaqList lang={lang} items={topFaqs('s')} />
         </div>
       </div>

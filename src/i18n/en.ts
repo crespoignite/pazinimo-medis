@@ -321,6 +321,10 @@ const en: Record<string, string> = {
   'pg.howItWorks': 'How it works',
   'pg.info.title': 'Good to know',
   'pg.cancel.contact': 'To cancel a place, write to',
+  'pg.week': 'Weekly timetable',
+  'pg.dayNone': 'Nothing on this day',
+  'pg.flex': 'Programmes and flexible times',
+  'pg.close': 'Close',
   'pg.expand': 'Details',
 
   'dir.technology': 'Technology',

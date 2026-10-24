@@ -21,7 +21,7 @@ const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}
       <p class="campus-note"><em>{t('pr.verify')}</em></p>
       <CityTabs lang={lang} year />
 
-      <h2 id="kindergarten" style="margin-top:40px;color:var(--green)">{t('pr.tab.k')}</h2>
+      <h2 id="kindergarten" style="margin-top:40px;color:var(--green-ink)">{t('pr.tab.k')}</h2>
       <div class="scroll" data-stage="kindergarten" style="--accent-bg:var(--green-bg)">
         <table class="price">
           <thead><tr><th>{t('pr.preschool')}</th><th>{t('pr.col.month')}</th><th></th></tr></thead>
@@ -45,12 +45,12 @@ const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}
         </table>
       </div>
       <p class="campus-note">{t('pr.meals.k')}</p>
-      <h3 style="margin-top:28px;color:var(--green)">{t('pr.inc.title')}</h3>
+      <h3 style="margin-top:28px;color:var(--green-ink)">{t('pr.inc.title')}</h3>
       <div class="grid g3" style="margin-top:12px">
         {[1, 2, 3].map((n) => <div class="card k"><h3>{t(`pr.inc.${n}`)}</h3><p>{t('pr.inc.d')}</p></div>)}
       </div>
 
-      <h2 id="school" style="margin-top:48px;color:var(--blue)">{t('pr.tab.s')}</h2>
+      <h2 id="school" style="margin-top:48px;color:var(--blue-ink)">{t('pr.tab.s')}</h2>
       <div class="grid g2">
         {[['vilnius', school.vilnius], ['kaunas', school.kaunas]].map(([city, rows]: any) => (
           <div class="scroll" data-city={city} style="--accent-bg:var(--blue-bg)">

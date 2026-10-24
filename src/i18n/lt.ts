@@ -38,6 +38,10 @@ const lt: Record<string, string> = {
   'pr.row.s3': 'Mokymosi priemonės ir skaitmeniniai įrankiai (laikinas tekstas)',
   'pr.row.s4': 'Būreliai ir tarptautiniai projektai (laikinas tekstas)',
   'pr.row.note': 'Pilnas aprašymas netrukus. Maitinimas ir pailgintos dienos grupė įkainojami atskirai.',
+  'pg.week': 'Savaitės tvarkaraštis',
+  'pg.dayNone': 'Šią dieną veiklų nėra',
+  'pg.flex': 'Programos ir lankstus laikas',
+  'pg.close': 'Uždaryti',
   'in.np.4': 'Scientific Hiking',
 };
 export default lt;

@@ -3,8 +3,8 @@
 // Kindergarten uses the warm logo colours, school the blue ones.
 const { tone = 'k' } = Astro.props as { tone?: 'k' | 's' };
 const pal = tone === 'k'
-  ? ['#7A59D1', '#3BAA7E', '#F0642D', '#C5A15A', '#3BAA7E', '#F0642D']
-  : ['#6B52C8', '#2D3FD0', '#2F8FE0', '#2D3FD0', '#4DB8D0', '#6B52C8'];
+  ? ['#6d53d4', '#01b683', '#ff5311', '#c29548', '#01b683', '#ff5311']
+  : ['#6d53d4', '#0007d6', '#0088ff', '#00c7c7', '#0088ff', '#6d53d4'];
 ---
 <svg class={`rings rings-${tone}`} viewBox="0 0 400 400" aria-hidden="true" focusable="false">
   <g fill="none" stroke-linecap="round" transform="rotate(-20 200 200)">

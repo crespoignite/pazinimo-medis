@@ -1,6 +1,6 @@
 ---
 import data from '../data/clubs.json';
-import { pick, useT, type Lang } from '../i18n';
+import { pick, useT, localePath, type Lang } from '../i18n';
 const { lang } = Astro.props as { lang: Lang };
 const t = useT(lang);
 const L = (o: any) => (o?.[lang] || o?.en || '');
@@ -9,6 +9,13 @@ const dirs = Object.entries(data.directions as Record<string, any>);
 const items = (data.items as any[]);
 const campusLabel = (c: string) => L((data.campuses as any)[c]);
 const dayName = (d: string) => L((data.info.dayNames as any)[d]);
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const cs = (it: any): string[] => (Array.isArray(it.campus) ? it.campus : [it.campus]);
+const attrs = (it: any) => ({ 'data-campus': cs(it).join(' '), 'data-dir': it.direction || '', 'data-kind': it.kind, 'data-q': `${it.name.en} ${it.name.lt} ${L(it.desc)}`.toLowerCase(), 'data-id': it.id });
+const campusShort = (c: string) => L((data.campuses as any)[c]).split(',')[0] + (c === 'vg' ? ' G' : c === 'vp' ? ' P' : '');
+const events = days.map((d) => ({ d, list: items.flatMap((it) => (it.slots || []).filter((x: any) => x.day === d).map((x: any) => ({ it, x }))).sort((a: any, b: any) => a.x.time.localeCompare(b.x.time)) }));
+const others = items.filter((it) => !(it.slots?.length));
+const dirColor: Record<string, string> = { tech: 'var(--blue)', think: 'var(--purple)', create: 'var(--orange)', stage: 'var(--green)', move: 'var(--gold)' };
 ---
 <div id="matrix" data-matrix>
   <div class="filters" role="search">
@@ -21,13 +28,40 @@ const dayName = (d: string) => L((data.info.dayNames as any)[d]);
     <div><label for="f-q">{t('pg.search')}</label><input id="f-q" type="search" placeholder={t('pg.search.ph')} /></div>
   </div>
   <p class="campus-note" aria-live="polite"><span id="m-count"></span> <button type="button" class="link" id="m-clear" style="background:none;border:0;cursor:pointer;font:inherit">{t('pg.clear')}</button></p>
-  <div class="grid g2" id="m-list">
+  <ul class="legend" aria-label={t('pg.direction')}>{dirs.map(([k, d]) => <li><i style={`background:${dirColor[k]}`}></i>{L(d)}</li>)}</ul>
+  <div class="daytabs" role="tablist" aria-label={t('pg.week')}>
+    {events.map((e) => <button type="button" role="tab" data-day={e.d} aria-selected="false">{dayName(e.d).slice(0, 3)}</button>)}
+  </div>
+  <div class="week" id="m-week">
+    {events.map((e) => (
+      <section class="day" data-day={e.d} aria-label={dayName(e.d)}>
+        <h3>{dayName(e.d)}</h3>
+        {e.list.map(({ it, x }: any) => (
+          <button type="button" class="ev" style={`--c:${dirColor[it.direction] || 'var(--ink)'}`} aria-haspopup="dialog" {...attrs(it)}>
+            <span class="ev-t">{x.time}</span>
+            <span class="ev-n">{L(it.name)}</span>
+            <span class="ev-m">{cs(it).map(campusShort).join(', ')}</span>
+            {it.flags?.includes('full') && <span class="ev-f">{t('pg.full')}</span>}
+          </button>
+        ))}
+        <p class="day-none">{t('pg.dayNone')}</p>
+      </section>
+    ))}
+  </div>
+  <h3 style="margin-top:32px">{t('pg.flex')}</h3>
+  <div class="others">
+    {others.map((it) => (
+      <button type="button" class="ev" style={`--c:${dirColor[it.direction] || 'var(--ink)'}`} aria-haspopup="dialog" {...attrs(it)}>
+        <span class="ev-n">{L(it.name)}</span>
+        <span class="ev-m">{it.kind === 'program' ? L(it.tag) : L(it.extra)}</span>
+      </button>
+    ))}
+  </div>
+  <div hidden id="m-details">
     {items.map((it) => {
-      const cs: string[] = Array.isArray(it.campus) ? it.campus : [it.campus];
       const strategic = it.direction && (data.directions as any)[it.direction]?.strategic;
-      const search = `${it.name.en} ${it.name.lt} ${L(it.desc)}`.toLowerCase();
       return (
-      <article class="item" data-campus={cs.join(' ')} data-dir={it.direction || ''} data-kind={it.kind} data-q={search} data-amount={it.amount ?? ''}>
+      <article class="item" id={`d-${it.id}`}>
         <div class="tags">
           {it.kind === 'program' && <span class="chip">{L(it.tag)}</span>}
           {it.flags?.includes('full') && <span class="chip full">{t('pg.full')}</span>}
@@ -41,21 +75,27 @@ const dayName = (d: string) => L((data.info.dayNames as any)[d]);
           <dt>{t('pg.grades')}</dt><dd>{L(it.grades)}</dd>
           {it.kind === 'club' && it.slots?.length > 0 && (<><dt>{t('pg.when')}</dt><dd>{it.slots.map((s: any) => `${dayName(s.day)} ${s.time}${s.note ? ` (${s.note})` : ''}`).join('; ')}</dd></>)}
           {it.kind === 'club' && it.extra && !it.slots?.length && (<><dt>{t('pg.when')}</dt><dd>{L(it.extra)}</dd></>)}
-          {it.kind === 'program' && (<><dt>{t('pg.when')}</dt><dd>{cs.map((c) => L(it.whenText[c])).join('; ')}. {L(it.duration)}</dd></>)}
-          <dt>{t('pg.campus')}</dt><dd>{cs.map(campusLabel).join('; ')}</dd>
+          {it.kind === 'program' && (<><dt>{t('pg.when')}</dt><dd>{cs(it).map((c) => L(it.whenText[c])).join('; ')}. {L(it.duration)}</dd></>)}
+          <dt>{t('pg.campus')}</dt><dd>{cs(it).map(campusLabel).join('; ')}</dd>
         </dl>
         <div class="price-tag">{L(it.price)}</div>
         {it.nvs && <div class="campus-note">{L(it.nvs)}</div>}
         {it.kind === 'club' && it.extra && it.slots?.length > 0 && <div class="campus-note">{L(it.extra)}</div>}
         {it.kind === 'program' && (
-          <details><summary>{t('pg.howItWorks')}</summary>
+          <>
+            <h4>{t('pg.howItWorks')}</h4>
             <ul class="tick">{it.steps.map((s: any) => <li><strong>{L(s.t)}</strong>{L(s.w) ? ` (${L(s.w)})` : ''}: {L(s.d)}</li>)}</ul>
             <p class="campus-note">{L(it.note)}</p>
-          </details>
+          </>
         )}
       </article>);
     })}
   </div>
+  <dialog id="club-dialog" aria-labelledby="club-dialog-title">
+    <button type="button" class="dlg-x" id="club-x" aria-label={t('pg.close')}>×</button>
+    <div id="club-body"></div>
+    <p class="dlg-cta"><a class="btn accent" href={localePath(lang, 'admissions/ask')}>{t('cta.ask')}</a></p>
+  </dialog>
   <p id="m-none" hidden>{t('pg.none')}</p>
   <div class="card p" style="margin-top:32px">
     <h3>{t('pg.info.title')}</h3>
@@ -71,24 +111,44 @@ const dayName = (d: string) => L((data.info.dayNames as any)[d]);
   const root = document.querySelector<HTMLElement>('[data-matrix]');
   if (root) {
     const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
-    const cards = [...root.querySelectorAll<HTMLElement>('.item')];
+    const evs = [...root.querySelectorAll<HTMLElement>('.ev')];
     const tpl = document.getElementById('m-i18n')!.dataset.results!;
     const params = new URLSearchParams(location.search);
     ['campus', 'dir', 'type'].forEach((k) => { const v = params.get(k); if (v) $('f-' + k).value = v; });
     const run = () => {
       const c = $('f-campus').value, d = $('f-dir').value, ty = $('f-type').value, q = $('f-q').value.trim().toLowerCase();
-      let n = 0;
-      cards.forEach((el) => {
+      const seen = new Set<string>();
+      evs.forEach((el) => {
         const ok = (!c || el.dataset.campus!.split(' ').includes(c)) && (!d || el.dataset.dir === d) && (!ty || el.dataset.kind === ty) && (!q || el.dataset.q!.includes(q));
-        el.classList.toggle('hidden', !ok); if (ok) n++;
+        el.classList.toggle('hidden', !ok); if (ok) seen.add(el.dataset.id!);
       });
-      document.getElementById('m-count')!.textContent = tpl.replace('{n}', String(n));
-      document.getElementById('m-none')!.hidden = n > 0;
+      root.querySelectorAll<HTMLElement>('.day').forEach((day) => day.classList.toggle('is-empty', !day.querySelector('.ev:not(.hidden)')));
+      const oth = root.querySelector<HTMLElement>('.others')!; oth.previousElementSibling!.classList.toggle('hidden', !oth.querySelector('.ev:not(.hidden)')); oth.classList.toggle('hidden', !oth.querySelector('.ev:not(.hidden)'));
+      document.getElementById('m-count')!.textContent = tpl.replace('{n}', String(seen.size));
+      document.getElementById('m-none')!.hidden = seen.size > 0;
       const u = new URL(location.href); [['campus', c], ['dir', d], ['type', ty]].forEach(([k, v]) => v ? u.searchParams.set(k, v) : u.searchParams.delete(k));
       history.replaceState(null, '', u);
     };
     root.querySelectorAll('select,input').forEach((e) => e.addEventListener('input', run));
     document.getElementById('m-clear')!.addEventListener('click', () => { ['f-campus', 'f-dir', 'f-type', 'f-q'].forEach((i) => ($(i).value = '')); run(); });
+    // day tabs (small screens show one day at a time)
+    const tabs = [...root.querySelectorAll<HTMLElement>('.daytabs button')];
+    const dayEls = [...root.querySelectorAll<HTMLElement>('.day')];
+    const show = (d: string) => { tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.day === d))); dayEls.forEach((e) => e.classList.toggle('on', e.dataset.day === d)); };
+    tabs.forEach((b) => b.addEventListener('click', () => show(b.dataset.day!)));
+    const names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const today = names[new Date().getDay()]; show(today === 'Sun' ? 'Mon' : today);
+    // activity window
+    const dlg = document.getElementById('club-dialog') as HTMLDialogElement;
+    const body = document.getElementById('club-body')!;
+    evs.forEach((el) => el.addEventListener('click', () => {
+      const src = document.getElementById('d-' + el.dataset.id);
+      if (!src) return;
+      body.innerHTML = ''; const copy = src.cloneNode(true) as HTMLElement; copy.removeAttribute('id'); copy.querySelector('h3')!.id = 'club-dialog-title'; body.appendChild(copy);
+      dlg.showModal();
+    }));
+    document.getElementById('club-x')!.addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
     run();
   }
 </script>
