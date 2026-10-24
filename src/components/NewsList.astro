@@ -1,5 +1,6 @@
 ---
 import news from '../data/news.json';
+import newsImages from '../data/news-images.json';
 import Photo from './Photo.astro';
 import { useT, localePath, type Lang } from '../i18n';
 const { lang, limit = 0 } = Astro.props as { lang: Lang; limit?: number };
@@ -11,6 +12,7 @@ for (const [k, v] of Object.entries(raw)) {
   const m = v.match(/^image:\s*(.+)$/m);
   local.set(slug, { image: m ? m[1].trim() : undefined });
 }
+const imgOf = (n: any): string | undefined => local.get(n.slug)?.image || (newsImages as Record<string, string>)[n.slug];
 const href = (n: any) => (local.has(n.slug) ? localePath(lang, `about/news/${n.slug}`) : n.url);
 const ext = (n: any) => (local.has(n.slug) ? {} : { rel: 'noopener' });
 const tags = (title: string) => {
@@ -33,6 +35,7 @@ const filters = [['all', 'nw.f.all'], ['ach', 'nw.f.ach'], ['erasmus', 'nw.f.era
   <div class="grid g3">
     {list.map((n) => (
       <a class="card news-item" href={href(n)} {...ext(n)}>
+        {imgOf(n) ? <img class="news-img" src={imgOf(n)} alt="" loading="lazy" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
         <span class="campus-note">{fmt(n.date)}</span>
         <h3>{n.title}</h3>
         <span class="link">{t('cta.readMore')}</span>
@@ -49,7 +52,7 @@ const filters = [['all', 'nw.f.all'], ['ach', 'nw.f.ach'], ['erasmus', 'nw.f.era
       <section aria-labelledby="feat" style="margin-top:32px" data-news-item data-tags={tags(featured.title)}>
         <h2 id="feat" class="campus-note" style="font-size:.9rem;letter-spacing:.06em;text-transform:uppercase">{t('nw.featured')}</h2>
         <a class="feat" href={href(featured)}>
-          {local.get(featured.slug)?.image ? <img src={local.get(featured.slug)!.image} alt="" loading="lazy" style="width:100%;border-radius:var(--radius)" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
+          {imgOf(featured) ? <img src={imgOf(featured)} alt="" loading="lazy" style="width:100%;border-radius:var(--radius)" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
           <div><p class="campus-note">{fmt(featured.date)}</p><h3 style="font-size:1.6rem">{featured.title}</h3><span class="link">{t('cta.readMore')}</span></div>
         </a>
       </section>
@@ -57,7 +60,7 @@ const filters = [['all', 'nw.f.all'], ['ach', 'nw.f.ach'], ['erasmus', 'nw.f.era
     <div class="grid g3" style="margin-top:32px">
       {grid.map((n) => (
         <a class="ncard card" href={href(n)} {...ext(n)} data-news-item data-tags={tags(n.title)}>
-          {local.get(n.slug)?.image ? <img src={local.get(n.slug)!.image} alt="" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--radius);margin-bottom:12px" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
+          {imgOf(n) ? <img src={imgOf(n)} alt="" loading="lazy" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--radius);margin-bottom:12px" /> : <Photo lang={lang} ratio="16/10" label={t('photo.label')} />}
           <span class="campus-note">{fmt(n.date)}</span>
           <h3>{n.title}</h3>
         </a>

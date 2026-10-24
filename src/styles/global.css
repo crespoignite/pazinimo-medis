@@ -200,7 +200,7 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 
 /* news */
 .news-item{display:flex;flex-direction:column;gap:8px;text-decoration:none}
-.news-item img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius)}
+.news-item img,.news-item .ph{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:var(--radius)}
 .prose{max-width:46em}
 .prose img{border-radius:var(--radius)}
 .crumbs{font-size:.9rem;margin-bottom:12px}
