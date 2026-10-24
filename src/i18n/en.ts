@@ -453,6 +453,11 @@ const en: Record<string, string> = {
 
   'img.kg.friends': 'Young children hugging and smiling together in their classroom',
   'img.kg.hands': 'Children in class with their hands up, eager to answer',
+  'img.kg.cars': 'A toddler playing with wooden toy vehicles on a road rug',
+  'img.kg.paintgirl': 'A little girl concentrating as she paints',
+  'img.kg.teacher': 'A teacher smiling as she guides a child painting',
+  'img.kg.circle': 'A teacher showing a green paper circle to children at a craft table',
+  'img.sc.hand': 'A pupil raising her hand to answer in class',
   'img.kg.joy': 'Three girls laughing and waving at the camera',
   'img.sc.drum': 'A smiling girl playing a drum in music class',
   'img.sc.explore': 'Two boys exploring the human body together on the classroom floor',
