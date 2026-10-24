@@ -12,7 +12,7 @@ const dayName = (d: string) => L((data.info.dayNames as any)[d]);
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const cs = (it: any): string[] => (Array.isArray(it.campus) ? it.campus : [it.campus]);
 const attrs = (it: any) => ({ 'data-campus': cs(it).join(' '), 'data-dir': it.direction || '', 'data-kind': it.kind, 'data-q': `${it.name.en} ${it.name.lt} ${L(it.desc)}`.toLowerCase(), 'data-id': it.id });
-const campusShort = (c: string) => L((data.campuses as any)[c]).split(',')[0] + (c === 'vg' ? ' G' : c === 'vp' ? ' P' : '');
+const campusShort = (c: string) => L((data.campuses as any)[c]).replace(/\s+\d+\s*$/, '');
 const events = days.map((d) => ({ d, list: items.flatMap((it) => (it.slots || []).filter((x: any) => x.day === d).map((x: any) => ({ it, x }))).sort((a: any, b: any) => a.x.time.localeCompare(b.x.time)) }));
 const others = items.filter((it) => !(it.slots?.length));
 const dirColor: Record<string, string> = { tech: 'var(--blue)', think: 'var(--purple)', create: 'var(--orange)', stage: 'var(--green)', move: 'var(--gold)' };
@@ -40,7 +40,7 @@ const dirColor: Record<string, string> = { tech: 'var(--blue)', think: 'var(--pu
           <button type="button" class="ev" style={`--c:${dirColor[it.direction] || 'var(--ink)'}`} aria-haspopup="dialog" {...attrs(it)}>
             <span class="ev-t">{x.time}</span>
             <span class="ev-n">{L(it.name)}</span>
-            <span class="ev-m">{cs(it).map(campusShort).join(', ')}</span>
+            <span class="ev-m">{cs(it).map(campusShort).join(' · ')}</span>
             {it.flags?.includes('full') && <span class="ev-f">{t('pg.full')}</span>}
           </button>
         ))}
