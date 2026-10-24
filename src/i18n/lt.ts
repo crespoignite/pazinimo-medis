@@ -28,6 +28,16 @@ const lt: Record<string, string> = {
   'in.np.1': 'Mindful Hikers',
   'in.np.2': 'Nature\'s Harmony',
   'in.np.3': 'School Community Greenhouse',
+  'pr.row.what': 'Kas įskaičiuota',
+  'pr.row.k1': 'Visos dienos priežiūra ir ugdymo programa (laikinas tekstas)',
+  'pr.row.k2': 'Mokymo ir veiklų priemonės (laikinas tekstas)',
+  'pr.row.k3': 'Kalbų, muzikos ir judesio užsiėmimai (laikinas tekstas)',
+  'pr.row.k4': 'Kasdienės žinutės tėvams (laikinas tekstas)',
+  'pr.row.s1': 'Bendroji programa su praturtintu mokymu (laikinas tekstas)',
+  'pr.row.s2': 'SELF programa ir klasės mentorystė (laikinas tekstas)',
+  'pr.row.s3': 'Mokymosi priemonės ir skaitmeniniai įrankiai (laikinas tekstas)',
+  'pr.row.s4': 'Būreliai ir tarptautiniai projektai (laikinas tekstas)',
+  'pr.row.note': 'Pilnas aprašymas netrukus. Maitinimas ir pailgintos dienos grupė įkainojami atskirai.',
   'in.np.4': 'Scientific Hiking',
 };
 export default lt;

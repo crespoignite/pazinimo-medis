@@ -148,6 +148,17 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 .price td.n{font-weight:800;white-space:nowrap}
 .price small{display:block;color:var(--ink-soft)}
 .scroll{overflow-x:auto}
+.pr-toggle{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:700}
+.pr-toggle small{font-weight:400}
+.pr-toggle::after{content:"+";font-size:1.3rem;line-height:1;color:var(--accent);flex:none}
+.pr-toggle[aria-expanded="true"]::after{content:"–"}
+.pr-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.pr-row:hover td{background:var(--accent-bg)}
+.pr-row.is-open td{background:var(--accent-bg);border-bottom-color:transparent}
+.pr-detail[hidden]{display:none}
+.pr-detail td{background:var(--accent-bg);padding-top:0;color:var(--ink-soft)}
+.pr-detail ul{margin:8px 0}
+.pr-detail .campus-note{margin:0}
 
 /* programs matrix */
 .filters{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:24px}

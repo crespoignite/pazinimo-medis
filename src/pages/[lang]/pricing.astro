@@ -10,7 +10,8 @@ export const getStaticPaths = langPaths;
 const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
-const cell = (r: any) => r;
+let rid = 0;
+const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}`));
 ---
 <Layout lang={lang} title={t('pr.title')} description={t('pr.desc')} path="pricing">
   <section class="section">
@@ -26,13 +27,19 @@ const cell = (r: any) => r;
           <thead><tr><th>{t('pr.preschool')}</th><th>{t('pr.col.month')}</th><th></th></tr></thead>
           <tbody>
             {kindergarten.preschool.map((r) => (
-              <tr><td>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+              <Fragment>
+                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+              </Fragment>
             ))}
           </tbody>
           <thead><tr><th>{t('pr.preprimary')}</th><th></th><th></th></tr></thead>
           <tbody>
             {kindergarten.preprimary.map((r: any) => (
-              <tr data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+              <Fragment>
+                <tr class="pr-row" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+                <tr class="pr-detail" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'} id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+              </Fragment>
             ))}
           </tbody>
         </table>
@@ -51,7 +58,10 @@ const cell = (r: any) => r;
               <thead><tr><th>{t(`pr.${city}`)}</th><th></th><th></th></tr></thead>
               <tbody>
                 {rows.map((r: any) => (
-                  <tr><td>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+                  <Fragment>
+                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('s').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+              </Fragment>
                 ))}
               </tbody>
             </table>
@@ -78,3 +88,14 @@ const cell = (r: any) => r;
     </div>
   </section>
 </Layout>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.pr-toggle').forEach((b) => {
+    b.addEventListener('click', () => {
+      const open = b.getAttribute('aria-expanded') === 'true';
+      b.setAttribute('aria-expanded', String(!open));
+      const d = document.getElementById(b.getAttribute('aria-controls')!);
+      if (d) d.hidden = open;
+      b.closest('tr')?.classList.toggle('is-open', !open);
+    });
+  });
+</script>
