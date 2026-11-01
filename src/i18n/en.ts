@@ -369,8 +369,6 @@ const en: Record<string, string> = {
   'me.b2.x': 'LUMOS is an international Erasmus+ project that helps teachers recognise and nurture gifted pupils and pupils with high potential in regular classes. It combines STEAM, artificial intelligence and social and emotional learning methods.',
   'me.b3.x': 'MATAU is built for pupils in grades 5 to 8. It follows each pupil\'s individual progress in order to improve the quality of learning, and it rests on assessing and monitoring learning habits.',
   'me.b4.x': 'CREATE is the name of our integrated learning model. It ties academic education, our programmes and future competencies together, in kindergarten and in gymnasium alike.',
-  'me.renzulli.t': 'Renzulli enrichment triad',
-  'me.renzulli.d': 'The method behind our Knowledge Lab: broad exposure, hands-on skills and an individual project.',
 
   'tm.title': 'Team | Pažinimo medis',
   'tm.desc': 'The directors, specialists and support team behind Pažinimo medis.',
