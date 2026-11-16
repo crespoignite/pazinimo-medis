@@ -11,17 +11,18 @@
 // every UTM value. Pipedrive has no v2 Leads or Notes endpoint yet, so
 // those stay on v1, which remains supported.
 //
-// Required Netlify environment variables (Site settings -> Environment):
+// Required Netlify environment variable (Site settings -> Environment):
 //   PIPEDRIVE_API_TOKEN  the personal API token
-//   PIPEDRIVE_DOMAIN     the company subdomain, e.g. "pazinimomedis"
-//                        from https://pazinimomedis.pipedrive.com
 // Optional:
+//   PIPEDRIVE_DOMAIN     company subdomain (e.g. "pazinimomedis"). The
+//                        generic api.pipedrive.com host is used if unset.
 //   LEAD_OWNER_ID        numeric user id to own each lead (otherwise the
 //                        token's own user)
 
 const TOKEN = process.env.PIPEDRIVE_API_TOKEN;
 const DOMAIN = process.env.PIPEDRIVE_DOMAIN;
 const OWNER_ID = process.env.LEAD_OWNER_ID;
+const HOST = DOMAIN ? `${DOMAIN}.pipedrive.com` : 'api.pipedrive.com';
 
 // Ask form.
 const STAGE = { kindergarten: 'Kindergarten', school: 'School', unsure: 'Not sure yet' };
@@ -43,7 +44,7 @@ const BRANCH = {
 const MEETING = { in_person: 'In person', remote: 'Remote' };
 
 function base(version) {
-  return `https://${DOMAIN}.pipedrive.com/api/${version}`;
+  return `https://${HOST}/api/${version}`;
 }
 
 async function pd(version, path, body) {
@@ -62,8 +63,8 @@ async function pd(version, path, body) {
 }
 
 export default async (req) => {
-  if (!TOKEN || !DOMAIN) {
-    console.error('Missing PIPEDRIVE_API_TOKEN or PIPEDRIVE_DOMAIN');
+  if (!TOKEN) {
+    console.error('Missing PIPEDRIVE_API_TOKEN');
     return new Response('Pipedrive not configured', { status: 500 });
   }
 
