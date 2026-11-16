@@ -1,26 +1,51 @@
 // Consent, analytics, A/B test and lead forms. No tracking runs unless the visitor accepts.
 const body = document.body;
-const GA = body.dataset.ga;
+const GA = body.dataset.ga;          // GA4 measurement id, G-XXXX
+const ADS = body.dataset.ads;        // Google Ads tag, AW-XXXX
+const ADS_LABEL = body.dataset.adsLabel; // Google Ads conversion label for a sent lead
+const PIXEL = body.dataset.pixel;    // Meta (Facebook) Pixel id
 const store = {
   get(k) { try { return localStorage.getItem(k); } catch { return null; } },
   set(k, v) { try { localStorage.setItem(k, v); } catch {} },
 };
 let consent = store.get('pzm_consent');
 
-function loadGA() {
-  if (!GA || window.__gaLoaded) return;
-  window.__gaLoaded = true;
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { window.dataLayer.push(arguments); };
-  const s = document.createElement('script');
-  s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${GA}`;
-  document.head.appendChild(s);
-  gtag('js', new Date());
-  gtag('consent', 'default', { analytics_storage: 'granted' });
-  gtag('config', GA, { anonymize_ip: true });
+// Loads GA4, Google Ads and the Meta Pixel. Runs once, only after consent.
+function loadTags() {
+  if (window.__tagsLoaded) return;
+  window.__tagsLoaded = true;
+
+  // Google tag (gtag.js) drives both GA4 and Google Ads.
+  if (GA || ADS) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    const s = document.createElement('script');
+    s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${GA || ADS}`;
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    if (GA) gtag('config', GA, { anonymize_ip: true });
+    if (ADS) gtag('config', ADS);
+  }
+
+  // Meta Pixel.
+  if (PIXEL) {
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', PIXEL);
+    window.fbq('track', 'PageView');
+  }
 }
 function track(name, params = {}) {
-  if (consent === 'yes' && window.gtag) window.gtag('event', name, { lang: body.dataset.lang, ...params });
+  if (consent !== 'yes') return;
+  if (GA && window.gtag) window.gtag('event', name, { lang: body.dataset.lang, ...params });
+  // A sent lead form is the conversion. Report it to Meta and Google Ads.
+  if (name === 'form_sent') {
+    if (PIXEL && window.fbq) window.fbq('track', 'Lead', { content_name: params.form || '' });
+    if (ADS && ADS_LABEL && window.gtag) window.gtag('event', 'conversion', { send_to: `${ADS}/${ADS_LABEL}` });
+  }
 }
 
 // ---- A/B test: floating button. A = Book a visit, B = Ask us a question. Assigned only with consent.
@@ -45,7 +70,7 @@ function applyVariant() {
 }
 
 function init() {
-  if (consent === 'yes') loadGA();
+  if (consent === 'yes') loadTags();
   applyVariant();
 }
 const bar = document.getElementById('consent');
@@ -53,7 +78,7 @@ if (bar && consent !== 'yes' && consent !== 'no') bar.hidden = false;
 bar?.addEventListener('click', (e) => {
   const b = e.target.closest('[data-consent]'); if (!b) return;
   consent = b.dataset.consent; store.set('pzm_consent', consent); bar.hidden = true;
-  if (consent === 'yes') { loadGA(); applyVariant(); }
+  if (consent === 'yes') { loadTags(); applyVariant(); }
 });
 init();
 
@@ -70,12 +95,30 @@ document.querySelectorAll('form[data-lead]').forEach((form) => {
   set('lang', body.dataset.lang); set('page', location.pathname);
   ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach((k) => set(k, q.get(k)));
   const topic = q.get('q'); if (topic) { const m = form.querySelector('textarea'); if (m && !m.value) m.dataset.topic = topic; set('faq_topic', topic); }
+
+  // Checkbox groups (school year, campus) write their checked values into a hidden field.
+  const groups = form.querySelectorAll('fieldset[data-cbgroup]');
+  const syncGroups = () => groups.forEach((fs) => {
+    const hid = form.querySelector(`input[type="hidden"][name="${fs.dataset.cbgroup}"]`);
+    if (hid) hid.value = [...fs.querySelectorAll('input[type="checkbox"]:checked')].map((c) => c.value).join(', ');
+  });
+  syncGroups();
+  form.addEventListener('change', syncGroups);
+
   let started = false;
   form.addEventListener('input', () => { if (!started) { started = true; track('form_start', { form: form.name }); } });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!form.reportValidity()) return;
+    syncGroups();
     const status = form.querySelector('[data-status]');
+    for (const fs of form.querySelectorAll('fieldset[data-cbgroup][data-required]')) {
+      if (!fs.querySelector('input[type="checkbox"]:checked')) {
+        status.className = 'status err'; status.textContent = form.dataset.pick || form.dataset.error;
+        fs.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        return;
+      }
+    }
+    if (!form.reportValidity()) return;
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true; status.className = 'status'; status.textContent = form.dataset.sending;
     try {

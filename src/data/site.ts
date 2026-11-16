@@ -3,6 +3,10 @@ export const site = {
   phoneHref: 'tel:+37070077015',
   email: 'info@pazinimo-medis.lt',
   ga4: 'G-PMXJ553E9Y',
+  // Ad tracking. Leave empty and nothing loads. All three fire only after cookie consent.
+  googleAds: '',        // Google Ads tag, e.g. 'AW-123456789'
+  googleAdsLabel: '',   // Conversion label for a sent lead (the part after the slash in AW-123456789/AbC-D_efG)
+  metaPixel: '',        // Meta (Facebook) Pixel ID, e.g. '1234567890'
   logoDark: '/brand/logo-navy.png',
   logoBlue: '/brand/logo-blue.png',
   logoGreen: '/brand/logo-green.png',
