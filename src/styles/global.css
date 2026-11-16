@@ -193,6 +193,11 @@ table.price{width:100%;border-collapse:collapse;background:#fff;border:1px solid
 .f.check input{width:auto;margin-top:.35em}
 .f.check label{font-weight:500}
 .f .hint{display:block;margin-top:6px;font-size:.9rem;color:var(--ink-soft)}
+.f label .lt,.f.radios legend .lt{display:block}
+.f label .en,.f.radios legend .en{display:block;font-weight:500;font-size:.88rem;color:var(--ink-soft)}
+.phone-row{display:flex;gap:8px}
+.phone-row .cc{width:auto;flex:0 0 auto;min-width:104px}
+.phone-row .phone-num{flex:1 1 auto;width:auto}
 .f.radios{border:0;padding:0;margin-bottom:16px}
 .f.radios legend{font-weight:700;margin-bottom:4px;padding:0}
 .f.radios .radio{display:flex;gap:10px;align-items:center;font-weight:500;margin-bottom:8px}

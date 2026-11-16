@@ -1,77 +1,104 @@
 ---
-import { useT, localePath, type Lang } from '../i18n';
+import { localePath, type Lang } from '../i18n';
+import en from '../i18n/en';
+import lt from '../i18n/lt';
 const { lang, kind } = Astro.props as { lang: Lang; kind: 'ask' | 'book' | 'campaign' };
-const t = useT(lang);
 const name = kind;
 const isBook = kind === 'book';
 
-// Education stages (Ugdymo pakopa) — matches the Pipedrive registration form.
+// Bilingual helpers: labels show Lithuanian over English; options read "LT / EN".
+const T = (k: string) => lt[k] ?? en[k] ?? k;
+const E = (k: string) => en[k] ?? k;
+const BI = (k: string) => `${T(k)} / ${E(k)}`;
+// Campus shares the address across languages, so only the grade range is doubled.
+const biBranch = (k: string) => {
+  const r = (E(k).match(/\(([^)]*)\)/) || [])[1];
+  return r ? T(k).replace(/\)\s*$/, ` / ${r})`) : `${T(k)} / ${E(k)}`;
+};
+const optTag = `(${T('form.optional')} / ${E('form.optional')})`;
+
 const levels = [
-  ['ikimokyklinis', t('form.level.preschool')],
-  ['priesmokyklinis', t('form.level.prePrimary')],
-  ['pradinis', t('form.level.primary')],
-  ['progimnazinis', t('form.level.preGym')],
-  ['gimnazinis', t('form.level.gym')],
+  ['ikimokyklinis', BI('form.level.preschool')],
+  ['priesmokyklinis', BI('form.level.prePrimary')],
+  ['pradinis', BI('form.level.primary')],
+  ['progimnazinis', BI('form.level.preGym')],
+  ['gimnazinis', BI('form.level.gym')],
 ];
-// Campuses (Padalinys) — matches the Pipedrive registration form.
 const branches = [
-  ['kalinausko', t('form.branch.kalinausko')],
-  ['ozo', t('form.branch.ozo')],
-  ['pievu', t('form.branch.pievu')],
-  ['vilties', t('form.branch.vilties')],
+  ['kalinausko', biBranch('form.branch.kalinausko')],
+  ['ozo', biBranch('form.branch.ozo')],
+  ['pievu', biBranch('form.branch.pievu')],
+  ['vilties', biBranch('form.branch.vilties')],
 ];
 const years = ['2026-2027', '2027-2028', '2028-2029'];
+const selectPh = `${T('form.select')} / ${E('form.select')}`;
+// Country dial codes for the phone field. Lithuania is the default.
+const countries: [string, string, string][] = [
+  ['LT', '🇱🇹', '+370'], ['LV', '🇱🇻', '+371'], ['EE', '🇪🇪', '+372'], ['PL', '🇵🇱', '+48'],
+  ['GB', '🇬🇧', '+44'], ['IE', '🇮🇪', '+353'], ['DE', '🇩🇪', '+49'], ['FR', '🇫🇷', '+33'],
+  ['ES', '🇪🇸', '+34'], ['IT', '🇮🇹', '+39'], ['NL', '🇳🇱', '+31'], ['BE', '🇧🇪', '+32'],
+  ['SE', '🇸🇪', '+46'], ['NO', '🇳🇴', '+47'], ['DK', '🇩🇰', '+45'], ['FI', '🇫🇮', '+358'],
+  ['UA', '🇺🇦', '+380'], ['US', '🇺🇸', '+1'],
+];
 ---
 <form class="form" name={name} method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-lead
-  data-thanks={localePath(lang, 'thank-you')} data-sending={t('form.sending')} data-error={t('form.error')} data-pick={t('form.pick')}>
+  data-thanks={localePath(lang, 'thank-you')} data-sending={T('form.sending')} data-error={T('form.error')} data-pick={T('form.pick')}>
   <input type="hidden" name="form-name" value={name} />
   <p class="hp"><label>Do not fill <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
   {['lang','page','source','ab_variant','faq_topic','utm_source','utm_medium','utm_campaign','utm_content','utm_term'].map((n) => <input type="hidden" name={n} value={n === 'source' ? name : ''} />)}
 
-  <div class="f"><label for={`${name}-name`}>{t('form.name')}</label><input id={`${name}-name`} name="name" autocomplete="name" required /></div>
-  <div class="f"><label for={`${name}-email`}>{t('form.email')}</label><input id={`${name}-email`} name="email" type="email" autocomplete="email" required /></div>
-  <div class="f"><label for={`${name}-phone`}>{t('form.phone')} {!isBook && <span class="opt">({t('form.optional')})</span>}</label><input id={`${name}-phone`} name="phone" type="tel" autocomplete="tel" required={isBook} /></div>
+  <div class="f"><label for={`${name}-name`}><span class="lt">{T('form.name')}</span><span class="en">{E('form.name')}</span></label><input id={`${name}-name`} name="name" autocomplete="name" required /></div>
+  <div class="f"><label for={`${name}-email`}><span class="lt">{T('form.email')}</span><span class="en">{E('form.email')}</span></label><input id={`${name}-email`} name="email" type="email" autocomplete="email" required /></div>
+  <div class="f"><label for={`${name}-phone`}><span class="lt">{T('form.phone')} {!isBook && <span class="opt">{optTag}</span>}</span><span class="en">{E('form.phone')}</span></label>
+    <div class="phone-row">
+      <select class="cc" aria-label="Country code / Šalies kodas">
+        {countries.map(([c, flag, code]) => <option value={code} selected={c === 'LT'}>{flag} {code}</option>)}
+      </select>
+      <input id={`${name}-phone`} class="phone-num" type="tel" autocomplete="tel" required={isBook} />
+    </div>
+    <input type="hidden" name="phone" />
+  </div>
 
   {isBook ? (<>
     <fieldset class="f radios" data-cbgroup="school_year" data-required>
-      <legend>{t('form.year')}</legend>
+      <legend><span class="lt">{T('form.year')}</span><span class="en">{E('form.year')}</span></legend>
       {years.map((y) => <label class="radio"><input type="checkbox" value={y} /> {y}</label>)}
-      <span class="hint">{t('form.year.help')}</span>
+      <span class="hint">{T('form.year.help')} / {E('form.year.help')}</span>
     </fieldset>
     <input type="hidden" name="school_year" />
 
-    <div class="f"><label for="book-level">{t('form.level')}</label>
+    <div class="f"><label for="book-level"><span class="lt">{T('form.level')}</span><span class="en">{E('form.level')}</span></label>
       <select id="book-level" name="stage" required>
-        <option value="" disabled selected>{t('form.select')}</option>
+        <option value="" disabled selected>{selectPh}</option>
         {levels.map(([v, l]) => <option value={v}>{l}</option>)}
       </select></div>
 
     <fieldset class="f radios" data-cbgroup="campus" data-required>
-      <legend>{t('form.branch')}</legend>
+      <legend><span class="lt">{T('form.branch')}</span><span class="en">{E('form.branch')}</span></legend>
       {branches.map(([v, l]) => <label class="radio"><input type="checkbox" value={v} /> {l}</label>)}
     </fieldset>
     <input type="hidden" name="campus" />
 
-    <fieldset class="f radios"><legend>{t('form.meeting')}</legend>
-      <label class="radio"><input type="radio" name="meeting" value="in_person" required /> {t('form.meeting.inPerson')}</label>
-      <label class="radio"><input type="radio" name="meeting" value="remote" required /> {t('form.meeting.remote')}</label>
+    <fieldset class="f radios"><legend><span class="lt">{T('form.meeting')}</span><span class="en">{E('form.meeting')}</span></legend>
+      <label class="radio"><input type="radio" name="meeting" value="in_person" required /> {BI('form.meeting.inPerson')}</label>
+      <label class="radio"><input type="radio" name="meeting" value="remote" required /> {BI('form.meeting.remote')}</label>
     </fieldset>
 
-    <div class="f"><label for="book-when">{t('form.contactTime')} <span class="opt">({t('form.optional')})</span></label><input id="book-when" name="contact_time" /></div>
-    <div class="f"><label for="book-note">{t('form.note')} <span class="opt">({t('form.optional')})</span></label><textarea id="book-note" name="message"></textarea></div>
+    <div class="f"><label for="book-when"><span class="lt">{T('form.contactTime')} <span class="opt">{optTag}</span></span><span class="en">{E('form.contactTime')}</span></label><input id="book-when" name="contact_time" /></div>
+    <div class="f"><label for="book-note"><span class="lt">{T('form.note')} <span class="opt">{optTag}</span></span><span class="en">{E('form.note')}</span></label><textarea id="book-note" name="message"></textarea></div>
   </>) : (<>
-    <div class="f"><label for={`${name}-stage`}>{t('form.stage')}</label>
+    <div class="f"><label for={`${name}-stage`}><span class="lt">{T('form.stage')}</span><span class="en">{E('form.stage')}</span></label>
       <select id={`${name}-stage`} name="stage">
-        <option value="kindergarten">{t('form.stage.k')}</option><option value="school">{t('form.stage.s')}</option><option value="unsure">{t('form.stage.unsure')}</option>
+        <option value="kindergarten">{BI('form.stage.k')}</option><option value="school">{BI('form.stage.s')}</option><option value="unsure">{BI('form.stage.unsure')}</option>
       </select></div>
-    <div class="f"><label for={`${name}-city`}>{t('form.campus')}</label>
-      <select id={`${name}-city`} name="city"><option value="vilnius">{t('home.city.vilnius')}</option><option value="kaunas">{t('home.city.kaunas')}</option></select></div>
-    <div class="f"><label for={`${name}-child`}>{t('form.child')} <span class="opt">({t('form.optional')})</span></label><input id={`${name}-child`} name="child" /></div>
-    <div class="f"><label for={`${name}-msg`}>{t('form.message')}</label><textarea id={`${name}-msg`} name="message" required></textarea></div>
+    <div class="f"><label for={`${name}-city`}><span class="lt">{T('form.campus')}</span><span class="en">{E('form.campus')}</span></label>
+      <select id={`${name}-city`} name="city"><option value="vilnius">{T('home.city.vilnius')} / {E('home.city.vilnius')}</option><option value="kaunas">{T('home.city.kaunas')} / {E('home.city.kaunas')}</option></select></div>
+    <div class="f"><label for={`${name}-child`}><span class="lt">{T('form.child')} <span class="opt">{optTag}</span></span><span class="en">{E('form.child')}</span></label><input id={`${name}-child`} name="child" /></div>
+    <div class="f"><label for={`${name}-msg`}><span class="lt">{T('form.message')}</span><span class="en">{E('form.message')}</span></label><textarea id={`${name}-msg`} name="message" required></textarea></div>
   </>)}
 
-  <div class="f check"><input id={`${name}-consent`} type="checkbox" name="consent" value="yes" required /><label for={`${name}-consent`}>{t('form.consent')}</label></div>
-  <button class="btn accent" type="submit">{t('cta.send')}</button>
+  <div class="f check"><input id={`${name}-consent`} type="checkbox" name="consent" value="yes" required /><label for={`${name}-consent`}><span class="lt">{T('form.consent')}</span><span class="en">{E('form.consent')}</span></label></div>
+  <button class="btn accent" type="submit">{T('cta.send')} / {E('cta.send')}</button>
   <p class="status" data-status role="status" aria-live="polite"></p>
-  <p class="campus-note">{t('form.reply')}</p>
+  <p class="campus-note">{T('form.reply')} / {E('form.reply')}</p>
 </form>

@@ -102,14 +102,22 @@ document.querySelectorAll('form[data-lead]').forEach((form) => {
     const hid = form.querySelector(`input[type="hidden"][name="${fs.dataset.cbgroup}"]`);
     if (hid) hid.value = [...fs.querySelectorAll('input[type="checkbox"]:checked')].map((c) => c.value).join(', ');
   });
-  syncGroups();
-  form.addEventListener('change', syncGroups);
+
+  // Phone: combine the country dial code with the number into the hidden phone field.
+  const cc = form.querySelector('.cc');
+  const num = form.querySelector('.phone-num');
+  const phoneHidden = form.querySelector('input[type="hidden"][name="phone"]');
+  const syncPhone = () => { if (phoneHidden) phoneHidden.value = num && num.value.trim() ? `${cc ? cc.value + ' ' : ''}${num.value.trim()}` : ''; };
+
+  const syncAll = () => { syncGroups(); syncPhone(); };
+  syncAll();
+  form.addEventListener('change', syncAll);
 
   let started = false;
-  form.addEventListener('input', () => { if (!started) { started = true; track('form_start', { form: form.name }); } });
+  form.addEventListener('input', () => { syncPhone(); if (!started) { started = true; track('form_start', { form: form.name }); } });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    syncGroups();
+    syncAll();
     const status = form.querySelector('[data-status]');
     for (const fs of form.querySelectorAll('fieldset[data-cbgroup][data-required]')) {
       if (!fs.querySelector('input[type="checkbox"]:checked')) {
