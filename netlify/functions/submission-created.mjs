@@ -44,7 +44,8 @@ const BRANCH = {
 const MEETING = { in_person: 'In person', remote: 'Remote' };
 
 function base(version) {
-  return `https://${HOST}/api/${version}`;
+  // Pipedrive v1 lives at /v1; only v2 uses the /api/v2 prefix.
+  return version === 'v2' ? `https://${HOST}/api/v2` : `https://${HOST}/v1`;
 }
 
 async function pd(version, path, body) {
