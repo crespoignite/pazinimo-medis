@@ -15,14 +15,13 @@ const t = useT(lang);
       <div>
         <h1 id="opener">{t('cp.h1')}</h1>
         <p class="lead">{t('cp.lead')}</p>
-        <p class="campus-note">{t('cp.slogan')}</p>
         <a class="btn accent" href="#form" data-cta="campaign_form">{t('banner.cta')}</a>
       </div>
       <Photo lang={lang} ratio="4/3" label={t('cp.h1')} />
     </div>
   </section>
   <section class="section" id="form" aria-label={t('cta.book')}>
-    <div class="wrap"><LeadForm lang={lang} kind="campaign" /></div>
+    <div class="wrap"><LeadForm lang={lang} kind="campaign" /><p class="campus-note" style="margin-top:16px">{t('cp.slogan')}</p></div>
   </section>
   <section class="strip"><div class="wrap"><strong>{t('site.slogan')}</strong></div></section>
 </Layout>

@@ -378,3 +378,7 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
 .cta-deco.s{background:var(--sky)}
 .cta-deco .cta-in{position:relative;z-index:1}
 @media (max-width:760px){.shape.hide-m{display:none}.deco.arcs svg{width:300px;bottom:auto;top:-190px;opacity:.7}.deco.arcs.right svg{right:-110px}.deco.arcs.left svg{left:-110px}}
+
+/* Home: tagline under the main heading and block sub-headings */
+.hero-tag{font-weight:800;font-size:clamp(1.15rem,1.9vw,1.45rem);margin:-.15em 0 .7em}
+.vals-h{margin:4px 0 14px;font-size:clamp(1.15rem,1.8vw,1.4rem)}

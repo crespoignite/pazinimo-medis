@@ -1,4 +1,5 @@
 // Copied from the school's live website (2026-2027). To be confirmed before launch.
+// The school confirmed there is no upfront payment option (Nov 2026), so `upfront` is no longer shown on the site.
 export interface Row { key: string; labelKey?: string; label?: string; monthly: number; upfront: number; instalments?: number }
 export const kindergarten = {
   preschool: [
@@ -14,13 +15,13 @@ export const kindergarten = {
 };
 export const school = {
   vilnius: [
-    { key: 'v0-4', grades: '0–4', monthly: 765, upfront: 7267.5 },
+    { key: 'v0-4', labelKey: 'pr.grades04', monthly: 765, upfront: 7267.5 },
     { key: 'v-cam', labelKey: 'pr.cambridge', monthly: 830, upfront: 7885 },
     { key: 'v5-8', grades: '5–8', monthly: 840, upfront: 7980 },
     { key: 'v9-12', grades: '9–12', monthly: 895, upfront: 8502.5 },
   ],
   kaunas: [
-    { key: 'k0-4', grades: '0–4', monthly: 730, upfront: 6935 },
+    { key: 'k0-4', labelKey: 'pr.grades04', monthly: 730, upfront: 6935 },
     { key: 'k5-6', grades: '5–6', monthly: 810, upfront: 7695 },
   ],
 };

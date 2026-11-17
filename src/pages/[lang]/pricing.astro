@@ -25,21 +25,21 @@ import BrandShapes from '../../components/BrandShapes.astro';
       <h2 id="kindergarten" style="margin-top:40px;color:var(--green-ink)">{t('pr.tab.k')}</h2>
       <div class="scroll" data-stage="kindergarten" style="--accent-bg:var(--green-bg)">
         <table class="price">
-          <thead><tr><th>{t('pr.preschool')}</th><th>{t('pr.col.month')}</th><th></th></tr></thead>
+          <thead><tr><th>{t('pr.preschool')}</th><th>{t('pr.col.month')}</th></tr></thead>
           <tbody>
             {kindergarten.preschool.map((r) => (
               <Fragment>
-                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
-                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
             ))}
           </tbody>
-          <thead><tr><th>{t('pr.preprimary')}</th><th></th><th></th></tr></thead>
+          <thead><tr><th>{t('pr.preprimary')}</th><th></th></tr></thead>
           <tbody>
             {kindergarten.preprimary.map((r: any) => (
               <Fragment>
-                <tr class="pr-row" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
-                <tr class="pr-detail" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'} id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-row" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
+                <tr class="pr-detail" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'} id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
             ))}
           </tbody>
@@ -56,12 +56,12 @@ import BrandShapes from '../../components/BrandShapes.astro';
         {[['vilnius', school.vilnius], ['kaunas', school.kaunas]].map(([city, rows]: any) => (
           <div class="scroll" data-city={city} style="--accent-bg:var(--blue-bg)">
             <table class="price">
-              <thead><tr><th>{t(`pr.${city}`)}</th><th></th><th></th></tr></thead>
+              <thead><tr><th>{t(`pr.${city}`)}</th><th>{t('pr.col.month')}</th></tr></thead>
               <tbody>
                 {rows.map((r: any) => (
                   <Fragment>
-                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</span></button></td><td class="n">€{eur(r.monthly)}</td><td>{t('pr.upfront', { n: eur(r.upfront) })}</td></tr>
-                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="3"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('s').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('s').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
                 ))}
               </tbody>
@@ -73,7 +73,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
 
       <div class="grid g2" style="margin-top:40px">
         <div class="card p"><h3>{t('pr.extras.title')}</h3>
-          <ul class="tick"><li>{t('pr.enrol')}: €{extras.enrolment}</li><li>{t('pr.after')}: €{extras.afterSchool}</li></ul></div>
+          <ul class="tick"><li>{t('pr.enrol')}: {t('money', { n: extras.enrolment })}</li><li>{t('pr.after')}: {t('money.month', { n: extras.afterSchool })}</li></ul></div>
         <div class="card p"><h3>{t('pr.discounts.title')}</h3>
           <ul class="tick">{[1,2,3,4].map((n) => <li>{t(`pr.d.${n}`)}</li>)}</ul>
           <p class="campus-note">{t('pr.discounts.note')} {t('pr.d.pct')}</p></div>

@@ -1,15 +1,18 @@
 ---
 import { pick, localePath, useT, type Lang } from '../i18n';
 import type { Faq } from '../data/faq';
-const { lang, items, open = false } = Astro.props as { lang: Lang; items: Faq[]; open?: boolean };
+// short: use the shorter homepage wording of a question where the school supplied one (Lithuanian only).
+const { lang, items, open = false, short = false } = Astro.props as { lang: Lang; items: Faq[]; open?: boolean; short?: boolean };
+const q = (f: Faq) => (short && lang === 'lt' && f.home ? f.home.q : pick(f.q, lang));
+const a = (f: Faq) => (short && lang === 'lt' && f.home ? f.home.a : pick(f.a, lang));
 const t = useT(lang);
 ---
 <div class="faq">
   {items.map((f) => (
     <details id={f.id} open={open}>
-      <summary>{pick(f.q, lang)}</summary>
+      <summary>{q(f)}</summary>
       <div class="ans">
-        {pick(f.a, lang).split('\n\n').map((para) => <p>{para}</p>)}
+        {a(f).split('\n\n').map((para) => <p>{para}</p>)}
         <p><a class="link" href={localePath(lang, 'admissions/ask') + `?q=${f.id}`} data-cta="faq_ask">{t('cta.ask')}</a></p>
       </div>
     </details>

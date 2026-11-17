@@ -12,7 +12,7 @@ const t = useT(lang);
     <div class="meth-list">{[1,2,3,4].map((n) => (
       <details class="meth">
         <summary><span><strong class="meth-t">{t(`sc.b${n}.t`)}</strong><span class="meth-d">{t(`sc.b${n}.d`)}</span></span></summary>
-        <div class="meth-x"><p>{t(`me.b${n}.x`)}</p><p class="campus-note">{t('me.more')}</p></div>
+        <div class="meth-x"><p>{t(`me.b${n}.x`)}</p>{t('me.more') && <p class="campus-note">{t('me.more')}</p>}</div>
       </details>
     ))}</div>
   </div></section>

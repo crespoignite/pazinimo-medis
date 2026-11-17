@@ -16,6 +16,11 @@ export function useT(lang: Lang) {
   };
 }
 
+/** True when the language has its own text for a key (no English fallback). */
+export function has(lang: Lang, key: string): boolean {
+  return Boolean(dict[lang][key]);
+}
+
 /** Pick the language variant of a {en, lt} object, falling back to English. */
 export function pick<T>(o: { en: T; lt?: T } | undefined, lang: Lang): T {
   return ((o as any)?.[lang] || (o as any)?.en) as T;

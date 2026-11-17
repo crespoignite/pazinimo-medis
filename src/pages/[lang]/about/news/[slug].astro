@@ -22,7 +22,7 @@ const p = (x: string) => localePath(lang, x);
 const date = new Date(meta.date).toLocaleDateString(lang === 'lt' ? 'lt-LT' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const lead = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 155);
 ---
-<Layout lang={lang} title={`${meta.title} | Pažinimo medis`} description={lead} path={`about/news/${slug}`}>
+<Layout lang={lang} title={`${meta.title} | ${t('site.brand')}`} description={lead} path={`about/news/${slug}`}>
   <article class="section"><div class="wrap">
     <a class="link" href={p('about/news')}>← {t('nw.back')}</a>
     <p class="campus-note" style="margin-top:16px">{date}</p>
