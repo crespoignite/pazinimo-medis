@@ -498,3 +498,4 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
 .cx-cobalt .mark.t{background:var(--teal);color:var(--navy)}
 .band-sky .mark{background:var(--cobalt)}
 .mark{display:inline;line-height:1.35}
+h2 .mark{padding:.06em .4em .14em;line-height:1.38}
