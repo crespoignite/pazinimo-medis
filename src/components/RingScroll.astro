@@ -1,42 +1,32 @@
 ---
-// Scroll story: the school's ring symbol changes with each stage, from kindergarten to grade 12.
-// Pure CSS sticky + a small scroll script. Without JS, or with reduced motion, all six chapters are listed.
+// Ported from the concept: the school's ring symbol changes colour with each stage, pinned while you scroll.
 import { useT, type Lang } from '../i18n';
 const { lang } = Astro.props as { lang: Lang };
 const t = useT(lang);
-function rng(seed: number) { return () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
-const R = rng(21);
-const rings = Array.from({ length: 7 }, (_, i) => {
-  const r = 165 + i * 20;
-  const gap = 16 + R() * 18;
-  return { r, dash: `${(100 - gap).toFixed(1)} ${gap.toFixed(1)}`, a: Math.round(R() * 360), s: R() < .5 ? -1 : 1, d: Math.round(70 + R() * 70) };
-});
 const photos = ['kindergarten-painting-girl', 'kindergarten-teacher-paint', 'school-swing-g3', 'school-girls-g5', 'school-teen-lab', 'school-highschool'];
 const alts = ['img.kg.paintgirl', 'img.kg.teacher', 'img.sc.swing3', 'img.sc.girls5', 'img.sc.teen', 'img.sc.high'];
-const tagCls = ['t', 'v', 's', 'v', 't', 's'];
+const dots = ['#00bfbf', '#97bdfb', '#2b8cfb', '#785dd9', '#ffffff', '#00bfbf'];
 ---
-<section class="years on-cobalt" id="years" aria-labelledby="h-years" data-kg={t('ring.kg')} data-g0={t('ring.g0')} data-grade={t('ring.grade')} data-flight={t('ring.flight')}>
+<section class="years cx cx-cobalt" id="years" aria-labelledby="h-years" data-kg={t('ring.kg')} data-g0={t('ring.g0')} data-grade={t('ring.grade')} data-flight={t('ring.flight')}>
   <div class="years-stage">
     <div class="years-ring">
-      <svg class="yr" id="yrSvg" data-ch="0" viewBox="0 0 600 600" role="img" aria-label={t('ring.alt')}>
-        <defs><clipPath id="yrCore"><circle cx="300" cy="300" r="150"/></clipPath></defs>
-        <g clip-path="url(#yrCore)">
-          {photos.map((p, i) => <image class={`ph${i === 0 ? ' on' : ''}`} href={`/photos/${p}.jpg`} x="140" y="140" width="320" height="320" preserveAspectRatio="xMidYMid slice"><title>{t(alts[i])}</title></image>)}
+      <svg id="yrSvg" viewBox="96 96 528 528" role="img" aria-label={t('ring.alt')}>
+        <defs><clipPath id="yrCore"><circle cx="360" cy="360" r="172"/></clipPath></defs>
+        <g clip-path="url(#yrCore)" id="yrPhotos">
+          {photos.map((p, i) => <image href={`/photos/${p}.jpg`} x="188" y="188" width="344" height="344" preserveAspectRatio="xMidYMid slice" opacity={i === 0 ? 1 : 0}><title>{t(alts[i])}</title></image>)}
         </g>
-        <g fill="none" stroke-linecap="round" stroke-width="3">
-          {rings.map((g, i) => <circle class={`rg rg${i}`} cx="300" cy="300" r={g.r} pathLength="100" stroke-dasharray={g.dash} style={`--a:${g.a}deg;--s:${g.s};--d:${g.d}s`} />)}
-        </g>
+        <g id="yrRings"></g>
       </svg>
     </div>
     <div class="years-copy">
-      <p class="years-label">{t('ring.label')}</p>
+      <p class="cx-label">{t('ring.label')}</p>
       <h2 id="h-years">{t('ring.title')}</h2>
-      <div class="counter" aria-hidden="true"><span class="tagb now" id="yrNow">{t('ring.kg')}</span></div>
+      <div class="counter" aria-hidden="true"><span class="now" id="yrNow">{t('ring.kg')}</span></div>
       <div class="years-progress" aria-hidden="true"><span id="yrBar"></span></div>
       <ol class="chapters" id="chapters">
         {[0, 1, 2, 3, 4, 5].map((i) => (
-          <li class={i === 0 ? 'on' : ''}>
-            <span class={`tagb ${tagCls[i]}`}>{t(`ring.${i}.l`)}</span>
+          <li class={i === 0 ? 'on' : ''} style={`--c:${dots[i]}`}>
+            <span class="cx-label stage"><i></i>{t(`ring.${i}.l`)}</span>
             <h3>{t(`ring.${i}.t`)}</h3>
             <p>{t(`ring.${i}.d`)}</p>
           </li>
@@ -45,45 +35,3 @@ const tagCls = ['t', 'v', 's', 'v', 't', 's'];
     </div>
   </div>
 </section>
-<script>
-  const sec = document.getElementById('years');
-  if (sec) {
-    const svg = sec.querySelector<SVGElement>('#yrSvg')!;
-    const photos = [...sec.querySelectorAll('.ph')];
-    const chs = [...sec.querySelectorAll('#chapters li')];
-    const now = sec.querySelector<HTMLElement>('#yrNow')!, bar = sec.querySelector<HTMLElement>('#yrBar')!;
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const Y = 17;
-    const chapterOf = (k: number) => (k < 4 ? 0 : k === 4 ? 1 : k < 9 ? 2 : k < 13 ? 3 : 4);
-    const labelOf = (k: number) => (k < 4 ? sec.dataset.kg! : k === 4 ? sec.dataset.g0! : sec.dataset.grade!.replace('{n}', String(k - 4)));
-    const tags = ['t', 'v', 's', 'v', 't', 's'];
-    let last = -1;
-    const set = (p: number) => {
-      const flight = p > 0.9;
-      const k = Math.min(Y - 1, Math.floor(Math.min(p / 0.9, 0.999) * Y));
-      const ch = flight ? 5 : chapterOf(k);
-      now.textContent = flight ? sec.dataset.flight! : labelOf(k);
-      bar.style.transform = `scaleX(${p.toFixed(3)})`;
-      if (ch !== last) {
-        last = ch;
-        svg.dataset.ch = String(ch);
-        chs.forEach((li, i) => li.classList.toggle('on', i === ch));
-        photos.forEach((im, i) => im.classList.toggle('on', i === ch));
-        now.className = `tagb now ${tags[ch]}`;
-      }
-    };
-    if (reduce) {
-      sec.classList.add('static');
-      svg.dataset.ch = '5';
-      photos.forEach((im, i) => im.classList.toggle('on', i === 5));
-    } else {
-      sec.classList.add('live');
-      let raf = 0;
-      const upd = () => { raf = 0; const total = sec.offsetHeight - innerHeight; set(Math.min(1, Math.max(0, -sec.getBoundingClientRect().top / total))); };
-      addEventListener('scroll', () => { raf || (raf = requestAnimationFrame(upd)); }, { passive: true });
-      addEventListener('resize', upd);
-      new IntersectionObserver(([e]) => svg.classList.toggle('off', !e.isIntersecting), { rootMargin: '80px' }).observe(sec);
-      upd();
-    }
-  }
-</script>
