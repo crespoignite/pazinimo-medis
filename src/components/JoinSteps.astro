@@ -1,4 +1,5 @@
 ---
+import { hl } from '../i18n/hl';
 // Ported from the concept: "Joining takes four steps", with ring-numbered steps and round photos.
 import { useT, localePath, type Lang } from '../i18n';
 import { stepImages } from '../data/site';
@@ -11,7 +12,7 @@ const rot = [[20, 140, 260], [70, 200, 330], [120, 250, 10], [170, 300, 60]];
 <section class="cx cx-ice cx-join" aria-labelledby="join">
   <div class="wrap">
     <div class="cx-sechead">
-      <h2 id="join">{title ?? t('home.join.title')}</h2>
+      <h2 id="join" set:html={hl(title ?? t('home.join.title'))}></h2>
       {(body ?? (t('home.join.body') || t('home.join.sub'))) && <p>{body ?? (t('home.join.body') || t('home.join.sub'))}</p>}
     </div>
     <ol class="csteps">

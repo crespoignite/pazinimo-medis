@@ -1,4 +1,5 @@
 ---
+import { hl } from '../i18n/hl';
 import news from '../data/news.json';
 import newsImages from '../data/news-images.json';
 import Photo from './Photo.astro';
@@ -66,7 +67,7 @@ const filters = [['all', 'nw.f.all'], ['ach', 'nw.f.ach'], ['erasmus', 'nw.f.era
         </a>
       ))}
     </div>
-    <h2 style="margin-top:48px">{t('nw.older')}</h2>
+    <h2 style="margin-top:48px" set:html={hl(t('nw.older'))}></h2>
     {years.map((y) => (
       <section>
         <h3 style="margin-top:24px">{y}</h3>

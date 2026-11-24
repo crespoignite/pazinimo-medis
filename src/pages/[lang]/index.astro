@@ -1,4 +1,5 @@
 ---
+import { hl } from '../../i18n/hl';
 import FaqList from '../../components/FaqList.astro';
 import Rings from '../../components/Rings.astro';
 import Layout from '../../layouts/Layout.astro';
@@ -47,7 +48,7 @@ import ClosingCta from '../../components/ClosingCta.astro';
 
   <section class="section" aria-labelledby="values">
     <div class="wrap">
-      <h2 id="values">{t('home.values.title')}</h2>
+      <h2 id="values" set:html={hl(t('home.values.title'))}></h2>
       {t('home.values.g1') && <h3 class="vals-h">{t('home.values.g1')}</h3>}
       <div class="grid g2">
         {[1, 2].map((n) => (
@@ -67,7 +68,7 @@ import ClosingCta from '../../components/ClosingCta.astro';
 
   <section class="section band-sky" aria-labelledby="stage">
     <div class="wrap">
-      <h2 id="stage">{t('home.stage.title')}</h2>
+      <h2 id="stage" set:html={hl(t('home.stage.title'))}></h2>
       <p class="lead">{t('home.stage.sub')}</p>
       <div class="grid g2">
         <div class="card k stage-card">
@@ -93,9 +94,9 @@ import ClosingCta from '../../components/ClosingCta.astro';
     </div>
   </section>
 
-  <section class="section alt" aria-labelledby="price">
+  <section class="section band-peach" aria-labelledby="price">
     <div class="wrap">
-      <h2 id="price">{t('home.pricing.title')}</h2>
+      <h2 id="price" set:html={hl(t('home.pricing.title'))}></h2>
       <p class="lead">{t('home.pricing.sub')}</p>
       <div class="grid g2">
         <div class="stage-col">
@@ -115,7 +116,7 @@ import ClosingCta from '../../components/ClosingCta.astro';
 
   <section class="section" aria-labelledby="how">
     <div class="wrap">
-      <h2 id="how">{t('home.how.title')}</h2>
+      <h2 id="how" set:html={hl(t('home.how.title'))}></h2>
       {t('home.how.sub') && <p class="lead">{t('home.how.sub')}</p>}
       <div class="grid g4">
         {how.map(([k, h]) => <a class="card p" style="text-decoration:none" href={p(h.split('#')[0]) + (h.includes('#') ? '#' + h.split('#')[1] : '')}><h3>{t(`${k}.t`)}</h3><p>{t(`${k}.d`)}</p></a>)}
@@ -139,7 +140,7 @@ import ClosingCta from '../../components/ClosingCta.astro';
 
   <section class="section" aria-labelledby="quotes">
     <div class="wrap">
-      <h2 id="quotes">{t('home.quotes.title')}</h2>
+      <h2 id="quotes" set:html={hl(t('home.quotes.title'))}></h2>
       {t('home.quotes.sub') && <p class="lead">{t('home.quotes.sub')}</p>}
       <div class="grid g3">
         {['student', 'parent', 'teacher'].map((r) => (
@@ -147,7 +148,7 @@ import ClosingCta from '../../components/ClosingCta.astro';
         ))}
       </div>
       <p class="ratings">{t('home.ratings')}</p>
-      <h2 id="news" style="margin-top:48px">{t('home.news.title')}</h2>
+      <h2 id="news" style="margin-top:48px" set:html={hl(t('home.news.title'))}></h2>
       {t('home.news.sub') && <p class="lead">{t('home.news.sub')}</p>}
       <NewsList lang={lang} limit={3} />
       <p style="margin-top:16px"><a class="link" href={p('about/news')}>{t('cta.allNews')}</a></p>

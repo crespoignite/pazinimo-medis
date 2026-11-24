@@ -1,4 +1,5 @@
 ---
+import { hl } from '../../i18n/hl';
 import Layout from '../../layouts/Layout.astro';
 import Photo from '../../components/Photo.astro';
 import HeroCover from '../../components/HeroCover.astro';
@@ -34,7 +35,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
 
   <section class="section alt" aria-labelledby="day">
     <div class="wrap">
-      <h2 id="day">{t('kg.day.title')}</h2>
+      <h2 id="day" set:html={hl(t('kg.day.title'))}></h2>
       <div class="grid g4">
         {[1, 2, 3, 4].map((n) => <div class="card k"><h3>{t(`kg.day.${n}.t`)}</h3><p>{t(`kg.day.${n}.d`)}</p></div>)}
       </div>
@@ -48,13 +49,13 @@ import BrandShapes from '../../components/BrandShapes.astro';
     ]} />
     <div class="wrap split">
       <Photo lang={lang} tone="k" ratio="4/3" src="/photos/kindergarten-joy.jpg" pos="50% 40%" alt={t('img.kg.joy')} />
-      <div><h2 id="groups">{t('kg.groups.title')}</h2><p class="lead">{t('kg.groups.body')}</p></div>
+      <div><h2 id="groups" set:html={hl(t('kg.groups.title'))}></h2><p class="lead">{t('kg.groups.body')}</p></div>
     </div>
   </section>
 
   <section class="section alt" aria-labelledby="inc">
     <div class="wrap">
-      <h2 id="inc">{t('kg.inc.title')}</h2>
+      <h2 id="inc" set:html={hl(t('kg.inc.title'))}></h2>
       <div class="grid g3">
         {[1, 2].map((n) => <div class="card k"><h3>{t(`kg.inc.${n}.t`)}</h3><p>{t(`kg.inc.${n}.d`)}</p></div>)}
         <div class="card k"><h3>{t('kg.adapt.title')}</h3><p>{t('kg.adapt.body')}</p></div>
@@ -64,7 +65,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
 
   <section class="section" aria-labelledby="price">
     <div class="wrap">
-      <h2 id="price">{t('kg.price.title')}</h2>
+      <h2 id="price" set:html={hl(t('kg.price.title'))}></h2>
       <p class="lead">{t('pr.fromAmount', { n: startingFrom.kindergarten })} {t('pr.monthlyNote')}. {t('kg.price.d')}</p>
       <a class="btn ghost" href={p('pricing') + '#kindergarten'} data-cta="kg_pricing">{t('cta.seePricing')}</a>
     </div>
@@ -73,7 +74,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
   <section class="section alt" aria-labelledby="addr">
     <div class="wrap split rev">
       <div>
-        <h2 id="addr">{t('kg.addr.title')}</h2>
+        <h2 id="addr" set:html={hl(t('kg.addr.title'))}></h2>
         <div id="vilnius" data-city="vilnius"><h3>{t('kg.addr.vilnius')}</h3><ul class="tick"><li>{t('kg.addr.vp')} <a class="link" href={map('ft.vp')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li><li>{t('kg.addr.vk')} <a class="link" href={map('ft.vk')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li></ul></div>
         <div id="kaunas" data-city="kaunas"><h3>{t('kg.addr.kaunas')}</h3><ul class="tick"><li>{t('kg.addr.k')} <a class="link" href={map('ft.k')} target="_blank" rel="noopener">{t('st.addr.map')}</a></li></ul></div>
       </div>

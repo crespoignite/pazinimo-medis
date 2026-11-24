@@ -1,4 +1,5 @@
 ---
+import { hl } from '../../../../i18n/hl';
 import Layout from '../../../../layouts/Layout.astro';
 import { parseMd } from '../../../../lib-md';
 import { useT, localePath, type Lang } from '../../../../i18n';
@@ -31,7 +32,7 @@ const lead = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 
     {meta.image && <img src={meta.image} alt="" loading="lazy" style="max-width:46em;width:100%;border-radius:var(--radius);margin:16px 0" />}
     <div class="prose" set:html={html} />
     <div class="card" style="margin-top:40px;max-width:46em">
-      <h2>{t('nw.ctaTitle')}</h2>
+      <h2 set:html={hl(t('nw.ctaTitle'))}></h2>
       <p style="display:flex;gap:12px;flex-wrap:wrap">
         <a class="btn accent" href={p('admissions/book')} data-cta="news_book">{t('cta.book')}</a>
         <a class="btn ghost" href={p('admissions/ask')} data-cta="news_ask">{t('cta.ask')}</a>

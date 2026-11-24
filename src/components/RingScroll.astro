@@ -1,4 +1,5 @@
 ---
+import { hl } from '../i18n/hl';
 // Ported from the concept: the school's ring symbol changes colour with each stage, pinned while you scroll.
 import { useT, type Lang } from '../i18n';
 const { lang } = Astro.props as { lang: Lang };
@@ -20,7 +21,7 @@ const dots = ['#00bfbf', '#97bdfb', '#2b8cfb', '#785dd9', '#ffffff', '#00bfbf'];
     </div>
     <div class="years-copy">
       <p class="cx-label">{t('ring.label')}</p>
-      <h2 id="h-years">{t('ring.title')}</h2>
+      <h2 id="h-years" set:html={hl(t('ring.title'))}></h2>
       <div class="counter" aria-hidden="true"><span class="now" id="yrNow">{t('ring.kg')}</span></div>
       <div class="years-progress" aria-hidden="true"><span id="yrBar"></span></div>
       <ol class="chapters" id="chapters">

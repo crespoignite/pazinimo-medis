@@ -1,4 +1,5 @@
 ---
+import { hl } from '../../../i18n/hl';
 import JoinSteps from '../../../components/JoinSteps.astro';
 import Layout from '../../../layouts/Layout.astro';
 import FaqList from '../../../components/FaqList.astro';
@@ -21,7 +22,7 @@ const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => f
   <JoinSteps lang={lang} title={t('ad.steps.title')} body="" ctas={false} />
   <section class="section alt">
     <div class="wrap">
-      <h2>{t('ad.doors.title')}</h2>
+      <h2 set:html={hl(t('ad.doors.title'))}></h2>
       <div class="grid g2">
         <div class="card p"><h3>{t('ad.ask.t')}</h3><p>{t('ad.ask.d')}</p><a class="btn ghost" href={p('admissions/ask')} data-cta="adm_ask">{t('cta.ask')}</a></div>
         <div class="card p"><h3>{t('ad.book.t')}</h3><p>{t('ad.book.d')}</p><a class="btn accent" href={p('admissions/book')} data-cta="adm_book">{t('cta.book')}</a></div>
@@ -29,11 +30,11 @@ const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => f
     </div>
   </section>
   <section class="section">
-    <div class="wrap"><h2>{t('ad.next.title')}</h2>
+    <div class="wrap"><h2 set:html={hl(t('ad.next.title'))}></h2>
       <ol class="olist">{[1,2,3].map((n) => <li>{t(`ad.next.${n}`)}</li>)}</ol>
     </div>
   </section>
   <section class="section alt">
-    <div class="wrap"><h2>{t('ad.faq.title')}</h2><FaqList lang={lang} items={items} /></div>
+    <div class="wrap"><h2 set:html={hl(t('ad.faq.title'))}></h2><FaqList lang={lang} items={items} /></div>
   </section>
 </Layout>
