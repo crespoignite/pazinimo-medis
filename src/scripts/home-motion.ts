@@ -32,20 +32,8 @@ document.addEventListener('pointerover', (e) => {
   b.style.setProperty('--x', `${e.clientX - r.left}px`); b.style.setProperty('--y', `${e.clientY - r.top}px`);
 });
 
-// Closing: the outer arcs drift out like the brandbook's opened symbol
-const flight = document.querySelector('#flight g');
-if (flight) {
-  const cols = ['#2b8cfb', '#ffffff', '#00bfbf', '#785dd9', '#97bdfb'];
-  [[400, 400, 120, 70, 210], [440, 360, 200, 40, 20], [470, 330, 280, 55, 300], [520, 300, 360, 48, 120], [580, 260, 440, 36, 200]].forEach(([cx, cy, r, len, rot], i) => {
-    const el = document.createElementNS(NS, 'circle');
-    el.setAttribute('cx', String(cx)); el.setAttribute('cy', String(cy)); el.setAttribute('r', String(r));
-    el.setAttribute('stroke', cols[i]); el.setAttribute('stroke-width', String(18 - i * 2));
-    el.setAttribute('pathLength', '100'); el.setAttribute('stroke-dasharray', `${len} ${100 - len}`);
-    el.setAttribute('transform', `rotate(${rot} ${cx} ${cy})`); el.setAttribute('class', 'fl');
-    flight.appendChild(el);
-  });
-  if (!reduce) gsap.fromTo('#flight .fl', { scale: .7, transformOrigin: '30% 70%', opacity: 0 }, { scale: 1, opacity: 1, stagger: .06, ease: 'power3.out', scrollTrigger: { trigger: '.cclose', start: 'top 80%', end: 'top 20%', scrub: .6 } });
-}
+// Closing: the school symbol turns slowly into place as the section arrives
+if (document.getElementById('flight') && !reduce) gsap.fromTo('#flight', { rotate: -40 }, { rotate: 0, ease: 'none', scrollTrigger: { trigger: '.cclose', start: 'top bottom', end: 'bottom bottom', scrub: .6 } });
 
 // Ring scroll: one driver p maps to the stage, the ring colours, the photo and the grade
 const section = document.getElementById('years');
