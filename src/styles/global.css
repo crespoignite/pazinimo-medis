@@ -491,3 +491,4 @@ ol.olist li{padding-left:.3em;margin:.4em 0}
 .cclose .contact a{color:inherit;text-decoration:none}
 .flight{position:absolute;right:-12%;bottom:-38%;width:min(52vw,720px);pointer-events:none;opacity:.6}
 @media (max-width:860px){.flight{right:-40%;bottom:-120px;width:120vw;opacity:.35}}
+.cclose-logo{display:block;width:clamp(170px,16vw,230px);height:auto;margin-top:clamp(24px,4vw,56px)}

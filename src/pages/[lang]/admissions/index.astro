@@ -1,5 +1,5 @@
 ---
-import StepCards from '../../../components/StepCards.astro';
+import JoinSteps from '../../../components/JoinSteps.astro';
 import Layout from '../../../layouts/Layout.astro';
 import FaqList from '../../../components/FaqList.astro';
 import { useT, localePath, type Lang } from '../../../i18n';
@@ -16,10 +16,9 @@ const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => f
     <div class="wrap">
       <h1>{t('ad.h1')}</h1>
       <p class="lead">{t('ad.lead')}</p>
-      <h2 style="margin-top:32px">{t('ad.steps.title')}</h2>
-      <StepCards lang={lang} />
     </div>
   </section>
+  <JoinSteps lang={lang} title={t('ad.steps.title')} body="" ctas={false} />
   <section class="section alt">
     <div class="wrap">
       <h2>{t('ad.doors.title')}</h2>

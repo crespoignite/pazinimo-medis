@@ -14,5 +14,6 @@ const p = (s: string) => localePath(lang, s);
       <a class="cx-btn primary" href={p('admissions/book')} data-cta="close_book">{t('cta.book')} <span class="arr" aria-hidden="true">→</span></a>
     </div>
     <p class="contact"><span>{t('close.call')} <b><a href={site.phoneHref}>{site.phone}</a></b></span><span>{t('close.write')} <b><a href={`mailto:${site.email}`}>{site.email}</a></b></span></p>
+    <img class="cclose-logo" src={site.logoWhite} alt={t('site.name')} width="1600" height="632" />
   </div>
 </section>

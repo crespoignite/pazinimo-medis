@@ -2,7 +2,7 @@
 // Ported from the concept: "Joining takes four steps", with ring-numbered steps and round photos.
 import { useT, localePath, type Lang } from '../i18n';
 import { stepImages } from '../data/site';
-const { lang } = Astro.props as { lang: Lang };
+const { lang, title, body, ctas = true } = Astro.props as { lang: Lang; title?: string; body?: string; ctas?: boolean };
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 const cols = [['#0045b6', '#785dd9', '#00bfbf'], ['#785dd9', '#00bfbf', '#0045b6'], ['#00bfbf', '#0045b6', '#785dd9'], ['#0a1b5b', '#0045b6', '#00bfbf']];
@@ -11,8 +11,8 @@ const rot = [[20, 140, 260], [70, 200, 330], [120, 250, 10], [170, 300, 60]];
 <section class="cx cx-ice cx-join" aria-labelledby="join">
   <div class="wrap">
     <div class="cx-sechead">
-      <h2 id="join">{t('home.join.title')}</h2>
-      <p>{t('home.join.body') || t('home.join.sub')}</p>
+      <h2 id="join">{title ?? t('home.join.title')}</h2>
+      {(body ?? (t('home.join.body') || t('home.join.sub'))) && <p>{body ?? (t('home.join.body') || t('home.join.sub'))}</p>}
     </div>
     <ol class="csteps">
       {[1, 2, 3, 4].map((n) => (
@@ -26,9 +26,9 @@ const rot = [[20, 140, 260], [70, 200, 330], [120, 250, 10], [170, 300, 60]];
         </li>
       ))}
     </ol>
-    <div class="cx-ctas">
+    {ctas && <div class="cx-ctas">
       <a class="cx-btn primary" href={p('admissions/book')} data-cta="home_book_2">{t('cta.book')} <span class="arr" aria-hidden="true">→</span></a>
       <a class="cx-btn secondary" href={p('admissions/ask')} data-cta="home_ask">{t('cta.ask')}</a>
-    </div>
+    </div>}
   </div>
 </section>
