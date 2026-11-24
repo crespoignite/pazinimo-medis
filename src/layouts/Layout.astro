@@ -28,7 +28,11 @@ const base = Astro.site ? Astro.site.origin : '';
   <meta property="og:title" content={title} />
   {description && <meta property="og:description" content={description} />}
   <meta property="og:type" content="website" />
-  <link rel="preload" href="/fonts/nunito-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0a1b5b" />
+  <link rel="preload" href="/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
 </head>
 <body data-stage={stage} data-lang={lang} data-ga={site.ga4} data-ads={site.googleAds} data-ads-label={site.googleAdsLabel} data-pixel={site.metaPixel}>

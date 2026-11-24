@@ -15,7 +15,7 @@ const attrs = (it: any) => ({ 'data-campus': cs(it).join(' '), 'data-dir': it.di
 const campusShort = (c: string) => L((data.campuses as any)[c]).replace(/\s+\d+\s*$/, '');
 const events = days.map((d) => ({ d, list: items.flatMap((it) => (it.slots || []).filter((x: any) => x.day === d).map((x: any) => ({ it, x }))).sort((a: any, b: any) => a.x.time.localeCompare(b.x.time)) }));
 const others = items.filter((it) => !(it.slots?.length));
-const dirColor: Record<string, string> = { tech: 'var(--blue)', think: 'var(--purple)', create: 'var(--orange)', stage: 'var(--green)', move: 'var(--gold)' };
+const dirColor: Record<string, string> = { tech: 'var(--blue)', think: 'var(--purple)', create: 'var(--sky)', stage: 'var(--teal)', move: 'var(--navy)' };
 ---
 <div id="matrix" data-matrix>
   <div class="filters" role="search">

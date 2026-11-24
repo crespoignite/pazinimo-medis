@@ -7,9 +7,9 @@ export const site = {
   googleAds: '',        // Google Ads tag, e.g. 'AW-123456789'
   googleAdsLabel: '',   // Conversion label for a sent lead (the part after the slash in AW-123456789/AbC-D_efG)
   metaPixel: '',        // Meta (Facebook) Pixel ID, e.g. '1234567890'
+  // 2026 identity (Taktika studio). One logo for the whole school: navy on light, white on dark, cobalt as an option.
   logoDark: '/brand/logo-navy.png',
-  logoBlue: '/brand/logo-blue.png',
-  logoGreen: '/brand/logo-green.png',
+  logoBlue: '/brand/logo-cobalt.png',
   logoWhite: '/brand/logo-white.png',
   campuses: {
     vg: { name: 'Vilnius, K. Kalinausko g. 13', city: 'vilnius' },

@@ -1,18 +1,17 @@
 ---
-// Cropped logo rings, same device as the deliverable covers.
-// Kindergarten uses the warm logo colours, school the blue ones.
+// Logo-ring device, in the 2026 palette. Kindergarten leans teal and violet, school leans cobalt and sky.
 const { tone = 'k' } = Astro.props as { tone?: 'k' | 's' };
 const pal = tone === 'k'
-  ? ['#6d53d4', '#01b683', '#ff5311', '#c29548', '#01b683', '#ff5311']
-  : ['#6d53d4', '#0007d6', '#0088ff', '#00c7c7', '#0088ff', '#6d53d4'];
+  ? ['#785dd9', '#00bfbf', '#2b8cfb', '#785dd9', '#00bfbf', '#0045b6']
+  : ['#785dd9', '#0045b6', '#2b8cfb', '#00bfbf', '#2b8cfb', '#0a1b5b'];
 ---
 <svg class={`rings rings-${tone}`} viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-  <g fill="none" stroke-linecap="round" transform="rotate(-20 200 200)">
-    <circle cx="200" cy="200" r="190" stroke={pal[0]} stroke-width="10" stroke-dasharray="330 864" transform="rotate(-40 200 200)"/>
-    <circle cx="200" cy="200" r="160" stroke={pal[1]} stroke-width="10" stroke-dasharray="600 60 200 200"/>
-    <circle cx="200" cy="200" r="125" stroke={pal[2]} stroke-width="10" stroke-dasharray="230 70 300 185" transform="rotate(70 200 200)"/>
-    <circle cx="200" cy="200" r="90" stroke={pal[3]} stroke-width="10" stroke-dasharray="380 185" transform="rotate(150 200 200)"/>
-    <circle cx="200" cy="200" r="58" stroke={pal[4]} stroke-width="10" stroke-dasharray="190 175" transform="rotate(200 200 200)"/>
-    <circle cx="200" cy="200" r="28" stroke={pal[5]} stroke-width="10" stroke-dasharray="130 46" transform="rotate(10 200 200)"/>
+  <g fill="none" stroke-linecap="butt" transform="rotate(-20 200 200)">
+    <circle cx="200" cy="200" r="190" stroke={pal[0]} stroke-width="6" stroke-dasharray="330 864" transform="rotate(-40 200 200)"/>
+    <circle cx="200" cy="200" r="160" stroke={pal[1]} stroke-width="6" stroke-dasharray="600 60 200 200"/>
+    <circle cx="200" cy="200" r="125" stroke={pal[2]} stroke-width="6" stroke-dasharray="230 70 300 185" transform="rotate(70 200 200)"/>
+    <circle cx="200" cy="200" r="90" stroke={pal[3]} stroke-width="6" stroke-dasharray="380 185" transform="rotate(150 200 200)"/>
+    <circle cx="200" cy="200" r="58" stroke={pal[4]} stroke-width="6" stroke-dasharray="190 175" transform="rotate(200 200 200)"/>
+    <circle cx="200" cy="200" r="28" stroke={pal[5]} stroke-width="6" stroke-dasharray="130 46" transform="rotate(10 200 200)"/>
   </g>
 </svg>
