@@ -50,7 +50,7 @@ import BrandArcs from '../../components/BrandArcs.astro';
   <section class="section has-deco band-peach" aria-labelledby="teacher">
     <BrandArcs side="right" />
     <div class="wrap split">
-      <Photo lang={lang} tone="s" ratio="4/3" src="/photos/school-music-teacher.jpg" pos="70% 40%" alt={t('img.sc.teacher')} />
+      <Photo lang={lang} tone="s" ratio="4/3" src="/photos/school-grade5.jpg" pos="50% 40%" alt={t('img.sc.teacher')} />
       <div><h2 id="teacher" set:html={hl(t('sc.teacher.title'))}></h2><p class="lead">{t('sc.teacher.body')}</p></div>
     </div>
   </section>
@@ -60,7 +60,7 @@ import BrandArcs from '../../components/BrandArcs.astro';
       <h2 id="prog" set:html={hl(t('sc.prog.title'))}></h2>
       <div class="grid g3">
         {[1, 2].map((n) => <div class="card s"><h3>{t(`sc.prog.${n}.t`)}</h3><p>{t(`sc.prog.${n}.d`)}</p></div>)}
-        <a class="card s" style="text-decoration:none" href={p('about/methodologies')}><h3>{t('sc.prog.3.t')}</h3><p>{t('sc.prog.3.d')}</p><span class="link">{t('cta.learnMore')}</span></a>
+        <div class="card s"><h3>{t('sc.prog.3.t')}</h3><p>{t('sc.prog.3.d')}</p></div>
       </div>
     </div>
   </section>
