@@ -503,3 +503,4 @@ h2 .mark{padding:.06em .4em .14em;line-height:1.38}
 .hero-foot .proof-hero{margin:0}
 .hero-foot .slogan{position:absolute;right:clamp(16px,2.4vw,32px);bottom:clamp(16px,2.4vw,28px);z-index:3;font-weight:600;font-size:1.15rem;color:#fff;background:var(--cobalt);padding:.3em .7em .38em}
 @media (max-width:860px){.hero-foot .slogan{position:static;margin-top:6px}}
+#stage .mark{background:var(--cobalt);color:#fff}
