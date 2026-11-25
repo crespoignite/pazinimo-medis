@@ -11,6 +11,8 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => faqs.find((f) => f.id === id)!);
+const tcols = [['#0045b6', '#785dd9', '#00bfbf'], ['#785dd9', '#00bfbf', '#0045b6'], ['#00bfbf', '#0045b6', '#785dd9']];
+const trot = [[20, 140, 260], [70, 200, 330], [120, 250, 10]];
 ---
 <Layout lang={lang} title={t('ad.title')} description={t('ad.desc')} path="admissions">
   <section class="section">
@@ -31,7 +33,15 @@ const items = ['admission', 'after-signing', 'price', 'subsidies'].map((id) => f
   </section>
   <section class="section">
     <div class="wrap"><h2 set:html={hl(t('ad.next.title'))}></h2>
-      <ol class="olist">{[1,2,3].map((n) => <li>{t(`ad.next.${n}`)}</li>)}</ol>
+      <ol class="tline">{[1, 2, 3].map((n) => (
+        <li>
+          <span class="sym" aria-hidden="true">
+            <svg viewBox="0 0 56 56"><g fill="none" stroke-linecap="round" stroke-width="3.4">
+              {[25, 19.5, 14].map((r, i) => <circle cx="28" cy="28" r={r} stroke={tcols[n - 1][i]} pathLength="100" stroke-dasharray={`${76 - i * 6} ${24 + i * 6}`} transform={`rotate(${trot[n - 1][i]} 28 28)`} />)}
+            </g></svg><i>{n}</i></span>
+          <p>{t(`ad.next.${n}`)}</p>
+        </li>
+      ))}</ol>
     </div>
   </section>
   <section class="section alt">

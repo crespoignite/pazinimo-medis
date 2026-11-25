@@ -12,7 +12,7 @@ const lang = Astro.params.lang as Lang;
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
 let rid = 0;
-const inc = (stage: 'k' | 's') => [1, 2, 3, 4].map((n) => t(`pr.row.${stage}${n}`));
+const included = [1, 2, 3].map((n) => t(`pr.inc.${n}`));
 import BrandShapes from '../../components/BrandShapes.astro';
 ---
 <Layout lang={lang} title={t('pr.title')} description={t('pr.desc')} path="pricing">
@@ -31,7 +31,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
             {kindergarten.preschool.map((r) => (
               <Fragment>
                 <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
-                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{included.map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
             ))}
           </tbody>
@@ -40,17 +40,13 @@ import BrandShapes from '../../components/BrandShapes.astro';
             {kindergarten.preprimary.map((r: any) => (
               <Fragment>
                 <tr class="pr-row" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'}><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{t(r.labelKey)}, {t(r.sub).toLowerCase()}<small>{t('pr.instalments', { n: r.instalments })}</small></span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
-                <tr class="pr-detail" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'} id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('k').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-detail" data-city={r.key.startsWith('a') ? 'vilnius' : 'kaunas'} id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{included.map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
             ))}
           </tbody>
         </table>
       </div>
       <p class="campus-note">{t('pr.meals.k')}</p>
-      <h3 style="margin-top:28px;color:var(--green-ink)">{t('pr.inc.title')}</h3>
-      <div class="grid g3" style="margin-top:12px">
-        {[1, 2, 3].map((n) => <div class="card k"><h3>{t(`pr.inc.${n}`)}</h3><p>{t('pr.inc.d')}</p></div>)}
-      </div>
 
       <h2 id="school" style="margin-top:48px;color:var(--blue-ink)">{t('pr.tab.s')}</h2>
       <div class="grid g2">
@@ -62,7 +58,7 @@ import BrandShapes from '../../components/BrandShapes.astro';
                 {rows.map((r: any) => (
                   <Fragment>
                 <tr class="pr-row"><td><button type="button" class="pr-toggle" aria-expanded="false" aria-controls={`pr-d-${++rid}`}><span>{r.labelKey ? t(r.labelKey) : t('pr.grades', { g: r.grades })}</span></button></td><td class="n">{t('money', { n: eur(r.monthly) })}</td></tr>
-                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{inc('s').map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
+                <tr class="pr-detail" id={`pr-d-${rid}`} hidden><td colspan="2"><strong>{t('pr.row.what')}</strong><ul class="tick">{included.map((x) => <li>{x}</li>)}</ul><p class="campus-note">{t('pr.row.note')}</p></td></tr>
               </Fragment>
                 ))}
               </tbody>
@@ -70,7 +66,6 @@ import BrandShapes from '../../components/BrandShapes.astro';
           </div>
         ))}
       </div>
-      <p class="campus-note">{t('pr.meals.s')}</p>
 
       <div class="grid g2" style="margin-top:40px">
         <div class="card p"><h3>{t('pr.extras.title')}</h3>
