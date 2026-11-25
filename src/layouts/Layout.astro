@@ -8,9 +8,9 @@ import FloatingBook from '../components/FloatingBook.astro';
 import CampaignBanner from '../components/CampaignBanner.astro';
 import Consent from '../components/Consent.astro';
 import Crumbs from '../components/Crumbs.astro';
-interface Props { lang: Lang; title: string; description?: string; path?: string; stage?: 'kindergarten' | 'school'; bare?: boolean; noindex?: boolean; ld?: object }
+interface Props { lang: Lang; title: string; description?: string; path?: string; stage?: 'kindergarten' | 'school'; bare?: boolean; bodyTone?: 'teal' | 'cobalt'; noindex?: boolean; ld?: object }
 const PRELAUNCH = true; // set to false at launch
-const { lang, title, description = '', path = '', stage, bare = false, noindex = false, ld } = Astro.props;
+const { lang, title, description = '', path = '', stage, bare = false, bodyTone, noindex = false, ld } = Astro.props;
 const t = useT(lang);
 const base = Astro.site ? Astro.site.origin : '';
 ---
@@ -35,12 +35,12 @@ const base = Astro.site ? Astro.site.origin : '';
   <link rel="preload" href="/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
 </head>
-<body data-stage={stage} data-lang={lang} data-ga={site.ga4} data-ads={site.googleAds} data-ads-label={site.googleAdsLabel} data-pixel={site.metaPixel}>
+<body data-stage={stage} class={bodyTone ? `tone-${bodyTone}` : undefined} data-lang={lang} data-ga={site.ga4} data-ads={site.googleAds} data-ads-label={site.googleAdsLabel} data-pixel={site.metaPixel}>
   <a class="skip" href="#main">{t('skip')}</a>
   {!bare && <Header lang={lang} path={path} stage={stage} />}
   {!bare && <CampaignBanner lang={lang} />}
   {!bare && <Crumbs lang={lang} path={path} title={title} />}
-  {bare && <div class="bare-top"><a href={localePath(lang)} aria-label={t('site.name')}><img src={site.logoDark} alt={t('site.name')} /></a></div>}
+  {bare && <div class="bare-top"><a href={localePath(lang)} aria-label={t('site.name')}><img src={bodyTone === 'cobalt' ? site.logoWhite : site.logoDark} alt={t('site.name')} /></a></div>}
   <main id="main"><slot /></main>
   {!bare && <FloatingBook lang={lang} />}
   {!bare && <Footer lang={lang} />}
