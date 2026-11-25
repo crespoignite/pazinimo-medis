@@ -37,13 +37,11 @@ import ClosingCta from '../../components/ClosingCta.astro';
       {t('home.tagline') && <p class="hero-tag"><span class="mark">{t('home.tagline')}</span></p>}
       <p class="lead">{t('home.valueprop')}</p>
       <p><a class="btn accent" href={p('admissions/book')} data-cta="home_book">{t('home.hero.cta')}</a></p>
-      <p class="proof-line proof-hero"><strong>{t('home.proof')}</strong> <small class="campus-note">(<a href="https://topmokyklos.lt/" target="_blank" rel="noopener">{t('home.proofSource')}</a>)</small></p>
-    </HeroCover>
-    <div class="wrap">
-      <div class="hero-base">
-        <span class="slogan">{t('site.slogan')}</span>
+      <div class="hero-foot">
+        <p class="proof-line proof-hero"><strong>{t('home.proof')}</strong> <small class="campus-note">(<a href="https://topmokyklos.lt/" target="_blank" rel="noopener">{t('home.proofSource')}</a>)</small></p>
+        <span class="slogan mark">{t('site.slogan')}</span>
       </div>
-    </div>
+    </HeroCover>
   </section>
 
   <section class="section" aria-labelledby="values">
