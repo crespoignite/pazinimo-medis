@@ -504,3 +504,6 @@ h2 .mark{padding:.06em .4em .14em;line-height:1.38}
 .hero-foot .slogan{position:absolute;right:clamp(16px,2.4vw,32px);bottom:clamp(16px,2.4vw,28px);z-index:3;font-weight:600;font-size:1.15rem;color:#fff;background:var(--cobalt);padding:.3em .7em .38em}
 @media (max-width:860px){.hero-foot .slogan{position:static;margin-top:6px}}
 #stage .mark{background:var(--cobalt);color:#fff}
+/* cropped brand symbol in a section corner */
+.corner-symbol{position:absolute;right:-9%;bottom:-38%;width:min(30vw,420px);height:auto;opacity:.18;pointer-events:none;z-index:0}
+@media (max-width:860px){.corner-symbol{right:-30%;bottom:-14%;width:70vw;opacity:.14}}

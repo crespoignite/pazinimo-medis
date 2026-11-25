@@ -15,7 +15,6 @@ const mapUrl: Record<string,string> = {'ft.vg':'K. Kalinausko g. 13, Vilnius','f
 const map = (k: string) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapUrl[k]);
 const t = useT(lang);
 const p = (s: string) => localePath(lang, s);
-import BrandShapes from '../../components/BrandShapes.astro';
 ---
 <Layout lang={lang} title={t('kg.title')} description={t('kg.desc')} path="kindergarten" stage="kindergarten">
   <section class="hero">
@@ -43,10 +42,8 @@ import BrandShapes from '../../components/BrandShapes.astro';
   </section>
 
   <section class="section has-deco band-peach" aria-labelledby="groups">
-    <BrandShapes items={[
-      { s: 'clover', x: 0.5, y: 3, w: 96, r: -12 }, { s: 'arch', x: 90, y: 62, w: 120, r: 10 },
-      { s: 'circ', x: 93, y: 6, w: 70, r: 20, m: true }, { s: 'tri', x: 3, y: 74, w: 90, r: 8, m: true },
-    ]} />
+    <img class="corner-symbol" src="/brand/symbol-cobalt.png" alt="" aria-hidden="true" width="1400" height="1400" loading="lazy" />
+
     <div class="wrap split">
       <Photo lang={lang} tone="k" ratio="4/3" src="/photos/kindergarten-joy.jpg" pos="50% 40%" alt={t('img.kg.joy')} />
       <div><h2 id="groups" set:html={hl(t('kg.groups.title'))}></h2><p class="lead">{t('kg.groups.body')}</p></div>
