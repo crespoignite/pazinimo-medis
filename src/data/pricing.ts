@@ -21,10 +21,10 @@ export const school = {
     { key: 'v9-12', grades: '9–12', monthly: 895, upfront: 8502.5 },
   ],
   kaunas: [
-    { key: 'k0-4', labelKey: 'pr.grades04', monthly: 730, upfront: 6935 },
+    { key: 'k0-4', labelKey: 'pr.grades04', monthly: 765, upfront: 7267.5 },
     { key: 'k5-6', grades: '5–6', monthly: 810, upfront: 7695 },
   ],
 };
 export const extras = { enrolment: 450, afterSchool: 145 };
 export const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-export const startingFrom = { kindergarten: 375, school: 730 };
+export const startingFrom = { kindergarten: 375, school: 765 };

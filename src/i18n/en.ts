@@ -65,7 +65,7 @@ const en: Record<string, string> = {
   'home.stage.s.d': 'Grades 0 to 12. We specialise in your child.',
   'home.city.vilnius': 'Vilnius',
   'home.city.kaunas': 'Kaunas',
-  'home.pricing.title': 'Pricing, plainly',
+  'home.pricing.title': 'Education prices',
   'home.pricing.sub': 'Fees for 2026–2027 are listed openly, with the discounts we offer.',
   'home.faq.title': 'Questions parents ask first',
   'home.faq.k': 'Kindergarten',
